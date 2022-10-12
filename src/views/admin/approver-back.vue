@@ -1,7 +1,6 @@
 <template>
   <div class="page">
     <header class="page__header">
-
       <div class="page-actions">
         <div style="border-right:1px solid #c5c5c5;cursor: pointer;" @click="exit">
           <i class="el-icon-arrow-left"></i>
@@ -21,19 +20,15 @@
         </div>
         <div class="ghost-step step" :style="{transform: translateX}"></div>
       </div>
-
-      <!-- <el-button size="small" class="publish-btn" @click="publish">发布</el-button> -->
-
-      <a-button @click="publish">发布</a-button>
-
+      <el-button size="small" class="publish-btn" @click="publish">发布</el-button>
     </header>
     <section class="page__content" v-if="mockData">
-      <!-- <BasicSetting
+      <BasicSetting
         ref="basicSetting" 
         :conf="mockData.basicSetting"
         v-show="activeStep === 'basicSetting'" 
         tabName="basicSetting"
-        @initiatorChange="onInitiatorChange" />  -->
+        @initiatorChange="onInitiatorChange" /> 
 
       <DynamicForm
         ref="formDesign"
@@ -41,17 +36,17 @@
         v-show="activeStep === 'formDesign'" 
         tabName="formDesign" />
 
-      <!-- <Process  
+      <Process  
         ref="processDesign"
         :conf="mockData.processData"
         tabName="processDesign" 
         v-show="activeStep === 'processDesign'" 
-        @startNodeChange="onStartChange"/> -->
+        @startNodeChange="onStartChange"/>
 
-      <!-- <AdvancedSetting
+      <AdvancedSetting
         ref="advancedSetting"
         :conf="mockData.advancedSetting"
-        v-show="activeStep === 'advancedSetting'" /> -->
+        v-show="activeStep === 'advancedSetting'" />
 
     </section>
     <div class="github">
@@ -88,8 +83,7 @@ export default {
   data() {
     return {
       mockData: null, // 可选择诸如 $route.param，Ajax获取数据等方式自行注入
-      // activeStep: "basicSetting", // 激活的步骤面板
-      activeStep: "formDesign", // 激活的步骤面板
+      activeStep: "basicSetting", // 激活的步骤面板
       steps: [
         { label: "基础设置", key: "basicSetting" },
         { label: "表单设计", key: "formDesign" },

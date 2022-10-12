@@ -11,6 +11,9 @@ import FormControls from './components/FormControls/index.js'
 Vue.use( FormControls )
 Vue.use( ElementUI );
 
+import '@/utils/antd';
+import 'ant-design-vue/dist/antd.css';
+
 Vue.config.productionTip = false
 Vue.prototype.log = console.log
 
