@@ -28,12 +28,12 @@
 
     </header>
     <section class="page__content" v-if="mockData">
-      <!-- <BasicSetting
+      <BasicSetting
         ref="basicSetting" 
         :conf="mockData.basicSetting"
         v-show="activeStep === 'basicSetting'" 
         tabName="basicSetting"
-        @initiatorChange="onInitiatorChange" />  -->
+        @initiatorChange="onInitiatorChange" /> 
 
       <DynamicForm
         ref="formDesign"
@@ -41,17 +41,17 @@
         v-show="activeStep === 'formDesign'" 
         tabName="formDesign" />
 
-      <!-- <Process  
+      <Process  
         ref="processDesign"
         :conf="mockData.processData"
         tabName="processDesign" 
         v-show="activeStep === 'processDesign'" 
-        @startNodeChange="onStartChange"/> -->
+        @startNodeChange="onStartChange"/>
 
-      <!-- <AdvancedSetting
+      <AdvancedSetting
         ref="advancedSetting"
         :conf="mockData.advancedSetting"
-        v-show="activeStep === 'advancedSetting'" /> -->
+        v-show="activeStep === 'advancedSetting'" />
 
     </section>
     <div class="github">
@@ -72,6 +72,7 @@ import BasicSetting from '@/components/BasicSetting'
 import AdvancedSetting from '@/components/AdvancedSetting'
 import { GET_MOCK_CONF } from '../../api'
 const beforeUnload = function (e) {
+  return false;
   var confirmationMessage = '离开网站可能会丢失您编辑得内容';
   (e || window.event).returnValue = confirmationMessage;     // Gecko and Trident
   return confirmationMessage;                                // Gecko and WebKit
