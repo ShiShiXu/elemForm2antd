@@ -6,7 +6,7 @@
  *GitHub: https://github.com/JakHuang/form-generator
  */
 
-import { makeMap } from '../utils'
+import { makeMap } from '../utils';
 
 // 参考https://github.com/vuejs/vue/blob/v2.6.10/src/platforms/web/server/util.js
 const isAttr = makeMap(
@@ -86,10 +86,12 @@ const componentChild = {
       }
       return list
     }
-  }
+  },
 }
 
 export default {
+  props: ['conf'],
+  // h 是一个函数：
   render ( h ) {
     const dataObject = {
       attrs: {},
@@ -123,6 +125,5 @@ export default {
       }
     } )
     return h( this.conf.tag, dataObject, children )
-  },
-  props: ['conf']
+  }
 }

@@ -10,8 +10,8 @@
   <div class="container">
     <div class="left-board">
       <el-scrollbar class="left-scrollbar">
-        <el-tabs v-model="activeTabName" :stretch="true">
-          <el-tab-pane label="常用组件" name="common">
+        <a-tabs v-model="activeTabName" tabPosition="top" :animated="false">
+          <a-tab-pane tab="常用组件" key="common">
             <div class="components-list">
               <draggable
                 class="components-draggable"
@@ -35,8 +35,8 @@
                 </div>
               </draggable>
             </div>
-          </el-tab-pane>
-          <el-tab-pane label="定制组件" name="custom">
+          </a-tab-pane>
+          <a-tab-pane tab="定制组件" key="custom">
             <div class="components-list">
               <!-- <div class="components-title">
                 <svg-icon icon-class="component" />布局型组件
@@ -63,8 +63,8 @@
                 </div>
               </draggable>
             </div>
-          </el-tab-pane>
-        </el-tabs>
+          </a-tab-pane>
+        </a-tabs>
       </el-scrollbar>
     </div>
 
@@ -113,6 +113,8 @@
                         @deleteItem="drawingItemDelete"
                       />
                     </draggable>
+
+
                     <div v-show="!drawingList.length" class="empty-info">从左侧拖入或点选组件进行表单设计</div>
                   </el-form>
                 </el-row>
@@ -152,19 +154,14 @@ import {
   formConf
 } from "./components/generator/config";
 import {
-  exportDefault,
-  beautifierConf,
-  isNumberStr,
+  // exportDefault,
+  // beautifierConf,
+  // isNumberStr,
   titleCase
 } from "./utils/index";
-import {
-  makeUpHtml,
-  vueTemplate,
-  vueScript,
-  cssStyle
-} from "./components/generator/html";
-import { makeUpJs } from "./components/generator/js";
-import { makeUpCss } from "./components/generator/css";
+// import { makeUpHtml, vueTemplate, vueScript, cssStyle } from "./components/generator/html";
+// import { makeUpJs } from "./components/generator/js";
+// import { makeUpCss } from "./components/generator/css";
 import drawingDefalut from "./components/generator/drawingDefalut";
 import DraggableItem from "./DraggableItem";
 import {
@@ -179,6 +176,7 @@ let oldActiveId;
 let tempActiveData;
 const formConfInDB = getFormConf();
 export default {
+  name: "MainPage",
   components: {
     draggable,
     render,
@@ -331,8 +329,9 @@ export default {
       const len = this.getSameTagCmpNum(cmp.tag)
       return len ? cmp.label + len : cmp.label
     },
-    addComponent(item) {
-      const clone = this.cloneComponent(item);
+    addComponent(tagMsg) {
+      console.log("addComponent data:", tagMsg);
+      const clone = this.cloneComponent(tagMsg);
       this.drawingList.push(clone);
       this.activeFormItem(clone);
     },
@@ -357,8 +356,8 @@ export default {
       let maxId = this.getMaxId() + 1
       return maxId
     },
-    cloneComponent(origin) {
-      const clone = JSON.parse(JSON.stringify(origin));
+    cloneComponent(tagMsg) {
+      const clone = JSON.parse(JSON.stringify(tagMsg));
       clone.formId = this.getNextId();
       // clone.span = formConf.span;
       clone.renderKey = clone.formId + new Date().getTime(); // 改变renderKey后可以实现强制更新组件

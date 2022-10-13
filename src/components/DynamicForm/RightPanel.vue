@@ -8,7 +8,7 @@
  <template>
   <div class="right-board">
 
-    <a-tabs v-model="currentTab" tabPosition="top" :animated="true">
+    <a-tabs v-model="currentTab" tabPosition="top">
       <a-tab-pane key="field" tab="组件属性"></a-tab-pane>
       <a-tab-pane key="form" tab="表单属性"></a-tab-pane>
     </a-tabs>

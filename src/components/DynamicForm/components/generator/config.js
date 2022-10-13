@@ -11,122 +11,123 @@ export const formConf = {
   formBtns: true
 }
 
-export const inputComponents = [{
-  label: '单行输入框',
-  tag: 'el-input',
-  tagIcon: 'input',
-  placeholder: '请输入',
-  defaultValue: undefined,
-  span: 24,
-  labelWidth: null,
-  style: { width: '100%' },
-  clearable: true,
-  prepend: '',
-  append: '',
-  'prefix-icon': '',
-  'suffix-icon': '',
-  maxlength: null,
-  'show-word-limit': false,
-  readonly: false,
-  disabled: false,
-  required: false,
-  regList: [],
-  changeTag: true,
-  proCondition: false,
-  asSummary: false
-},
-{
-  label: '多行输入框',
-  tag: 'el-input',
-  tagIcon: 'textarea',
-  type: 'textarea',
-  placeholder: '请输入',
-  defaultValue: undefined,
-  span: 24,
-  labelWidth: null,
-  autosize: {
-    minRows: 4,
-    maxRows: 4
+export const inputComponents = [
+  {
+    label: '单行输入框',
+    tag: 'a-input',
+    tagIcon: 'input',
+    placeholder: '请输入',
+    defaultValue: undefined,
+    span: 24,
+    labelWidth: null,
+    style: { width: '100%' },
+    clearable: true,
+    prepend: '',
+    append: '',
+    'prefix-icon': '',
+    'suffix-icon': '',
+    maxlength: null,
+    'show-word-limit': false,
+    readonly: false,
+    disabled: false,
+    required: false,
+    regList: [],
+    changeTag: true,
+    proCondition: false,
+    asSummary: false
   },
-  style: { width: '100%' },
-  maxlength: null,
-  'show-word-limit': false,
-  readonly: false,
-  disabled: false,
-  required: false,
-  regList: [],
-  changeTag: true,
-  proCondition: false,
-  asSummary: false
-},
-//   {
-//     label: '密码',
-//     tag: 'el-input',
-//     tagIcon: 'password',
-//     placeholder: '请输入',
-//     defaultValue: undefined,
-//     span: 24,
-//     'show-password': true,
-//     labelWidth: null,
-//     style: { width: '100%' },
-//     clearable: true,
-//     prepend: '',
-//     append: '',
-//     'prefix-icon': '',
-//     'suffix-icon': '',
-//     maxlength: null,
-//     'show-word-limit': false,
-//     readonly: false,
-//     disabled: false,
-//     required: false,
-//     regList: [],
-//     changeTag: true,
-// proCondition: false,
-// asSummary: false
-//   },
-{
-  label: '数字输入框',
-  tag: 'el-input-number',
-  tagIcon: 'number',
-  placeholder: '',
-  defaultValue: undefined,
-  style: { width: null },
-  span: 24,
-  labelWidth: null,
-  min: undefined,
-  max: undefined,
-  step: undefined,
-  'step-strictly': false,
-  precision: undefined,
-  'controls-position': 'right',
-  disabled: false,
-  required: false,
-  regList: [],
-  changeTag: true,
-  proCondition: true
-},
-{
-  label: '金额',
-  tag: 'fc-amount',
-  tagIcon: 'amount',
-  placeholder: '请输入',
-  defaultValue: undefined,
-  style: { width: null },
-  span: 24,
-  labelWidth: null,
-  min: undefined,
-  max: undefined,
-  step: undefined,
-  'step-strictly': false,
-  precision: undefined,
-  'controls-position': 'right',
-  disabled: false,
-  required: false,
-  regList: [],
-  changeTag: true,
-  proCondition: true,
-  showChinese: true
-}
+  {
+    label: '多行输入框',
+    tag: 'el-input',
+    tagIcon: 'textarea',
+    type: 'textarea',
+    placeholder: '请输入',
+    defaultValue: undefined,
+    span: 24,
+    labelWidth: null,
+    autosize: {
+      minRows: 4,
+      maxRows: 4
+    },
+    style: { width: '100%' },
+    maxlength: null,
+    'show-word-limit': false,
+    readonly: false,
+    disabled: false,
+    required: false,
+    regList: [],
+    changeTag: true,
+    proCondition: false,
+    asSummary: false
+  },
+  //   {
+  //     label: '密码',
+  //     tag: 'el-input',
+  //     tagIcon: 'password',
+  //     placeholder: '请输入',
+  //     defaultValue: undefined,
+  //     span: 24,
+  //     'show-password': true,
+  //     labelWidth: null,
+  //     style: { width: '100%' },
+  //     clearable: true,
+  //     prepend: '',
+  //     append: '',
+  //     'prefix-icon': '',
+  //     'suffix-icon': '',
+  //     maxlength: null,
+  //     'show-word-limit': false,
+  //     readonly: false,
+  //     disabled: false,
+  //     required: false,
+  //     regList: [],
+  //     changeTag: true,
+  // proCondition: false,
+  // asSummary: false
+  //   },
+  {
+    label: '数字输入框',
+    tag: 'el-input-number',
+    tagIcon: 'number',
+    placeholder: '',
+    defaultValue: undefined,
+    style: { width: null },
+    span: 24,
+    labelWidth: null,
+    min: undefined,
+    max: undefined,
+    step: undefined,
+    'step-strictly': false,
+    precision: undefined,
+    'controls-position': 'right',
+    disabled: false,
+    required: false,
+    regList: [],
+    changeTag: true,
+    proCondition: true
+  },
+  {
+    label: '金额',
+    tag: 'fc-amount',
+    tagIcon: 'amount',
+    placeholder: '请输入',
+    defaultValue: undefined,
+    style: { width: null },
+    span: 24,
+    labelWidth: null,
+    min: undefined,
+    max: undefined,
+    step: undefined,
+    'step-strictly': false,
+    precision: undefined,
+    'controls-position': 'right',
+    disabled: false,
+    required: false,
+    regList: [],
+    changeTag: true,
+    proCondition: true,
+    showChinese: true
+  }
 ]
 
 export const selectComponents = [{
@@ -540,23 +541,23 @@ export const layoutComponents = [{
 }]
 
 export const commonComponents = [...inputComponents, ...selectComponents, ...layoutComponents]
-  .map( t => Object.assign( { cmpType: 'common' }, t ) )
+  .map(t => Object.assign({ cmpType: 'common' }, t))
 
-const getConfigByTag = ( targetList, tag ) => targetList.find( t => t.tag === tag )
-const copyConfigAsCustom = ( rowConf, childrenConf ) => {
-  const clone = ( target, conf = {} ) => {
-    const template = JSON.parse( JSON.stringify( target ) )
-    return Object.assign( {}, template, { cmpType: 'custom' }, conf )
+const getConfigByTag = (targetList, tag) => targetList.find(t => t.tag === tag)
+const copyConfigAsCustom = (rowConf, childrenConf) => {
+  const clone = (target, conf = {}) => {
+    const template = JSON.parse(JSON.stringify(target))
+    return Object.assign({}, template, { cmpType: 'custom' }, conf)
   }
-  const defaultRow = clone( layoutComponents[0], rowConf )
-  defaultRow.children = childrenConf.map( t => clone( t.target, t.config ) )
+  const defaultRow = clone(layoutComponents[0], rowConf)
+  defaultRow.children = childrenConf.map(t => clone(t.target, t.config))
   return defaultRow
 }
 // 定制组件添加cmpType = custom
 export const customMadeComponents = [
-  copyConfigAsCustom( { label: '请假组件', explain: null }, [
+  copyConfigAsCustom({ label: '请假组件', explain: null }, [
     {
-      target: getConfigByTag( selectComponents, 'el-select' ),
+      target: getConfigByTag(selectComponents, 'el-select'),
       config: {
         label: "请假类型",
         required: true,
@@ -589,24 +590,24 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag( selectComponents, 'fc-date-duration' ),
+      target: getConfigByTag(selectComponents, 'fc-date-duration'),
       config: {
         required: true,
         label: "日期范围",
         showDuration: true,
       }
     }
-  ] ),
-  copyConfigAsCustom( { label: "出差组件", explain: null }, [
+  ]),
+  copyConfigAsCustom({ label: "出差组件", explain: null }, [
     {
-      target: getConfigByTag( inputComponents, 'el-input' ),
+      target: getConfigByTag(inputComponents, 'el-input'),
       config: {
         label: "出差事由",
         required: true
       }
     },
     {
-      target: getConfigByTag( selectComponents, 'el-select' ),
+      target: getConfigByTag(selectComponents, 'el-select'),
       config: {
         label: "交通工具",
         required: true,
@@ -631,7 +632,7 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag( selectComponents, 'el-select' ),
+      target: getConfigByTag(selectComponents, 'el-select'),
       config: {
         label: "单程往返",
         required: true,
@@ -648,21 +649,21 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag( inputComponents, 'el-input' ),
+      target: getConfigByTag(inputComponents, 'el-input'),
       config: {
         label: "出发城市",
         required: true
       }
     },
     {
-      target: getConfigByTag( inputComponents, 'el-input' ),
+      target: getConfigByTag(inputComponents, 'el-input'),
       config: {
         label: "目的城市",
         required: true
       }
     },
     {
-      target: getConfigByTag( selectComponents, 'fc-date-duration' ),
+      target: getConfigByTag(selectComponents, 'fc-date-duration'),
       config: {
         label: "日期范围",
         tag: "fc-date-duration",
@@ -671,20 +672,20 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag( inputComponents, 'el-input' ),
+      target: getConfigByTag(inputComponents, 'el-input'),
       config: {
         label: "出差备注",
         required: false
       }
     },
     {
-      target: getConfigByTag( inputComponents, 'el-input' ),
+      target: getConfigByTag(inputComponents, 'el-input'),
       config: {
         label: "同行人",
         required: false
       }
     }
-  ] )]
+  ])]
 // .map( t => Object.assign( { cmpType: 'custom', t } ) )
 // 组件rule的触发方式，无触发方式的组件不生成rule
 // inputTable组件也有一份此常量的copy 如有改动 最好同步
