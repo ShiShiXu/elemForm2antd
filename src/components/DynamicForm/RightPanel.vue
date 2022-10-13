@@ -7,10 +7,6 @@
  */
  <template>
   <div class="right-board">
-    <!-- <a-tabs v-model="currentTab" class="center-tabs">
-      <a-tab-pane key="field">组件属性</a-tab-pane>
-      <a-tab-pane key="form">表单属性</a-tab-pane>
-    </a-tabs> -->
 
     <a-tabs v-model="currentTab" tabPosition="top" :animated="true">
       <a-tab-pane key="field" tab="组件属性"></a-tab-pane>
@@ -18,7 +14,7 @@
     </a-tabs>
 
     <div class="field-box">
-      <el-scrollbar class="right-scrollbar">
+      <div class="right-scrollbar">
 
         <a-form v-show="currentTab==='field' && showField" :label-col="labelCol" :wrapper-col="wrapperCol">
           <a-form-model-item v-if="activeData.label!==undefined" label="标题">
@@ -272,15 +268,23 @@
               </a-form-model-item>
             </template>
            
-
-            <el-tree
+            <!-- <el-tree
               v-if="activeData.dataType === 'static'"
               draggable
               :data="activeData.options"
               node-key="id"
               :expand-on-click-node="false"
               :render-content="renderContent"
+            /> -->
+
+            <a-tree
+              class="draggable-tree"
+              draggable
+              :tree-data="activeData.options"
+              @dragenter="onDragEnter"
+              @drop="onDrop"
             />
+
             <div v-if="activeData.dataType === 'static'" style="margin-left: 20px">
               <a-button
                 style="padding-bottom: 0"
@@ -290,6 +294,7 @@
               >添加父级</a-button>
             </div>
             <a-divider />
+
           </template>
 
           <a-form-model-item v-if="activeData.optionType !== undefined" label="选项样式">
@@ -453,22 +458,15 @@
             </div>
           </a-form-model-item>
           
-          <a-form-model-item v-if="activeData.required !== undefined" label="是否必填">
+          <!-- <a-form-model-item v-if="activeData.required !== undefined" label="是否必填"> -->
+          <a-form-model-item label="是否必填">
             <a-switch v-model="activeData.required" @change="requireChange" :disabled="!couldChangeRequire" />
-            <el-tooltip
-              class="item"
-              effect="dark"
-              placement="top-start"
-            >
-            <div slot="content">
-              流程条件：流程设计里可用于区分流程走向
-              <br/>
-              例如：金额大于500需要主管+经理审批；小于500只需要主管审批。</div>
-              <span
-                v-show="activeData.proCondition"
-                style="font-size:12px;color#aaa;"
-              >&nbsp;(勾选后可作为流程条件)</span>
-            </el-tooltip>
+              <a-tooltip placement="topLeft" :title="flowTipsTitle">
+                <span
+                  v-show="activeData.proCondition"
+                  style="font-size:12px;color#aaa;"
+                > (勾选后可作为流程条件)</span>
+              </a-tooltip>
           </a-form-model-item>
 
           <a-form-model-item v-if="activeData.showChinese !== undefined" label="显示大写">
@@ -521,7 +519,7 @@
           </a-form-model-item>
         </a-form>
 
-      </el-scrollbar>
+      </div>
     </div>
 
     <treeNode-dialog :visible.sync="dialogVisible" title="添加选项" @commit="addNode" />
@@ -633,6 +631,7 @@ const dateTimeFormat = {
   monthrange: "yyyy-MM",
   datetimerange: "yyyy-MM-dd HH:mm:ss"
 };
+
 export default {
   components: {
     TreeNodeDialog,
@@ -642,6 +641,7 @@ export default {
   props: ["showField", "activeData", "formConf", "couldChangeRequire"],
   data() {
     return {
+      flowTipsTitle: `流程条件：流程设计里可用于区分流程走向。例如：金额大于500需要主管+经理审批；小于500只需要主管审批。`,
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       expressionTemp: [],
@@ -927,6 +927,70 @@ export default {
     addNode(data) {
       this.currentNode.push(data);
     },
+    onDrop(info) {
+      console.log(info);
+      const dropKey = info.node.eventKey;
+      const dragKey = info.dragNode.eventKey;
+      const dropPos = info.node.pos.split('-');
+      const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
+      const loop = (data, key, callback) => {
+        data.forEach((item, index, arr) => {
+          if (item.key === key) {
+            return callback(item, index, arr);
+          }
+          if (item.children) {
+            return loop(item.children, key, callback);
+          }
+        });
+      };
+      // const data = [...this.gData];
+
+      const data = [ ...this.activeData.options ];
+
+      // Find dragObject
+      let dragObj;
+      loop(data, dragKey, (item, index, arr) => {
+        arr.splice(index, 1);
+        dragObj = item;
+      });
+      if (!info.dropToGap) {
+        // Drop on the content
+        loop(data, dropKey, item => {
+          item.children = item.children || [];
+          // where to insert 示例添加到尾部，可以是随意位置
+          item.children.push(dragObj);
+        });
+      } else if (
+        (info.node.children || []).length > 0 && // Has children
+        info.node.expanded && // Is expanded
+        dropPosition === 1 // On the bottom gap
+      ) {
+        loop(data, dropKey, item => {
+          item.children = item.children || [];
+          // where to insert 示例添加到尾部，可以是随意位置
+          item.children.unshift(dragObj);
+        });
+      } else {
+        let ar;
+        let i;
+        loop(data, dropKey, (item, index, arr) => {
+          ar = arr;
+          i = index;
+        });
+        if (dropPosition === -1) {
+          ar.splice(i, 0, dragObj);
+        } else {
+          ar.splice(i + 1, 0, dragObj);
+        }
+      }
+      // this.gData = data;
+
+      this.$set(this.activeData, "options", data);
+
+    },
+    onDragEnter() {
+
+    },
     setOptionValue(item, val) {
       let res = isNumberStr(val) ? +val : val;
       item.label = res;
@@ -1039,7 +1103,43 @@ export default {
 };
 </script>
 
-<style lang="stylus" scoped>
+<style lang="less" scoped>
+  @theme: rgba(214, 215, 217, 1);
+  @placeholder-color: rgba(240, 240, 240, 1);
+
+  .scrollbar(
+    @width: 5px;
+    @color: @placeholder-color;
+    @thumb-width: 4px;
+    @thumb-colro: @theme;
+    @x: hidden;
+    @y: scroll) {
+      & {
+          overflow-x: @x;
+          overflow-y: @y;
+          scrollbar-color: @theme rgba(15, 15, 19, 1);
+          scrollbar-track-color: @placeholder-color;
+          -ms-scrollbar-track-color: @theme;
+          scroll-behavior: smooth;
+      }
+
+      &::-webkit-scrollbar {
+          width: @width;
+          background-color: @color;
+      }
+
+      &::-webkit-scrollbar-thumb {
+          border-radius: @thumb-width;
+          background-color: @thumb-colro;
+      }
+    }
+
+
+.calc-dialog  .el-dialog__body{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .right-board {
   border-left: 1px solid #f1e8e8;
   width: 350px;
@@ -1050,9 +1150,9 @@ export default {
 
   .field-box {
     position: relative;
-    height: calc(100vh - 42px);
+    height: calc(100vh - 114px);
     box-sizing: border-box;
-    overflow: hidden;
+    .scrollbar();
   }
 
   .el-scrollbar {
@@ -1151,12 +1251,12 @@ export default {
   font-size: 12px;
 }
 .calc-dialog{
-  >>> .el-dialog__body{
-    padding-top: 0;
-  }
+  // >>> .el-dialog__body{
+  //   padding-top: 0;
+  // }
   .calc-box{
     font-size: 12px;
-    line-height: 2
+    line-height: 2;
     .calc-tip{
       margin: 10px 0;
       font-size: 12px;
@@ -1189,11 +1289,5 @@ export default {
       }
     }
   }
-}
-</style>
-<style lang="stylus">
-.calc-dialog  .el-dialog__body{
-  padding-top: 0;
-  padding-bottom: 0;
 }
 </style>

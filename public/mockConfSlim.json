@@ -94,8 +94,7 @@
             "nodeId": "Nb2",
             "prevId": "Gb2"
         },
-        "conditionNodes": [
-        ]
+        "conditionNodes": []
     },
     "formData": {
         "formRef": "elForm",
@@ -106,66 +105,7 @@
         "disabled": false,
         "span": 12,
         "formBtns": true,
-        "fields": [
-            {
-                "cmpType": "common",
-                "label": "单行输入框",
-                "tag": "el-input",
-                "tagIcon": "input",
-                "placeholder": "请输入单行输入框",
-                "span": 24,
-                "labelWidth": null,
-                "style": {
-                    "width": "100%"
-                },
-                "clearable": true,
-                "prepend": "",
-                "append": "",
-                "prefix-icon": "",
-                "suffix-icon": "",
-                "maxlength": null,
-                "show-word-limit": false,
-                "readonly": false,
-                "disabled": false,
-                "required": false,
-                "regList": [],
-                "changeTag": true,
-                "proCondition": false,
-                "asSummary": false,
-                "formId": 1,
-                "renderKey": 1665547640507,
-                "layout": "colFormItem",
-                "vModel": "field1"
-            },
-            {
-                "cmpType": "common",
-                "label": "附件",
-                "tag": "el-upload",
-                "tagIcon": "upload",
-                "action": "https://jsonplaceholder.typicode.com/posts/",
-                "defaultValue": [],
-                "labelWidth": null,
-                "disabled": false,
-                "required": false,
-                "accept": "",
-                "name": "file",
-                "auto-upload": true,
-                "showTip": false,
-                "buttonText": "点击上传附件",
-                "fileSize": 20,
-                "sizeUnit": "MB",
-                "list-type": "text",
-                "multiple": false,
-                "regList": [],
-                "changeTag": true,
-                "proCondition": false,
-                "asSummary": false,
-                "formId": 2,
-                "renderKey": 1665555793160,
-                "layout": "colFormItem",
-                "vModel": "field2"
-            }
-        ]
+        "fields": []
     },
     "advancedSetting": {
         "autoRepeat": true,
