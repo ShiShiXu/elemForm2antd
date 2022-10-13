@@ -14,7 +14,7 @@ export const formConf = {
 export const inputComponents = [
   {
     label: '单行输入框',
-    tag: 'a-input',
+    tag: 'el-input',
     tagIcon: 'input',
     placeholder: '请输入',
     defaultValue: undefined,

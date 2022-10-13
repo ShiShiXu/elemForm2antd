@@ -42,6 +42,12 @@ const layouts = {
     const { activeItem } = this.$listeners
     let className = this.activeId === element.formId ? 'drawing-item active-from-item' : 'drawing-item'
     if (this.formConf.unFocusedComponentBorder) className += ' unfocus-bordered'
+
+  
+    let test = (e) => {
+      console.log(e.data)
+      this.$set(element, 'defaultValue', e.data);
+    }
   
     return (
       <el-col span={element.span} class={className}
@@ -53,8 +59,9 @@ const layouts = {
             key={element.renderKey} 
             conf={element} 
             onInput={ event => {
-              this.$set(element, 'defaultValue', "event")
-            }} 
+              console.log(event);
+              this.$set(element, 'defaultValue', event);
+            }}
           />
           
         </el-form-item>

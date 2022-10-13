@@ -25,13 +25,6 @@ const isAttr = makeMap(
   + 'target,title,type,usemap,value,width,wrap'
 )
 
-function vModel ( self, dataObject, defaultValue ) {
-  dataObject.props.value = defaultValue
-  dataObject.on.input = val => {
-    self.$emit( 'input', val )
-  }
-}
-
 const componentChild = {
   'el-input': {
     prepend ( h, conf, key ) {
@@ -89,6 +82,17 @@ const componentChild = {
   },
 }
 
+
+function vModel ( self, dataObject, defaultValue ) {
+  console.log("self:", self);
+  dataObject.props.value = defaultValue
+  dataObject.on.input = val => {
+    // console.log(val);
+    self.$emit( 'input', val );
+    // self.$emit( 'input', val );
+  }
+}
+
 export default {
   props: ['conf'],
   // h 是一个函数：
@@ -99,6 +103,7 @@ export default {
       on: {},
       style: {}
     }
+    console.log("this.conf:", this.conf);
     const confClone = JSON.parse( JSON.stringify( this.conf ) )
     const children = []
 
@@ -113,7 +118,9 @@ export default {
     }
 
     Object.keys( confClone ).forEach( key => {
-      const val = confClone[key]
+      const val = confClone[key];
+      console.log("key", key);
+
       if ( key === 'vModel' ) {
         vModel( this, dataObject, confClone.defaultValue )
       } else if ( dataObject[key] ) {
@@ -123,7 +130,12 @@ export default {
       } else {
         dataObject.attrs[key] = val
       }
-    } )
-    return h( this.conf.tag, dataObject, children )
+    } );
+
+    return h( 
+      this.conf.tag, // 标签名|组件名|字符串模板
+      dataObject, // 一个与模板中 attribute 对应的数据对象。可选。
+      children 
+    )
   }
 }
