@@ -1,10 +1,10 @@
 <template>
   <div class="fc-amount">
-    <el-input-number style="width: 100%;" 
+    <a-input-number style="width: 100%;" 
     v-model="innerValue" v-bind="$props" 
     v-on="$listeners" 
-    @input="handleInput">
-  </el-input-number>
+    @change="handleInput">
+  </a-input-number>
     <div class="explain-text" v-if="showChinese">大写：{{chinese}}</div>
   </div>
 </template>
@@ -30,11 +30,10 @@ export default {
   methods: {
     handleInput (event) {
       console.log("fc-amount handleInput:", event)
-      this.$emit('change', event)   
+      this.$emit('input', event)   
     },
   },
   watch:{
-    
     value (val) {
       if (val !== this.innerValue) {
         this.innerValue = val

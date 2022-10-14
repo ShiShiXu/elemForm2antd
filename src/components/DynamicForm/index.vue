@@ -9,7 +9,7 @@
 <template>
   <div class="container">
     <div class="left-board">
-      <el-scrollbar class="left-scrollbar">
+      <div class="left-scrollbar">
         <a-tabs v-model="activeTabName" tabPosition="top" :animated="false">
           <a-tab-pane tab="常用组件" key="common">
             <div class="components-list">
@@ -65,7 +65,7 @@
             </div>
           </a-tab-pane>
         </a-tabs>
-      </el-scrollbar>
+      </div>
     </div>
 
     <div class="center-board">
@@ -84,9 +84,9 @@
         <div class="outeripad" :class="[ipadMode]">
           <div class="ipadbody">
             <div class="ipadscreen">
-              <el-scrollbar class="center-scrollbar">
-                <el-row class="center-board-row" :gutter="formConf.gutter">
-                  <el-form
+              <div class="center-scrollbar">
+                <a-row class="center-board-row" :gutter="formConf.gutter">
+                  <a-form
                     :size="formConf.size"
                     :label-position="formConf.labelPosition"
                     :disabled="formConf.disabled"
@@ -116,15 +116,15 @@
 
 
                     <div v-show="!drawingList.length" class="empty-info">从左侧拖入或点选组件进行表单设计</div>
-                  </el-form>
-                </el-row>
-              </el-scrollbar>
+                  </a-form>
+                </a-row>
+              </div>
             </div>
             <div class="ipadcamera"></div>
-            <el-tooltip effect="dark" content="切换横/竖模式" placement="top">
+            <a-tooltip effect="dark" content="切换横/竖模式" placement="top">
               <div class="ipadhomebutton" @click="ipadMode = ipadMode === 'landscape' ? 'portrait' : 'landscape'">
               </div>
-            </el-tooltip>
+            </a-tooltip>
           </div>
         </div>
       </div>
@@ -253,7 +253,7 @@ export default {
           if(isRangeCmp && !conf.showDuration) return false
           if(parent && parent.rowType === 'table') return false 
           if(!conf.proCondition || !conf.required) return false
-          if(conf.tag === 'el-select' && conf.multiple) return false
+          if(conf.tag === 'a-select' && conf.multiple) return false
           return true 
         }
         const loop = (data, parent) => {
@@ -605,6 +605,10 @@ export default {
 <style lang="stylus">
 
 @import './styles/home';
+
+.center-scrollbar {
+  height: 100%
+}
 
 #ipad {
     height: 100%;

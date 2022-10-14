@@ -103,7 +103,7 @@ function buildAttributes ( el, dataList, ruleList, optionsList, methodList, prop
     buildProps( el, propsList )
   }
 
-  if ( el.action && el.tag === 'el-upload' ) {
+  if ( el.action && el.tag === 'a-upload' ) {
     uploadVarList.push(
       `field${el.formId}Action: '${el.action}',
       field${el.formId}fileList: [],`

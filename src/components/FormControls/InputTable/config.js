@@ -1,13 +1,13 @@
 export const trigger = {
-  'el-input': 'blur',
-  'el-input-number': 'blur',
-  'el-select': 'change',
-  'el-radio-group': 'change',
-  'el-checkbox-group': 'change',
-  'el-cascader': 'change',
-  'el-time-picker': 'change',
-  'el-date-picker': 'change',
-  'el-rate': 'change',
+  'a-input': 'blur',
+  'a-input-number': 'blur',
+  'a-select': 'change',
+  'a-radio-group': 'change',
+  'a-checkbox-group': 'change',
+  'a-cascader': 'change',
+  'a-time-picker': 'change',
+  'a-date-picker': 'change',
+  'a-rate': 'change',
   'fc-amount': 'change',
   'fc-time-duration': 'change',
   'fc-date-duration': 'change',
@@ -33,7 +33,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 180
     },
-    "tag": "el-input"
+    "tag": "a-input"
   },
   {
     "props": [
@@ -50,7 +50,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 160
     },
-    "tag": "el-rate"
+    "tag": "a-rate"
   },
   {
     "props": [
@@ -68,7 +68,7 @@ export const useableProps = [
       "controls": false,
       "min-width": 180
     },
-    "tag": "el-input-number"
+    "tag": "a-input-number"
   },
   {
     "props": [
@@ -105,7 +105,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 140
     },
-    "tag": "el-select"
+    "tag": "a-select"
   },
   {
     "props": [
@@ -129,7 +129,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 170
     },
-    "tag": "el-cascader"
+    "tag": "a-cascader"
   },
   {
     "props": [
@@ -149,7 +149,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 140
     },
-    "tag": "el-radio-group"
+    "tag": "a-radio-group"
   },
   {
     "props": [
@@ -170,7 +170,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 140
     },
-    "tag": "el-checkbox-group"
+    "tag": "a-checkbox-group"
   },
   {
     "props": [
@@ -192,7 +192,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 160
     },
-    "tag": "el-slider"
+    "tag": "a-slider"
   },
   {
     "props": [
@@ -237,7 +237,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 120
     },
-    "tag": "el-time-picker"
+    "tag": "a-time-picker"
   },
   {
     "props": [
@@ -281,7 +281,7 @@ export const useableProps = [
     "forceProp": {
       "min-width": 120
     },
-    "tag": "el-date-picker"
+    "tag": "a-date-picker"
   },
   {
     "props": [
@@ -332,7 +332,7 @@ export const useableProps = [
       "min-width": 80,
       "defaultValue": [],
     },
-    "tag": "el-upload"
+    "tag": "a-upload"
   },
   {
     "props": [

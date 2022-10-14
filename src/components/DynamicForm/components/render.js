@@ -26,7 +26,7 @@ const isAttr = makeMap(
 )
 
 const componentChild = {
-  'el-input': {
+  'a-input': {
     prepend ( h, conf, key ) {
       return <template slot="prepend">{conf[key]}</template>
     },
@@ -34,48 +34,48 @@ const componentChild = {
       return <template slot="append">{conf[key]}</template>
     }
   },
-  'el-select': {
+  'a-select': {
     options ( h, conf, key ) {
       const list = []
       conf.options.forEach( item => {
-        list.push( <el-option label={item.label} value={item.value} disabled={item.disabled}></el-option> )
+        list.push( <a-option label={item.label} value={item.value} disabled={item.disabled}></a-option> )
       } )
       return list
     }
   },
-  'el-radio-group': {
+  'a-radio-group': {
     options ( h, conf, key ) {
       const list = []
       conf.options.forEach( item => {
-        if ( conf.optionType === 'button' ) list.push( <el-radio-button label={item.value}>{item.label}</el-radio-button> )
-        else list.push( <el-radio label={item.value} border={conf.border}>{item.label}</el-radio> )
+        if ( conf.optionType === 'button' ) list.push( <a-radio-button label={item.value}>{item.label}</a-radio-button> )
+        else list.push( <a-radio label={item.value} border={conf.border}>{item.label}</a-radio> )
       } )
       return list
     }
   },
-  'el-checkbox-group': {
+  'a-checkbox-group': {
     options ( h, conf, key ) {
       const list = []
       conf.options.forEach( item => {
         if ( conf.optionType === 'button' ) {
-          list.push( <el-checkbox-button label={item.value}>{item.label}</el-checkbox-button> )
+          list.push( <a-checkbox-button label={item.value}>{item.label}</a-checkbox-button> )
         } else {
-          list.push( <el-checkbox label={item.value} border={conf.border}>{item.label}</el-checkbox> )
+          list.push( <a-checkbox label={item.value} border={conf.border}>{item.label}</a-checkbox> )
         }
       } )
       return list
     }
   },
-  'el-upload': {
+  'a-upload': {
     'list-type': ( h, conf, key ) => {
       const list = []
       if ( conf['list-type'] === 'picture-card' ) {
-        list.push( <i class="el-icon-plus"></i> )
+        list.push( <i class="a-icon-plus"></i> )
       } else {
-        list.push( <el-button size="small" type="primary" icon="el-icon-upload">{conf.buttonText}</el-button> )
+        list.push( <a-button size="small" type="primary" icon="a-icon-upload">{conf.buttonText}</a-button> )
       }
       if ( conf.showTip ) {
-        list.push( <div slot="tip" class="el-upload__tip">只能上传不超过 {conf.fileSize}{conf.sizeUnit} 的{conf.accept}文件</div> )
+        list.push( <div slot="tip" class="a-upload__tip">只能上传不超过 {conf.fileSize}{conf.sizeUnit} 的{conf.accept}文件</div> )
       }
       return list
     }
@@ -87,20 +87,38 @@ function vModel ( self, dataObject, defaultValue ) {
   // console.log("self:", self);
   dataObject.props.value = defaultValue;
 
+  // dataObject.on.input = val => { // elementUI input 绑定
+  //   // console.log(val);
+  //   self.$emit( 'input', val );
+  // }
 
-  dataObject.on.input = val => { // elementUI input 绑定
-    // console.log(val);
-    self.$emit( 'input', val );
+  let check = (data) =>{
+    return Object.prototype.toString.call(data);
   }
   
-  // dataObject.on.input = event => { // Antd input 绑定
-  //   console.log("render input:", event);
-  //   if( typeof event === 'object' ) {
-  //     self.$emit( 'input', event.target.value);
-  //   } else {
-  //     self.$emit( 'input', event);
-  //   }
-  // }
+  // Antd input 绑定
+  dataObject.on = {
+    input: event => { 
+      console.log("render input 1:", event);
+  
+      if( check(event) === '[object InputEvent]' ) {
+        self.$emit( 'input', event.target.value);
+      } else {
+        self.$emit( 'input', event);
+      } 
+    },
+    change: event => { 
+      console.log("render input 2:", event);
+  
+      if( check(event) === '[object InputEvent]' ) {
+        self.$emit( 'input', event.target.value);
+      } else {
+        self.$emit( 'input', event);
+      } 
+    },
+  }
+  
+  
 
 }
 
@@ -143,6 +161,17 @@ export default {
       }
     } );
 
+
+    // return h( 
+    //   this.conf.tag, // 标签名|组件名|字符串模板
+    //   dataObject, // 一个与模板中 attribute 对应的数据对象。可选。
+    //   children 
+    // )
+
+    console.log("Tag:", this.conf.tag);
+    console.log("DataObject:", dataObject);
+    console.log("Children:", children);
+    
     return h( 
       this.conf.tag, // 标签名|组件名|字符串模板
       dataObject, // 一个与模板中 attribute 对应的数据对象。可选。

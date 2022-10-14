@@ -44,23 +44,28 @@ const layouts = {
     if (this.formConf.unFocusedComponentBorder) className += ' unfocus-bordered'
   
     return (
-      <el-col span={element.span} class={className}
-        nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
-        <el-form-item label-width={element.labelWidth ? `${element.labelWidth}px` : null}
-          label={element.label} required={element.required}>
+      <a-form >
 
-          <render 
-            key={element.renderKey} 
-            conf={element} 
-            onInput={ event => {
-              console.log("render onInput:", event);
-              this.$set(element, 'defaultValue', event);
-            }}
-          />
-          
-        </el-form-item>
+      <a-col span={element.span} class={className}
+        nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
+
+          <a-form-item label-width={element.labelWidth ? `${element.labelWidth}px` : null}
+            label={element.label} required={element.required}>
+              <render 
+                key={element.renderKey} 
+                conf={element} 
+                onInput={ event => {
+                  console.log("render onInput:", event);
+                  this.$set(element, 'defaultValue', event);
+                }}
+              />
+          </a-form-item>
+
         { components.itemBtns.apply(this, arguments)}
-      </el-col>
+
+      </a-col>
+    </a-form>
+
     )
 
   },
@@ -114,8 +119,6 @@ export default {
   ],
   render(h) {
     const layout = layouts[this.element.layout];
-
-    console.log(this.element.layout)
 
     if (layout) {
       return layout.call(this, h, this.element, this.index, this.drawingList)

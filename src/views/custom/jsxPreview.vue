@@ -80,8 +80,8 @@ const layouts = {
         ctx.$refs[ctx.confGlobal.formRef].validateField(conf.vModel,()=>{ })
       }
     }
-    let item =  <el-col span={conf.span}>
-                  <el-form-item 
+    let item =  <a-col span={conf.span}>
+                  <a-form-item 
                   label-width={labelWidth} 
                   label={isList ? '' : conf.label} 
                   prop={conf.vModel}>
@@ -92,11 +92,11 @@ const layouts = {
                     ref={conf.rowType === 'table' ? conf.vModel : undefined} 
                     onInput={handleInput} 
                     />
-                  </el-form-item>
-                </el-col>
+                  </a-form-item>
+                </a-col>
 
     if (isList) {
-      var tableTitle = <el-col span={24} style="font-size: 14px;padding:6px 0px;margin-bottom: 4px;border-bottom: 1px solid #e5e5e5;">{conf.label}</el-col>
+      var tableTitle = <a-col span={24} style="font-size: 14px;padding:6px 0px;margin-bottom: 4px;border-bottom: 1px solid #e5e5e5;">{conf.label}</a-col>
       return [tableTitle, item]
     }
     return item
@@ -115,25 +115,25 @@ const layouts = {
       align: conf.type === 'default' ? undefined : conf.align,
       gutter: typeof conf.gutter === 'number' ? conf.gutter : undefined,
     }
-    let row = <el-col span={conf.span || 24}>
-                <el-row {...{ props: props }}>
+    let row = <a-col span={conf.span || 24}>
+                <a-row {...{ props: props }}>
                   { Array.isArray(conf.children) && conf.children.map( ( el ) => layouts[el.layout]( el, h, ctx ) ) }
-                </el-row>
-              </el-col>
+                </a-row>
+              </a-col>
     let divider
     if (conf.showDivider) {
       let explain
       if (conf.cmpType === 'custom' && conf.explain) {
-        explain = <el-tooltip effect="dark" content="组件说明" placement="top">
-                    <i class="el-icon-info"
+        explain = <a-tooltip effect="dark" content="组件说明" placement="top">
+                    <i class="a-icon-info"
                       onClick={ctx.showExplain.bind(this, conf.explain, conf.label)}
                       style="margin-right: 8px; color: #E6A23C;cursor: pointer;">
                     </i>
-                  </el-tooltip>
+                  </a-tooltip>
       }
-      divider = <el-col span={24}>
-                  <el-divider content-position="left" >{explain} {conf.label}</el-divider>
-                </el-col>
+      divider = <a-col span={24}>
+                  <a-divider content-position="left" >{explain} {conf.label}</a-divider>
+                </a-col>
       return [divider, row]
     } 
     return row
@@ -208,7 +208,7 @@ export default {
 
     buildDrawer (h) {
       var content = <pre style="padding-left: 1rem;">{this.drawerText}</pre>
-      return h('el-drawer', {
+      return h('a-drawer', {
         props: {
           title: this.drawerTitle + '说明',
           visible: this.drawerVisible,
@@ -233,14 +233,14 @@ export default {
         },
         ref: this.confGlobal.formRef
       }
-      const btns = <el-col span={24}>
-                    <el-form-item  style="text-align:right;">
-                      <el-button type="primary" onClick={this.submitForm}>提交</el-button>
-                      <el-button onClick={this.resetForm}>重置</el-button>
-                    </el-form-item>
-                  </el-col>
-      // 因为使用jsx时  el-form 的 model 一直无法正确填充，故采用createElement直接渲染
-      return h('el-form', formObject, [content, btns]) 
+      const btns = <a-col span={24}>
+                    <a-form-item  style="text-align:right;">
+                      <a-button type="primary" onClick={this.submitForm}>提交</a-button>
+                      <a-button onClick={this.resetForm}>重置</a-button>
+                    </a-form-item>
+                  </a-col>
+      // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
+      return h('a-form', formObject, [content, btns]) 
     },
     initDefaultData(config) {
       config.fields.forEach(field => {
@@ -260,11 +260,11 @@ export default {
       return <div v-loading="true" class="loading-mask"></div>
     }
     return  <div class="preview-container" style={'width:' + this.containerWidth + '%;'}>
-              <el-row gutter={this.confGlobal.gutter} style="padding: 2rem 2rem 0;">
+              <a-row gutter={this.confGlobal.gutter} style="padding: 2rem 2rem 0;">
                 {this.buildForm(h)}
-              </el-row>
+              </a-row>
               <div  class="width-slider">
-                <el-slider vModel={this.containerWidth} min={30} max={96}></el-slider>
+                <a-slider vModel={this.containerWidth} min={30} max={96}></a-slider>
               </div>
               {this.buildDrawer(h)}
             </div>

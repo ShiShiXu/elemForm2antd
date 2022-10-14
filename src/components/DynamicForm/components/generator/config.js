@@ -14,7 +14,7 @@ export const formConf = {
 export const inputComponents = [
   {
     label: '单行输入框',
-    tag: 'el-input',
+    tag: 'a-input',
     tagIcon: 'input',
     placeholder: '请输入',
     defaultValue: undefined,
@@ -26,9 +26,8 @@ export const inputComponents = [
     append: '',
     'prefix-icon': '',
     'suffix-icon': '',
-    maxlength: null,
+    maxLength: null,
     'show-word-limit': false,
-    readonly: false,
     disabled: false,
     required: false,
     regList: [],
@@ -38,7 +37,7 @@ export const inputComponents = [
   },
   {
     label: '多行输入框',
-    tag: 'el-input',
+    tag: 'a-input',
     tagIcon: 'textarea',
     type: 'textarea',
     placeholder: '请输入',
@@ -50,9 +49,8 @@ export const inputComponents = [
       maxRows: 4
     },
     style: { width: '100%' },
-    maxlength: null,
+    maxLength: null,
     'show-word-limit': false,
-    readonly: false,
     disabled: false,
     required: false,
     regList: [],
@@ -62,7 +60,7 @@ export const inputComponents = [
   },
   //   {
   //     label: '密码',
-  //     tag: 'el-input',
+  //     tag: 'a-input',
   //     tagIcon: 'password',
   //     placeholder: '请输入',
   //     defaultValue: undefined,
@@ -87,7 +85,7 @@ export const inputComponents = [
   //   },
   {
     label: '数字输入框',
-    tag: 'el-input-number',
+    tag: 'fc-amount',
     tagIcon: 'number',
     placeholder: '',
     defaultValue: undefined,
@@ -132,7 +130,7 @@ export const inputComponents = [
 
 export const selectComponents = [{
   label: '下拉选择',
-  tag: 'el-select',
+  tag: 'a-select',
   tagIcon: 'select',
   placeholder: '请选择',
   style: { width: '100%' },
@@ -157,7 +155,7 @@ export const selectComponents = [{
 },
 {
   label: '级联选择',
-  tag: 'el-cascader',
+  tag: 'a-cascader',
   tagIcon: 'cascader',
   placeholder: '请选择',
   defaultValue: [],
@@ -196,7 +194,7 @@ export const selectComponents = [{
 },
 {
   label: '省市区',
-  tag: 'el-cascader',
+  tag: 'a-cascader',
   tagIcon: 'area',
   placeholder: '请选择',
   defaultValue: [],
@@ -226,7 +224,7 @@ export const selectComponents = [{
 },
 {
   label: '单选框组',
-  tag: 'el-radio-group',
+  tag: 'a-radio-group',
   tagIcon: 'radio',
   defaultValue: undefined,
   span: 24,
@@ -234,7 +232,7 @@ export const selectComponents = [{
   style: {},
   optionType: 'default',
   border: false,
-  size: 'medium',
+  // size: 'medium',
   disabled: false,
   required: false,
   options: [{
@@ -250,7 +248,7 @@ export const selectComponents = [{
 },
 {
   label: '多选框组',
-  tag: 'el-checkbox-group',
+  tag: 'a-checkbox-group',
   tagIcon: 'checkbox',
   defaultValue: [],
   span: 24,
@@ -275,7 +273,7 @@ export const selectComponents = [{
 },
 //   {
 //     label: '开关',
-//     tag: 'el-switch',
+//     tag: 'a-switch',
 //     tagIcon: 'switch',
 //     defaultValue: false,
 //     span: 24,
@@ -294,9 +292,28 @@ export const selectComponents = [{
 // proCondition: false,
 // asSummary: false
 //   },
+// {
+//   label: '滑块',
+//   tag: 'a-slider',
+//   tagIcon: 'slider',
+//   defaultValue: null,
+//   span: 24,
+//   labelWidth: null,
+//   disabled: false,
+//   required: false,
+//   min: 0,
+//   max: 100,
+//   step: 1,
+//   'show-stops': false,
+//   range: false,
+//   regList: [],
+//   changeTag: true,
+//   proCondition: false,
+//   asSummary: false
+// },
 {
   label: '滑块',
-  tag: 'el-slider',
+  tag: 'a-slider',
   tagIcon: 'slider',
   defaultValue: null,
   span: 24,
@@ -305,6 +322,7 @@ export const selectComponents = [{
   required: false,
   min: 0,
   max: 100,
+  
   step: 1,
   'show-stops': false,
   range: false,
@@ -346,9 +364,9 @@ export const selectComponents = [{
 
 
 {
-  // el-time-picker
+  // a-time-picker
   label: '时间选择',
-  tag: 'el-time-picker',
+  tag: 'a-time-picker',
   tagIcon: 'time',
   placeholder: '请选择',
   defaultValue: null,
@@ -393,7 +411,7 @@ export const selectComponents = [{
 },
 {
   label: '日期选择',
-  tag: 'el-date-picker',
+  tag: 'a-date-picker',
   tagIcon: 'date',
   placeholder: '请选择',
   defaultValue: null,
@@ -438,7 +456,7 @@ export const selectComponents = [{
 },
 {
   label: '评分',
-  tag: 'el-rate',
+  tag: 'a-rate',
   tagIcon: 'rate',
   defaultValue: 0,
   span: 24,
@@ -457,7 +475,7 @@ export const selectComponents = [{
 },
 //   {
 //     label: '颜色选择',
-//     tag: 'el-color-picker',
+//     tag: 'a-color-picker',
 //     tagIcon: 'color',
 //     defaultValue: null,
 //     labelWidth: null,
@@ -473,7 +491,7 @@ export const selectComponents = [{
 //   },
 {
   label: '附件',
-  tag: 'el-upload',
+  tag: 'a-upload',
   tagIcon: 'upload',
   action: 'https://jsonplaceholder.typicode.com/posts/',
   defaultValue: [],
@@ -559,7 +577,7 @@ const copyConfigAsCustom = (rowConf, childrenConf) => {
 export const customMadeComponents = [
   copyConfigAsCustom({ label: '请假组件', explain: null }, [
     {
-      target: getConfigByTag(selectComponents, 'el-select'),
+      target: getConfigByTag(selectComponents, 'a-select'),
       config: {
         label: "请假类型",
         required: true,
@@ -602,14 +620,14 @@ export const customMadeComponents = [
   ]),
   copyConfigAsCustom({ label: "出差组件", explain: null }, [
     {
-      target: getConfigByTag(inputComponents, 'el-input'),
+      target: getConfigByTag(inputComponents, 'a-input'),
       config: {
         label: "出差事由",
         required: true
       }
     },
     {
-      target: getConfigByTag(selectComponents, 'el-select'),
+      target: getConfigByTag(selectComponents, 'a-select'),
       config: {
         label: "交通工具",
         required: true,
@@ -634,7 +652,7 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag(selectComponents, 'el-select'),
+      target: getConfigByTag(selectComponents, 'a-select'),
       config: {
         label: "单程往返",
         required: true,
@@ -651,14 +669,14 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag(inputComponents, 'el-input'),
+      target: getConfigByTag(inputComponents, 'a-input'),
       config: {
         label: "出发城市",
         required: true
       }
     },
     {
-      target: getConfigByTag(inputComponents, 'el-input'),
+      target: getConfigByTag(inputComponents, 'a-input'),
       config: {
         label: "目的城市",
         required: true
@@ -674,14 +692,14 @@ export const customMadeComponents = [
       }
     },
     {
-      target: getConfigByTag(inputComponents, 'el-input'),
+      target: getConfigByTag(inputComponents, 'a-input'),
       config: {
         label: "出差备注",
         required: false
       }
     },
     {
-      target: getConfigByTag(inputComponents, 'el-input'),
+      target: getConfigByTag(inputComponents, 'a-input'),
       config: {
         label: "同行人",
         required: false
@@ -689,21 +707,19 @@ export const customMadeComponents = [
     }
   ])]
 
-console.log("customMadeComponents:", customMadeComponents);
-
 // .map( t => Object.assign( { cmpType: 'custom', t } ) )
 // 组件rule的触发方式，无触发方式的组件不生成rule
 // inputTable组件也有一份此常量的copy 如有改动 最好同步
 export const trigger = {
-  'el-input': 'blur',
-  'el-input-number': 'blur',
-  'el-select': 'change',
-  'el-radio-group': 'change',
-  'el-checkbox-group': 'change',
-  'el-cascader': 'change',
-  'el-time-picker': 'change',
-  'el-date-picker': 'change',
-  'el-rate': 'change',
+  'a-input': 'blur',
+  'a-input-number': 'blur',
+  'a-select': 'change',
+  'a-radio-group': 'change',
+  'a-checkbox-group': 'change',
+  'a-cascader': 'change',
+  'a-time-picker': 'change',
+  'a-date-picker': 'change',
+  'a-rate': 'change',
   'fc-amount': 'change',
   'fc-time-duration': 'change',
   'fc-date-duration': 'change',

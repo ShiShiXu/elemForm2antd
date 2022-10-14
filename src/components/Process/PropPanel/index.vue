@@ -1,6 +1,6 @@
 
 <template>
-  <el-drawer
+  <a-drawer
     size="550px"
     class="drawer"
     :visible.sync="visible"
@@ -16,20 +16,20 @@
         {{properties.title}}
         <i class="el-icon-edit"></i>
       </span>
-      <el-input
+      <a-input
         size="mini"
         v-model="properties.title"
         v-show="titleInputVisible"
         v-clickoutside="_ => titleInputVisible=false"
         style="z-index:9;max-width: 200px;"
-      ></el-input>
-      <el-select
+      ></a-input>
+      <a-select
         v-if="isConditionNode()"
         v-model="properties.priority"
         size="mini"
         class="priority-select" >
-        <el-option v-for="item in priorityLength" :key="item" :value="item-1" :label="'优先级'+item"></el-option>
-      </el-select>
+        <a-option v-for="item in priorityLength" :key="item" :value="item-1" :label="'优先级'+item"></a-option>
+      </a-select>
     </header>
 
     <!-- 条件  -->
@@ -43,7 +43,7 @@
         <row-wrapper 
           :key="index" 
           :title="item.label" 
-          v-if="couldShowIt(item,'el-input-number','fc-date-duration','fc-time-duration','fc-amount', 'fc-calculate')">
+          v-if="couldShowIt(item,'a-input-number','fc-date-duration','fc-time-duration','fc-amount', 'fc-calculate')">
           <num-input
             :key="index"
             :title="timeTangeLabel(item)"
@@ -58,10 +58,10 @@
         <row-wrapper 
           :key="index" 
           :title="item.label" 
-          v-if="couldShowIt(item,'el-radio-group')">
-          <el-radio-group v-model="item.conditionValue" class="radio-group">
-            <el-radio v-for="item in item.options" :label="item.label" :key="item.label">{{item.label}}</el-radio>
-          </el-radio-group>
+          v-if="couldShowIt(item,'a-radio-group')">
+          <a-radio-group v-model="item.conditionValue" class="radio-group">
+            <a-radio v-for="item in item.options" :label="item.label" :key="item.label">{{item.label}}</a-radio>
+          </a-radio-group>
           <template v-slot:action>
             <i  class="el-icon-delete" style="cursor: pointer;" @click="onDelCondition(item)"></i>
           </template>
@@ -71,15 +71,15 @@
         <row-wrapper 
           :key="index" 
           :title="item.label" 
-          v-if="couldShowIt(item,'el-select')">
-          <el-select v-model="item.conditionValue" placeholder="请选择" size="small">
-            <el-option
+          v-if="couldShowIt(item,'a-select')">
+          <a-select v-model="item.conditionValue" placeholder="请选择" size="small">
+            <a-option
               v-for="item in item.options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
-            ></el-option>
-          </el-select>
+            ></a-option>
+          </a-select>
           <template v-slot:action>
               <i  class="el-icon-delete" style="cursor: pointer;" @click="onDelCondition(item)"></i>
             </template>
@@ -97,48 +97,48 @@
         </row-wrapper>
       </template>
       <div style="padding-left:10px;margin-top:2em;">
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="dialogVisible=true">添加条件</el-button>
+        <a-button type="primary" size="small" icon="a-icon-plus" @click="dialogVisible=true">添加条件</a-button>
         <span style="color:#aaa;margin-left:16px;">还有{{notUseConNum}}个可用条件</span>
       </div>
     </section>
 
     <!-- 审批人 -->
     <section class="approver-pane" style="height:100%;" v-if="value && (isApproverNode() || isStartNode())">
-      <el-tabs v-model="activeName"  class="pane-tab">
-        <el-tab-pane :label="'设置' + (value.type === 'approver' ? '审批人' : '发起人')" name="config">
+      <a-tabs v-model="activeName"  class="pane-tab">
+        <a-tab-pane :label="'设置' + (value.type === 'approver' ? '审批人' : '发起人')" name="config">
           <!-- 开始节点 -->
-          <el-row style="padding: 10px;"  v-if="value.type === 'start'">
-            <el-col :span="4" style="font-size: 12px;">发起人</el-col>
-            <el-col :span="18" style="padding-left: 12px;">
+          <a-row style="padding: 10px;"  v-if="value.type === 'start'">
+            <a-col :span="4" style="font-size: 12px;">发起人</a-col>
+            <a-col :span="18" style="padding-left: 12px;">
               <fc-org-select ref="start-org" :tabList="['dep&user']" v-model="initiator" />
-            </el-col>
-          </el-row>
+            </a-col>
+          </a-row>
           
           <div v-else-if="value.type === 'approver'">
             <div style="padding: 12px;">
-              <el-radio-group v-model="approverForm.assigneeType" style="line-height: 32px;" @change="resetOrgColl">
-                <el-radio v-for="item in assigneeTypeOptions" :label="item.value" :key="item.value" class="radio-item">{{item.label}}</el-radio>
-              </el-radio-group>
+              <a-radio-group v-model="approverForm.assigneeType" style="line-height: 32px;" @change="resetOrgColl">
+                <a-radio v-for="item in assigneeTypeOptions" :label="item.value" :key="item.value" class="radio-item">{{item.label}}</a-radio>
+              </a-radio-group>
             </div>
             <div style="border-bottom: 1px solid #e5e5e5;padding-bottom: 1rem;">
               <div v-if="approverForm.assigneeType === 'myself'"  class="option-box" style="color: #a5a5a5;">发起人自己将作为审批人处理审批单</div>
               <div v-else-if="approverForm.assigneeType === 'optional'"  class="option-box">
                 <p>可选多人</p>
-                <el-switch v-model="approverForm.optionalMultiUser" active-color="#13ce66"> </el-switch>
+                <a-switch v-model="approverForm.optionalMultiUser" active-color="#13ce66"> </a-switch>
                 <p>选择范围</p>
-                <el-select v-model="approverForm.optionalRange" size="mini">
-                  <el-option v-for="(item, index) in rangeOptions" :key="index" :label="item.label" :value="item.value"
-                    :disabled="item.disabled"></el-option>
-                </el-select>
+                <a-select v-model="approverForm.optionalRange" size="mini">
+                  <a-option v-for="(item, index) in rangeOptions" :key="index" :label="item.label" :value="item.value"
+                    :disabled="item.disabled"></a-option>
+                </a-select>
               </div>
               <div v-else-if="approverForm.assigneeType === 'director'">
                 <div style="font-size: 14px;padding-left: 1rem;">发起人的 
-                  <el-select v-model="directorLevel" size="small">
-                    <el-option v-for="item in 5" :key="item" :label="item === 1 ? '直接主管': `第${item}级主管`" :value="item"
-                    ></el-option>
-                  </el-select>
+                  <a-select v-model="directorLevel" size="small">
+                    <a-option v-for="item in 5" :key="item" :label="item === 1 ? '直接主管': `第${item}级主管`" :value="item"
+                    ></a-option>
+                  </a-select>
                   <br>
-                  <el-checkbox v-model="useDirectorProxy" style="margin-top: 1rem;">找不到主管时，由上级主管代审批</el-checkbox>
+                  <a-checkbox v-model="useDirectorProxy" style="margin-top: 1rem;">找不到主管时，由上级主管代审批</a-checkbox>
                 </div>
               </div>
               <div v-else class="option-box">
@@ -153,23 +153,23 @@
             </div>
             <div class="option-box" style="border-bottom: 1px solid #e5e5e5;" v-if="orgCollection[approverForm.assigneeType] && orgCollection[approverForm.assigneeType].length > 1 || ['optional'].includes(approverForm.assigneeType)">
               <p>多人审批时采用的审批方式</p>
-              <el-radio v-model="approverForm.counterSign" :label="true" class="radio-item">会签（须所有审批人同意）</el-radio>
+              <a-radio v-model="approverForm.counterSign" :label="true" class="radio-item">会签（须所有审批人同意）</a-radio>
               <br>
-              <el-radio  v-model="approverForm.counterSign"  :label="false" class="radio-item">或签（一名审批人同意或拒绝即可）</el-radio>
+              <a-radio  v-model="approverForm.counterSign"  :label="false" class="radio-item">或签（一名审批人同意或拒绝即可）</a-radio>
             </div>
           </div>
 
-        </el-tab-pane>
-        <el-tab-pane label="表单权限" name="formAuth">
+        </a-tab-pane>
+        <a-tab-pane label="表单权限" name="formAuth">
           <div class="form-auth-table">
             <header class="auth-table-header">
               <div class="row">
                 <div class="label">表单字段</div>
-                <el-radio-group v-model="globalFormOperate"  class="radio-group" @change="changeAllFormOperate">
-                  <el-radio :label="2" style="margin-left: 1rem;">可编辑</el-radio>
-                  <el-radio :label="1">只读</el-radio>
-                  <el-radio :label="0">隐藏</el-radio>
-                </el-radio-group>
+                <a-radio-group v-model="globalFormOperate"  class="radio-group" @change="changeAllFormOperate">
+                  <a-radio :label="2" style="margin-left: 1rem;">可编辑</a-radio>
+                  <a-radio :label="1">只读</a-radio>
+                  <a-radio :label="0">隐藏</a-radio>
+                </a-radio-group>
               </div>
             </header>
             <div class="auth-table-body">
@@ -178,40 +178,40 @@
                   <span class="required" v-show="item.required">*</span>
                   {{item.label}}
                 </div>
-                <el-radio-group v-model="item.formOperate"  class="radio-group">
-                  <el-radio :label="2" style="margin-left: 1rem;"><span style="opacity: 0;">可编辑</span></el-radio>
-                  <el-radio :label="1"><span style="opacity: 0;">只读</span></el-radio>
-                  <el-radio :label="0"><span style="opacity: 0;">隐藏</span></el-radio>
-                </el-radio-group>
+                <a-radio-group v-model="item.formOperate"  class="radio-group">
+                  <a-radio :label="2" style="margin-left: 1rem;"><span style="opacity: 0;">可编辑</span></a-radio>
+                  <a-radio :label="1"><span style="opacity: 0;">只读</span></a-radio>
+                  <a-radio :label="0"><span style="opacity: 0;">隐藏</span></a-radio>
+                </a-radio-group>
               </div>
             </div>
           </div>
-        </el-tab-pane>
-      </el-tabs>
+        </a-tab-pane>
+      </a-tabs>
     </section>
 
     <section  v-if="value && isCopyNode()" style="padding-left: 1rem;">
       <p>抄送人</p>
       <fc-org-select ref="copy-org" v-model="properties.menbers" buttonType="button" title="抄送人" />
       <br>
-      <el-checkbox v-model="properties.userOptional">允许发起人自选抄送人</el-checkbox>
+      <a-checkbox v-model="properties.userOptional">允许发起人自选抄送人</a-checkbox>
     </section>
 
-    <el-dialog title="选择条件" :visible.sync="dialogVisible" width="500px" :append-to-body="true" custom-class="condition-dialog">
-      <el-checkbox-group v-model="showingPCons">
+    <a-dialog title="选择条件" :visible.sync="dialogVisible" width="500px" :append-to-body="true" custom-class="condition-dialog">
+      <a-checkbox-group v-model="showingPCons">
         <!-- 发起人默认就有 -->
-        <el-checkbox :label="-1">发起人</el-checkbox>
-        <el-checkbox v-for="(item,index) in pconditions" :key="index" :label="item.formId">
+        <a-checkbox :label="-1">发起人</a-checkbox>
+        <a-checkbox v-for="(item,index) in pconditions" :key="index" :label="item.formId">
          {{item.label}}
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-dialog>
+        </a-checkbox>
+      </a-checkbox-group>
+    </a-dialog>
 
     <div class="actions">
-      <el-button size="small" @click="cancel">取消</el-button>
-      <el-button size="small" type="primary" @click="confirm">确定</el-button>
+      <a-button size="small" @click="cancel">取消</a-button>
+      <a-button size="small" type="primary" @click="confirm">确定</a-button>
     </div>
-  </el-drawer>
+  </a-drawer>
 </template>
 <script>
 import Clickoutside from "element-ui/src/utils/clickoutside"
@@ -412,7 +412,7 @@ export default {
         if(cValue === undefined || cValue === null){
           return 
         }
-        const numberTypeCmp = ['el-input-number','fc-date-duration','fc-time-duration','fc-amount', 'fc-calculate']
+        const numberTypeCmp = ['a-input-number','fc-date-duration','fc-time-duration','fc-amount', 'fc-calculate']
         if(numberTypeCmp.includes(t.tag)){
           if(cValue.type === 'bet'){
             const numVal = cValue.value
@@ -593,7 +593,7 @@ export default {
 </script>
 <style lang="stylus">
 .condition-dialog {
-  .el-dialog__header{
+  .a-dialog__header{
     border-bottom : 1px solid #eee;
   }
 }
@@ -601,13 +601,13 @@ export default {
 </style>
 <style lang="stylus" scoped>
 .drawer {
-  >>> .el-drawer__header {
+  >>> .a-drawer__header {
     margin-bottom: 0;
     border-bottom: 1px solid #c5c5c5;
     padding-bottom: 8px;
   }
 
-  >>> .el-drawer__body {
+  >>> .a-drawer__body {
     padding-bottom: 44px;
     overflow: hidden;
   }
@@ -616,15 +616,15 @@ export default {
     height: 100%;
   }
 
-  .pane-tab >>>  .el-tabs__item.is-top:nth-child(2) {
+  .pane-tab >>>  .a-tabs__item.is-top:nth-child(2) {
     padding-left: 20px;
   }
 
-  >>> .el-tabs__item:focus{
+  >>> .a-tabs__item:focus{
     box-shadow: none !important;
   }
 
-  >>> .el-tabs__header {
+  >>> .a-tabs__header {
     margin-bottom: 0;
   }
 }

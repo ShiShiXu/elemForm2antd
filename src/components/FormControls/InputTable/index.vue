@@ -1,6 +1,6 @@
 <template>
 <div class="fc-table-box" :class="[config.type]">
-  <el-table 
+  <a-table 
     v-if="['table', 'default'].includes(config.type)"
     :data="tableFormData" 
     border 
@@ -9,21 +9,21 @@
     v-bind="config.tableConf || {}"
     :show-summary="config['show-summary']"
     :summary-method="getTableSummaries">
-      <el-table-column width="50" align="center">
+      <a-table-column width="50" align="center">
         <!-- 序号 -->
         <template slot-scope="scope">
           <div class="row-action">
             <span class="index">
               {{scope.$index + 1}}
             </span>
-            <el-popconfirm title="确定删除该行数据吗？" @onConfirm="removeRow(scope.$index)">
-              <i slot="reference" class="el-icon-delete delete-btn"></i>
-            </el-popconfirm>
+            <a-popconfirm title="确定删除该行数据吗？" @onConfirm="removeRow(scope.$index)">
+              <i slot="reference" class="a-icon-delete delete-btn"></i>
+            </a-popconfirm>
           </div>
         </template>
-      </el-table-column>
+      </a-table-column>
       <!-- 组件列 -->
-      <el-table-column
+      <a-table-column
         v-for="(head, cindex) in tableData"
         :key="head.formId"
         :min-width="head['min-width']"
@@ -34,23 +34,23 @@
          </template>
         <template slot-scope="scope">
              <!-- 单选框组 多选框组 都替换成下拉 并添加options -->
-              <template v-if="['el-select', 'el-checkbox-group','el-radio-group'].includes(head.tag)">
-                <el-select  
+              <template v-if="['a-select', 'a-checkbox-group','a-radio-group'].includes(head.tag)">
+                <a-select  
                 v-model="tableFormData[scope.$index][cindex].value" placeholder="请选择"
-                :multiple="head.tag === 'el-checkbox-group' || getConfById(head.formId).multiple"
-                @change="onFormDataChange(scope.$index, cindex, 'el-select')"
+                :multiple="head.tag === 'a-checkbox-group' || getConfById(head.formId).multiple"
+                @change="onFormDataChange(scope.$index, cindex, 'a-select')"
                 > 
-                  <el-option
+                  <a-option
                     v-for="(opt, oindex) in head.options" 
                     :key="oindex"
                     :label="opt.label"
                     :value="opt.value">
-                  </el-option>
-                </el-select>
+                  </a-option>
+                </a-select>
               </template>
               <!-- 上传 -->
-              <template v-else-if="head.tag === 'el-upload'">
-                <el-upload
+              <template v-else-if="head.tag === 'a-upload'">
+                <a-upload
                 v-bind="getConfById(head.formId)" 
                 :on-success="(res) => onUploadSuccess(res, tableFormData[scope.$index][cindex])"
                 @mouseleave.native="hideUploadList"
@@ -59,7 +59,7 @@
                     已上传
                     {{tableFormData[scope.$index][cindex].value.length}}
                   </span>
-                </el-upload>
+                </a-upload>
               </template>
               <!-- 其他 -->
               <component 
@@ -75,14 +75,14 @@
                 不能为空
               </div>
         </template>
-      </el-table-column>
-    </el-table>
+      </a-table-column>
+    </a-table>
 
     <template v-if="config.type === 'list'">
       <div v-for="(row, rindex) in tableFormData" :key="rindex" class="list-row">
-        <el-tooltip content="删除">
-          <i class="el-icon-delete delete-btn" @click="removeRow(rindex)"></i>
-        </el-tooltip>
+        <a-tooltip content="删除">
+          <i class="a-icon-delete delete-btn" @click="removeRow(rindex)"></i>
+        </a-tooltip>
         <div v-for="(conf, cindex) in config.children" :key="cindex" class="row-item" :class="{error: !tableFormData[rindex][cindex].valid}">
           <div :style="{width: labelWidth}">
             <span style="color: #f56c6c;" v-if="conf.required">*</span>
@@ -118,10 +118,10 @@
           </div>
         </div>
     <div class="actions">
-      <el-button @click="addRow" type="text">
+      <a-button @click="addRow" type="text">
         <i class="el-icon-plus"></i>
         {{ config.actionText }}
-        </el-button>
+        </a-button>
     </div>
     
 </div>
@@ -197,7 +197,7 @@ export default {
       if (this.isAddRow) return
       const data = this.tableFormData[rowIndex][colIndex]
       data.required && (data.valid = this.checkData(data))
-      if (['fc-amount', 'el-input-number'].includes(tag)) { // 金额变动 更新数据 触发计算公式更新
+      if (['fc-amount', 'a-input-number'].includes(tag)) { // 金额变动 更新数据 触发计算公式更新
         const newVal = this.tableFormData.map(row => row.reduce((p, c) => (p[c.vModel] = c.value, p), {}))
         this.$emit('input', newVal)
         if (this.config.type === 'list') {
@@ -256,7 +256,7 @@ export default {
           vModel: t.vModel,
           required: t.required
         }
-        if(t.tag === 'el-upload') this.$set(res, 'value', t.defaultValue)
+        if(t.tag === 'a-upload') this.$set(res, 'value', t.defaultValue)
         return res
       })
     },
@@ -276,7 +276,7 @@ export default {
 
     getCmpValOfRow (row, key) {
       // 获取数字相关组件的输入值
-      const isNumCmp = tag => ['fc-amount','el-input-number', 'el-slider'].includes(tag)
+      const isNumCmp = tag => ['fc-amount','a-input-number', 'a-slider'].includes(tag)
       const target =  row.find(t => t.vModel === key)
       if (!target) return NaN
       if(isNumCmp(target.tag)) return target.value || 0
@@ -285,7 +285,7 @@ export default {
 
     getListSummaries () {
       this.tableData.forEach(row => {
-        const isNumCmp = tag => ['fc-amount','el-input-number', 'el-slider'].includes(tag)
+        const isNumCmp = tag => ['fc-amount','a-input-number', 'a-slider'].includes(tag)
         if (!isNumCmp(row.tag)) return
         const sum = this.tableFormData
             .reduce((sum, d) => sum + this.getCmpValOfRow(d, row.vModel), 0)
@@ -323,7 +323,7 @@ export default {
     showUploadList (ev) {
       const btn = ev.currentTarget
       const { offsetX, clientX, clientY, offsetY } = ev
-      const list = btn.querySelector('.el-upload-list--text')
+      const list = btn.querySelector('.a-upload-list--text')
       list && list.classList.add('show')
       const unit = v => v + 'px'
       list.style.left = unit(clientX - offsetX)
@@ -332,7 +332,7 @@ export default {
 
     hideUploadList (ev) {
       const btn = ev.currentTarget
-      const list = btn.querySelector('.el-upload-list--text')
+      const list = btn.querySelector('.a-upload-list--text')
       list && setTimeout(() => list.classList.remove('show'), 500)
     },
 
@@ -359,7 +359,7 @@ export default {
     display flex
     justify-content center
     align-items center
-    .el-icon-delete
+    .a-icon-delete
       position absolute
       opacity 0
       z-index -1
@@ -402,7 +402,7 @@ export default {
           .error-tip
             top 74%
             z-index 1
-          >>> .el-input__inner
+          >>> .a-input__inner
             border-color #F56C6C
         > div 
           &:first-child
@@ -429,32 +429,32 @@ export default {
 .fc-table-box.table >>> 
 
   // 索引和删除按钮切换
-  .el-table__row:hover
+  .a-table__row:hover
     .index
       display none
-    .el-icon-delete
+    .a-icon-delete
       z-index 9
       opacity 1
 
   // 去除输入框边框
-  .el-input__inner, .el-textarea__inner
+  .a-input__inner, .a-textarea__inner
     width 100%
     border none
     text-align left
     padding-right 10px
     padding-left 10px
-  .el-date-editor
-    .el-input__prefix
+  .a-date-editor
+    .a-input__prefix
       left -10px
       top 1px
-    .el-input__suffix
+    .a-input__suffix
       top 1px
       right 0
-  .el-input-number
+  .a-input-number
     width 100%
 
   // 下载按钮
-  .el-upload--text
+  .a-upload--text
     width 100%
     height 100%
     padding-top 6px
@@ -466,7 +466,7 @@ export default {
     min-height 40px !important
     padding-left 0 !important
 
-  .el-table .el-table__body
+  .a-table .a-table__body
     td
       padding 0
       background #FFF !important
@@ -510,10 +510,10 @@ export default {
   .fc-org-select
     position relative
 
-  .el-slider
+  .a-slider
     padding-left 10px
 
-  .el-upload-list--text
+  .a-upload-list--text
     position fixed
     margin-left -6px
     background white

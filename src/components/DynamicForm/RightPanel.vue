@@ -72,7 +72,7 @@
             <a-input v-model="activeData.defaultValue" />
           </a-form-model-item>
           
-          <a-form-model-item v-if="activeData.tag==='el-checkbox-group'" label="至少应选">
+          <a-form-model-item v-if="activeData.tag==='a-checkbox-group'" label="至少应选">
             <a-input-number
               :value="activeData.min"
               :min="0"
@@ -81,7 +81,7 @@
             />
           </a-form-model-item>
 
-          <a-form-model-item v-if="activeData.tag==='el-checkbox-group'" label="最多可选">
+          <a-form-model-item v-if="activeData.tag==='a-checkbox-group'" label="最多可选">
             <a-input-number
               :value="activeData.max"
               :min="0"
@@ -105,10 +105,10 @@
           <a-form-model-item v-if="activeData.step !== undefined" label="步长">
             <a-input-number v-model="activeData.step" placeholder="步数" />
           </a-form-model-item>
-          <a-form-model-item v-if="['el-input-number','fc-amount'].includes(activeData.tag)" label="精度">
+          <a-form-model-item v-if="['a-input-number','fc-amount'].includes(activeData.tag)" label="精度">
             <a-input-number v-model="activeData.precision" :min="0" placeholder="精度" />
           </a-form-model-item>
-          <a-form-model-item v-if="['el-input-number','fc-amount'].includes(activeData.tag)" label="按钮位置">
+          <a-form-model-item v-if="['a-input-number','fc-amount'].includes(activeData.tag)" label="按钮位置">
             <a-radio-group v-model="activeData['controls-position']" button-style="solid">
               <a-radio-button value="">默认</a-radio-button>
               <a-radio-button value="right">右侧</a-radio-button>
@@ -129,7 +129,7 @@
             </a-select>
           </a-form-model-item>
           <a-form-model-item
-            v-if="activeData.type !== undefined && ['el-date-picker','fc-date-duration'].includes(activeData.tag)"
+            v-if="activeData.type !== undefined && ['a-date-picker','fc-date-duration'].includes(activeData.tag)"
             label="时间类型"
           >
             <a-select
@@ -191,7 +191,7 @@
           </a-form-model-item>
           <a-form-model-item v-if="activeData.format !== undefined" label="时间格式">
             
-            <!-- <el-input
+            <!-- <a-input
               :value="activeData.format"
               placeholder="请输入时间格式"
               @input="setTimeValue($event)"
@@ -209,7 +209,7 @@
               placeholder="自动计算时长" @change="requireChange" />
           </a-form-model-item>
           <template
-            v-if="['el-checkbox-group', 'el-radio-group', 'el-select'].indexOf(activeData.tag) > -1"
+            v-if="['a-checkbox-group', 'a-radio-group', 'a-select'].indexOf(activeData.tag) > -1"
           >
             <a-divider>选项</a-divider>
             <draggable
@@ -220,9 +220,9 @@
             >
               <div v-for="(item, index) in activeData.options" :key="index" class="select-item">
                 <div class="select-line-icon option-drag">
-                  <i class="el-icon-s-operation" />
+                  <i class="a-icon-s-operation" />
                 </div>
-                <!-- <el-input v-model="item.label" placeholder="选项名" size="small" /> -->
+                <!-- <a-input v-model="item.label" placeholder="选项名" size="small" /> -->
                 <a-input
                   placeholder="选项值"
                   v-model="item.value"
@@ -232,14 +232,14 @@
                   class="close-btn select-line-icon"
                   @click="activeData.options.splice(index, 1)"
                 >
-                  <i class="el-icon-remove-outline" />
+                  <i class="a-icon-remove-outline" />
                 </div>
               </div>
             </draggable>
             <div style="margin-left: 20px;">
               <a-button
                 style="padding-bottom: 0"
-                icon="el-icon-circle-plus-outline"
+                icon="a-icon-circle-plus-outline"
                 type="text"
                 @click="addSelectItem"
               >添加选项</a-button>
@@ -247,7 +247,7 @@
             <a-divider />
           </template>
 
-          <template v-if="['el-cascader'].indexOf(activeData.tag) > -1">
+          <template v-if="['a-cascader'].indexOf(activeData.tag) > -1">
             <a-divider>选项</a-divider>
             <a-form-model-item label="数据类型">
               <a-radio-group v-model="activeData.dataType" button-style="solid">
@@ -268,7 +268,7 @@
               </a-form-model-item>
             </template>
            
-            <!-- <el-tree
+            <!-- <a-tree
               v-if="activeData.dataType === 'static'"
               draggable
               :data="activeData.options"
@@ -288,7 +288,7 @@
             <div v-if="activeData.dataType === 'static'" style="margin-left: 20px">
               <a-button
                 style="padding-bottom: 0"
-                icon="el-icon-circle-plus-outline"
+                icon="a-icon-circle-plus-outline"
                 type="text"
                 @click="addTreeItem"
               >添加父级</a-button>
@@ -304,10 +304,10 @@
             </a-radio-group>
           </a-form-model-item>
           <!-- <a-form-model-item v-if="activeData['active-color'] !== undefined" label="开启颜色">
-            <el-color-picker v-model="activeData['active-color']" />
+            <a-color-picker v-model="activeData['active-color']" />
           </a-form-model-item>
           <a-form-model-item v-if="activeData['inactive-color'] !== undefined" label="关闭颜色">
-            <el-color-picker v-model="activeData['inactive-color']" />
+            <a-color-picker v-model="activeData['inactive-color']" />
           </a-form-model-item> -->
 
           <a-form-model-item v-if="activeData['allow-half'] !== undefined" label="允许半选">
@@ -333,20 +333,20 @@
           >
             <a-switch v-model="activeData.border" />
           </a-form-model-item>-->
-          <!-- <a-form-model-item v-if="activeData.tag === 'el-color-picker'" label="颜色格式">
-            <el-select
+          <!-- <a-form-model-item v-if="activeData.tag === 'a-color-picker'" label="颜色格式">
+            <a-select
               v-model="activeData['color-format']"
               placeholder="请选择颜色格式"
               :style="{ width: '100%' }"
               @change="colorFormatChange"
             >
-              <el-option
+              <a-option
                 v-for="(item, index) in colorFormatOptions"
                 :key="index"
                 :label="item.label"
                 :value="item.value"
               />
-            </el-select>
+            </a-select>
           </a-form-model-item> -->
 
           <template v-if="activeData.tag === 'fc-org-select'">
@@ -398,7 +398,7 @@
               </a-form-model-item>
 
               <a-form-model-item label="渐变动画" v-if="activeData.tagConfig['disable-transitions'] !== undefined">
-                  <!-- <el-switch v-model="activeData.tagConfig['disable-transitions']" 
+                  <!-- <a-switch v-model="activeData.tagConfig['disable-transitions']" 
                     :inactive-value="true" :active-value="false" 
                     placeholder="请输入" /> -->
                   <a-switch  placeholder="请输入" @change="onTransitionsSwitch" />
@@ -416,7 +416,7 @@
             v-if="activeData.size !== undefined &&
               (activeData.optionType === 'button' ||
                 activeData.border ||
-                activeData.tag === 'el-color-picker')"
+                activeData.tag === 'a-color-picker')"
             label="选项尺寸"
           >
             <a-radio-group v-model="activeData.size" button-style="solid">
@@ -425,10 +425,10 @@
               <a-radio-button value="mini">迷你</a-radio-button>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item v-if="activeData.tag === 'el-cascader'" label="是否多选">
+          <a-form-model-item v-if="activeData.tag === 'a-cascader'" label="是否多选">
             <a-switch v-model="activeData.props.props.multiple" />
           </a-form-model-item>
-          <a-form-model-item v-if="activeData.tag === 'el-cascader'" label="可否筛选">
+          <a-form-model-item v-if="activeData.tag === 'a-cascader'" label="可否筛选">
             <a-switch v-model="activeData.filterable" />
           </a-form-model-item>
           <a-form-model-item v-if="activeData.showTip !== undefined" label="显示提示">
@@ -436,7 +436,7 @@
           </a-form-model-item>
           
           <a-form-model-item
-            v-if="activeData.tag === 'el-upload' && activeData.multiple !== undefined"
+            v-if="activeData.tag === 'a-upload' && activeData.multiple !== undefined"
             label="多选文件"
           >
             <a-switch v-model="activeData.multiple" />
@@ -477,11 +477,11 @@
             <a-switch v-model="activeData.asSummary"  />
           </a-form-model-item>
 
-          <a-form-model-item v-if="activeData.tag === 'el-select'" label="是否可搜索">
+          <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否可搜索">
             <a-switch v-model="activeData.filterable" />
           </a-form-model-item>
           
-          <a-form-model-item v-if="activeData.tag === 'el-select'" label="是否多选">
+          <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否多选">
             <a-switch v-model="activeData.multiple" @change="multipleChange" />
           </a-form-model-item>
 
@@ -645,7 +645,7 @@ export default {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
       expressionTemp: [],
-      proConditionCmp: ["el-input-number", "el-select", "el-radio-group"], // 可作为流程图条件的组件
+      proConditionCmp: ["a-input-number", "a-select", "a-radio-group"], // 可作为流程图条件的组件
       currentTab: "field",
       currentNode: null,
       dialogVisible: false,
@@ -771,7 +771,7 @@ export default {
     dateOptions() {
       if (
         this.activeData.type !== undefined &&
-        ['el-date-picker','fc-date-duration'].includes(this.activeData.tag)
+        ['a-date-picker','fc-date-duration'].includes(this.activeData.tag)
       ) {
         if (this.activeData["start-placeholder"] === undefined) {
           return this.dateTypeOptions;
@@ -800,7 +800,7 @@ export default {
           loop(data.children, data)
         }
         if(Array.isArray(data)) data.forEach(d => loop(d, parent)) 
-        if (['el-input-number', 'fc-amount'].includes(data.tag)){
+        if (['a-input-number', 'fc-amount'].includes(data.tag)){
           const isTableChild = parent && parent.rowType === 'table'
           calcList.push({
             vModel: isTableChild ? parent.vModel + '.' + data.vModel : data.vModel,
@@ -899,12 +899,12 @@ export default {
           <span class="node-operation">
             <i
               on-click={() => this.append(data)}
-              class="el-icon-plus"
+              class="a-icon-plus"
               title="添加"
             ></i>
             <i
               on-click={() => this.remove(node, data)}
-              class="el-icon-delete"
+              class="a-icon-delete"
               title="删除"
             ></i>
           </span>
@@ -988,10 +988,9 @@ export default {
       this.$set(this.activeData, "options", data);
 
     },
-    onDragEnter() {
-
-    },
-    setOptionValue(item, val) {
+    onDragEnter() {},
+    setOptionValue(item, event) {
+      let val = event.target.value;
       let res = isNumberStr(val) ? +val : val;
       item.label = res;
       item.value = res;
@@ -1155,7 +1154,7 @@ export default {
     .scrollbar();
   }
 
-  .el-scrollbar {
+  .div {
     height: calc(100% - 48px);
   }
 }

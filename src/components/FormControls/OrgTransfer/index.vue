@@ -34,7 +34,7 @@
               </el-tooltip>
             </span>
           </div>
-          <el-scrollbar class="transfer-pane__body shadow right-pane">
+          <div class="transfer-pane__body shadow right-pane">
             <template v-for="type in tabKeys">
               <div
                 v-for="(item, index) in selectedData[type]"
@@ -69,7 +69,7 @@
                 ></i>
               </div>
             </template>
-          </el-scrollbar>
+          </div>
           <footer class="transfer__footer">
             <el-button type="info" plain size="mini" @click="confirm" >确定</el-button >
             <el-button plain size="mini" @click="closeTransfer">取消</el-button>
@@ -103,7 +103,7 @@
               </div>
             </div>
 
-            <el-scrollbar style="height:100%;">
+            <div style="height:100%;">
               <el-tabs
                 v-model="activeTabName"
                 type="border-card"
@@ -128,7 +128,7 @@
                   </el-tree>
                 </el-tab-pane>
               </el-tabs>
-            </el-scrollbar>
+            </div>
           </div>
         </div>
       </div>

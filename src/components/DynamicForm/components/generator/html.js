@@ -18,13 +18,13 @@ let someSpanIsNot24
 console.log("**************** html.js run **************");
 
 export function dialogWrapper ( str ) {
-  return `<el-dialog v-bind="$attrs" v-on="$listeners" @open="onOpen" @close="onClose" title="Dialog Titile">
+  return `<a-dialog v-bind="$attrs" v-on="$listeners" @open="onOpen" @close="onClose" title="Dialog Titile">
     ${str}
     <div slot="footer">
-      <el-button @click="close">取消</el-button>
-      <el-button type="primary" @click="handelConfirm">确定</el-button>
+      <a-button @click="close">取消</a-button>
+      <a-button type="primary" @click="handelConfirm">确定</a-button>
     </div>
-  </el-dialog>`
+  </a-dialog>`
 }
 
 export function vueTemplate ( str ) {
@@ -53,14 +53,14 @@ function buildFormTemplate ( conf, child, type ) {
     labelPosition = `label-position="${conf.labelPosition}"`
   }
   const disabled = conf.disabled ? `:disabled="${conf.disabled}"` : ''
-  let str = `<el-form ref="${conf.formRef}" :model="formData" :rules="ruleList" size="${conf.size}" ${disabled} label-width="${conf.labelWidth}px" ${labelPosition}>
+  let str = `<a-form ref="${conf.formRef}" :model="formData" :rules="ruleList" size="${conf.size}" ${disabled} label-width="${conf.labelWidth}px" ${labelPosition}>
       ${child}
       ${buildFromBtns( conf, type )}
-    </el-form>`
+    </a-form>`
   if ( someSpanIsNot24 ) {
-    str = `<el-row :gutter="${conf.gutter}">
+    str = `<a-row :gutter="${conf.gutter}">
         ${str}
-      </el-row>`
+      </a-row>`
   }
   return str
 }
@@ -68,14 +68,14 @@ function buildFormTemplate ( conf, child, type ) {
 function buildFromBtns ( conf, type ) {
   let str = ''
   if ( conf.formBtns && type === 'file' ) {
-    str = `<el-form-item  style="text-align:right;">
-          <el-button type="primary" @click="submitForm">提交</el-button>
-          <el-button @click="resetForm">重置</el-button>
-        </el-form-item>`
+    str = `<a-form-item  style="text-align:right;">
+          <a-button type="primary" @click="submitForm">提交</a-button>
+          <a-button @click="resetForm">重置</a-button>
+        </a-form-item>`
     if ( someSpanIsNot24 ) {
-      str = `<el-col :span="24">
+      str = `<a-col :span="24">
           ${str}
-        </el-col>`
+        </a-col>`
     }
   }
   return str
@@ -84,9 +84,9 @@ function buildFromBtns ( conf, type ) {
 // span不为24的用el-col包裹
 function colWrapper ( element, str ) {
   if ( someSpanIsNot24 || element.span !== 24 ) {
-    return `<el-col :span="${element.span}">
+    return `<a-col :span="${element.span}">
       ${str}
-    </el-col>`
+    </a-col>`
   }
   return str
 }
@@ -106,9 +106,9 @@ const layouts = {
     const tagDom = tags[element.tag] ? tags[element.tag]( element ) : null
     const tableTitle = noFormItem ? `<div style="font-size: 14px;padding:6px 0px;margin-bottom: 4px;border-bottom: 1px solid #e5e5e5;">${element.label}</div>` : ''
     let str = `${tableTitle}
-      <el-form-item ${labelWidth} ${label} ${prop}  ${required} ${rules}>
+      <a-form-item ${labelWidth} ${label} ${prop}  ${required} ${rules}>
         ${tagDom}
-      </el-form-item>`
+      </a-form-item>`
     str = colWrapper( element, str )
     return str
   },
@@ -123,21 +123,21 @@ const layouts = {
     const children = element.children.map( ( el ) => layouts[el.layout]( el ) )
     const explain = element.cmpType === 'custom' && element.explain
       ? `
-      <el-tooltip effect="dark" content="组件说明" placement="top">
-        <i class="el-icon-info"   
+      <a-tooltip effect="dark" content="组件说明" placement="top">
+        <i class="a-icon-info"   
           @click="showExplain(\`${element.explain}\`, '${element.label}')" 
           style="margin-right: 8px; color: #E6A23C;cursor: pointer;">
         </i>
-      </el-tooltip>
+      </a-tooltip>
       `
       : ''
-    const divider = element.showDivider ? `<el-divider content-position="left" >${explain + element.label}</el-divider>` : ''
+    const divider = element.showDivider ? `<a-divider content-position="left" >${explain + element.label}</a-divider>` : ''
     const rowClass = `class="form-container ${element.showDivider ? 'showDivider' : ''}"`
     let str = `
     ${divider}
-    <el-row ${rowClass} ${type} ${justify} ${align} ${gutter}>
+    <a-row ${rowClass} ${type} ${justify} ${align} ${gutter}>
       ${children.join( '\n' )}
-    </el-row>
+    </a-row>
     `
     str = colWrapper( element, str )
     return str
@@ -159,7 +159,7 @@ const addPropToTag = ( tag, ...props ) => {
 }
 
 const tags = {
-  'el-input': el => {
+  'a-input': el => {
     const {
       disabled, vModel, clearable, placeholder, width
     } = attrBuilder( el )
@@ -178,7 +178,7 @@ const tags = {
     if ( child ) child = `\n${child}\n` // 换行
     return `<${el.tag} ${vModel} ${type} ${placeholder} ${maxlength} ${showWordLimit} ${readonly} ${disabled} ${clearable} ${prefixIcon} ${suffixIcon} ${showPassword} ${autosize} ${width}>${child}</${el.tag}>`
   },
-  'el-input-number': el => {
+  'a-input-number': el => {
     const { disabled, vModel, placeholder, width } = attrBuilder( el )
     const controlsPosition = el['controls-position'] ? `controls-position=${el['controls-position']}` : ''
     const min = el.min ? `:min='${el.min}'` : ''
@@ -200,7 +200,7 @@ const tags = {
     return createTagHTML( el.tag, vModel, tabList, title, searchable, maxNum, tagConfig, buttonType, disabled, placeholder, width )
   },
   'fc-amount': function ( el ) {
-    const tag = this['el-input-number']( el )
+    const tag = this['a-input-number']( el )
     const showChinese = el.showChinese ? `:showChinese='${el.showChinese}'` : ''
     return addPropToTag( tag, showChinese )
   },
@@ -211,7 +211,7 @@ const tags = {
     const expression = `:expression="${el.vModel}Exps" `
     return createTagHTML( el.tag, vModel, showChinese, formData, expression )
   },
-  'el-select': el => {
+  'a-select': el => {
     const {
       disabled, vModel, clearable, placeholder, width
     } = attrBuilder( el )
@@ -222,7 +222,7 @@ const tags = {
     if ( child ) child = `\n${child}\n` // 换行
     return `<${el.tag} ${vModel} ${placeholder} ${disabled} ${multiple} ${filterable} ${clearable} ${width}>${child}</${el.tag}>`
   },
-  'el-radio-group': el => {
+  'a-radio-group': el => {
     const { disabled, vModel } = attrBuilder( el )
     const size = `size="${el.size}"`
     let child = buildElRadioGroupChild( el )
@@ -230,7 +230,7 @@ const tags = {
     if ( child ) child = `\n${child}\n` // 换行
     return `<${el.tag} ${vModel} ${size} ${disabled}>${child}</${el.tag}>`
   },
-  'el-checkbox-group': el => {
+  'a-checkbox-group': el => {
     const { disabled, vModel } = attrBuilder( el )
     const size = `size="${el.size}"`
     const min = el.min ? `:min="${el.min}"` : ''
@@ -240,7 +240,7 @@ const tags = {
     if ( child ) child = `\n${child}\n` // 换行
     return `<${el.tag} ${vModel} ${min} ${max} ${size} ${disabled}>${child}</${el.tag}>`
   },
-  'el-switch': el => {
+  'a-switch': el => {
     const { disabled, vModel } = attrBuilder( el )
     const activeText = el['active-text'] ? `active-text="${el['active-text']}"` : ''
     const inactiveText = el['inactive-text'] ? `inactive-text="${el['inactive-text']}"` : ''
@@ -251,7 +251,7 @@ const tags = {
 
     return `<${el.tag} ${vModel} ${activeText} ${inactiveText} ${activeColor} ${inactiveColor} ${activeValue} ${inactiveValue} ${disabled}></${el.tag}>`
   },
-  'el-cascader': el => {
+  'a-cascader': el => {
     const {
       disabled, vModel, clearable, placeholder, width
     } = attrBuilder( el )
@@ -263,7 +263,7 @@ const tags = {
 
     return `<${el.tag} ${vModel} ${options} ${props} ${width} ${showAllLevels} ${placeholder} ${separator} ${filterable} ${clearable} ${disabled}></${el.tag}>`
   },
-  'el-slider': el => {
+  'a-slider': el => {
     const { disabled, vModel } = attrBuilder( el )
     const min = el.min ? `:min='${el.min}'` : ''
     const max = el.max ? `:max='${el.max}'` : ''
@@ -273,7 +273,7 @@ const tags = {
 
     return `<${el.tag} ${min} ${max} ${step} ${vModel} ${range} ${showStops} ${disabled}></${el.tag}>`
   },
-  'el-time-picker': el => {
+  'a-time-picker': el => {
     const {
       disabled, vModel, clearable, placeholder, width
     } = attrBuilder( el )
@@ -287,11 +287,11 @@ const tags = {
     return `<${el.tag} ${vModel} ${isRange} ${format} ${valueFormat} ${pickerOptions} ${width} ${placeholder} ${startPlaceholder} ${endPlaceholder} ${rangeSeparator} ${clearable} ${disabled}></${el.tag}>`
   },
   'fc-time-duration': function ( el ) {
-    const tag = this['el-time-picker']( el )
+    const tag = this['a-time-picker']( el )
     const showDuration = el.showDuration ? `:showDuration='${el.showDuration}'` : ''
     return addPropToTag( tag, showDuration )
   },
-  'el-date-picker': el => {
+  'a-date-picker': el => {
     const {
       disabled, vModel, clearable, placeholder, width
     } = attrBuilder( el )
@@ -305,11 +305,11 @@ const tags = {
     return `<${el.tag} ${type} ${vModel} ${format} ${valueFormat} ${width} ${placeholder} ${startPlaceholder} ${endPlaceholder} ${rangeSeparator} ${clearable} ${readonly} ${disabled}></${el.tag}>`
   },
   'fc-date-duration': function ( el ) {
-    const tag = this['el-date-picker']( el )
+    const tag = this['a-date-picker']( el )
     const showDuration = el.showDuration ? `:showDuration='${el.showDuration}'` : ''
     return addPropToTag( tag, showDuration )
   },
-  'el-rate': el => {
+  'a-rate': el => {
     const { disabled, vModel } = attrBuilder( el )
     const max = el.max ? `:max='${el.max}'` : ''
     const allowHalf = el['allow-half'] ? 'allow-half' : ''
@@ -318,7 +318,7 @@ const tags = {
 
     return `<${el.tag} ${vModel} ${allowHalf} ${showText} ${showScore} ${disabled}></${el.tag}>`
   },
-  'el-color-picker': el => {
+  'a-color-picker': el => {
     const { disabled, vModel } = attrBuilder( el )
     const size = `size="${el.size}"`
     const showAlpha = el['show-alpha'] ? 'show-alpha' : ''
@@ -326,7 +326,7 @@ const tags = {
 
     return `<${el.tag} ${vModel} ${size} ${showAlpha} ${colorFormat} ${disabled}></${el.tag}>`
   },
-  'el-upload': el => {
+  'a-upload': el => {
 
     const disabled = el.disabled ? ':disabled=\'true\'' : ''
     const action = el.action ? `:action="field${el.formId}Action"` : ''
@@ -364,7 +364,7 @@ function attrBuilder ( el ) {
   }
 }
 
-// el-input innerHTML
+// a-input innerHTML
 function buildElInputChild ( conf ) {
   const children = []
   if ( conf.prepend ) {
@@ -379,7 +379,7 @@ function buildElInputChild ( conf ) {
 function buildElSelectChild ( conf ) {
   const children = []
   if ( conf.options && conf.options.length ) {
-    children.push( `<el-option v-for="(item, index) in field${conf.formId}Options" :key="index" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>` )
+    children.push( `<a-option v-for="(item, index) in field${conf.formId}Options" :key="index" :label="item.label" :value="item.value" :disabled="item.disabled"></a-option>` )
   }
   return children.join( '\n' )
 }
@@ -387,7 +387,7 @@ function buildElSelectChild ( conf ) {
 function buildElRadioGroupChild ( conf ) {
   const children = []
   if ( conf.options && conf.options.length ) {
-    const tag = conf.optionType === 'button' ? 'el-radio-button' : 'el-radio'
+    const tag = conf.optionType === 'button' ? 'a-radio-button' : 'a-radio'
     const border = conf.border ? 'border' : ''
     children.push( `<${tag} v-for="(item, index) in field${conf.formId}Options" :key="index" :label="item.value" :disabled="item.disabled" ${border}>{{item.label}}</${tag}>` )
   }
@@ -397,7 +397,7 @@ function buildElRadioGroupChild ( conf ) {
 function buildElCheckboxGroupChild ( conf ) {
   const children = []
   if ( conf.options && conf.options.length ) {
-    const tag = conf.optionType === 'button' ? 'el-checkbox-button' : 'el-checkbox'
+    const tag = conf.optionType === 'button' ? 'a-checkbox-button' : 'a-checkbox'
     const border = conf.border ? 'border' : ''
     children.push( `<${tag} v-for="(item, index) in field${conf.formId}Options" :key="index" :label="item.value" :disabled="item.disabled" ${border}>{{item.label}}</${tag}>` )
   }
@@ -406,19 +406,19 @@ function buildElCheckboxGroupChild ( conf ) {
 
 function buildElUploadChild ( conf ) {
   const list = []
-  if ( conf['list-type'] === 'picture-card' ) list.push( '<i class="el-icon-plus"></i>' )
-  else list.push( `<el-button size="small" type="primary" icon="el-icon-upload">${conf.buttonText}</el-button>` )
-  if ( conf.showTip ) list.push( `<div slot="tip" class="el-upload__tip">只能上传不超过 ${conf.fileSize}${conf.sizeUnit} 的${conf.accept}文件</div>` )
+  if ( conf['list-type'] === 'picture-card' ) list.push( '<i class="a-icon-plus"></i>' )
+  else list.push( `<a-button size="small" type="primary" icon="a-icon-upload">${conf.buttonText}</a-button>` )
+  if ( conf.showTip ) list.push( `<div slot="tip" class="a-upload__tip">只能上传不超过 ${conf.fileSize}${conf.sizeUnit} 的${conf.accept}文件</div>` )
   return list.join( '\n' )
 }
 
 function buildDrawer () {
   return `
-  <el-drawer
+  <a-drawer
     :title="drawerTitle + '说明'"
     :visible.sync="drawerVisible">
     <pre style="padding-left: 1rem;">{{drawerText}}</pre>
-  </el-drawer>
+  </a-drawer>
   `
 }
 
