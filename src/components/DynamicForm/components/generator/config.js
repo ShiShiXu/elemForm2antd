@@ -543,7 +543,8 @@ export const layoutComponents = [{
 export const commonComponents = [...inputComponents, ...selectComponents, ...layoutComponents]
   .map(t => Object.assign({ cmpType: 'common' }, t))
 
-const getConfigByTag = (targetList, tag) => targetList.find(t => t.tag === tag)
+const getConfigByTag = (targetList, tag) => targetList.find(t => t.tag === tag);
+
 const copyConfigAsCustom = (rowConf, childrenConf) => {
   const clone = (target, conf = {}) => {
     const template = JSON.parse(JSON.stringify(target))
@@ -552,7 +553,8 @@ const copyConfigAsCustom = (rowConf, childrenConf) => {
   const defaultRow = clone(layoutComponents[0], rowConf)
   defaultRow.children = childrenConf.map(t => clone(t.target, t.config))
   return defaultRow
-}
+};
+
 // 定制组件添加cmpType = custom
 export const customMadeComponents = [
   copyConfigAsCustom({ label: '请假组件', explain: null }, [
@@ -686,6 +688,9 @@ export const customMadeComponents = [
       }
     }
   ])]
+
+console.log("customMadeComponents:", customMadeComponents);
+
 // .map( t => Object.assign( { cmpType: 'custom', t } ) )
 // 组件rule的触发方式，无触发方式的组件不生成rule
 // inputTable组件也有一份此常量的copy 如有改动 最好同步

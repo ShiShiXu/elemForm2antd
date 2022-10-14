@@ -23,8 +23,9 @@ const makeMap = ( attrStr, expectsLowerCase ) => {
 const isAttr = makeMap( AttrList )
 const vModel = ( self, vNode, value ) => {
   vNode.props.value = value.value
-  vNode.on.input = val => {
-    self.$emit( 'input', val )
+  vNode.on.input = event => {
+    console.log("inputTable event **** :", event);
+    self.$emit( 'input', event )
   }
 }
 const componentChild = {

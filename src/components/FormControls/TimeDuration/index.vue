@@ -8,12 +8,12 @@
 import { timeCalculate } from '@/utils' 
 const defaultVal = ['','']
 export default {
+  name: 'fc-time-duration',
   model:{
     prop: 'value',
     event: 'change'
   },
   props:["value", "cmpType", "showDuration", "tag", "tagIcon", "defaultValue", "labelWidth", "clearable", "is-range", "range-separator", "start-placeholder", "end-placeholder", "format", "value-format", "regList", "changeTag", "proCondition", "asSummary", "formId", "renderKey", "layout", "value"],
-  name: 'fc-time-duration',
   data(){
     return {
       timeRange: this.value || this.defaultValue || defaultVal ,

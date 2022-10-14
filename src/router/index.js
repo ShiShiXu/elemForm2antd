@@ -33,11 +33,11 @@ const routes = [
       keepAlive: false
     }
   },
-  {
-    path: '/test',
-    name: 'test',
-    component: () => import( "@/views/custom/test.vue" )
-  },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import( "@/views/custom/test.vue" )
+  // },
 ]
 
 const router = new VueRouter( {

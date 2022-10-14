@@ -35,11 +35,11 @@
 </template>
 <script>
 export default {
+  name:'fc-org-select',
   model:{
     prop: 'value',
     event: 'input'
   },
-  name:'fc-org-select',
   props:{
     value:{
       type: Object | null,

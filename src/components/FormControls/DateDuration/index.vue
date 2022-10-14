@@ -7,12 +7,12 @@
 <script>
 import { timeCalculate } from '@/utils' 
 export default {
+  name: 'fc-date-duration',
   model:{
     prop: 'value',
     event: 'change'
   },
   props:["value","cmpType", "showDuration","tag", "tagIcon", "defaultValue", "labelWidth", "range-separator", "start-placeholder", "end-placeholder", "clearable", "format", "value-format", "regList", "changeTag", "proCondition", "asSummary", "formId", "renderKey", "layout", "value"],
-  name: 'fc-date-duration',
   data(){
     return {
       timeRange: this.value || this.defaultValue || ['', ''],

@@ -84,13 +84,24 @@ const componentChild = {
 
 
 function vModel ( self, dataObject, defaultValue ) {
-  console.log("self:", self);
-  dataObject.props.value = defaultValue
-  dataObject.on.input = val => {
+  // console.log("self:", self);
+  dataObject.props.value = defaultValue;
+
+
+  dataObject.on.input = val => { // elementUI input 绑定
     // console.log(val);
     self.$emit( 'input', val );
-    // self.$emit( 'input', val );
   }
+  
+  // dataObject.on.input = event => { // Antd input 绑定
+  //   console.log("render input:", event);
+  //   if( typeof event === 'object' ) {
+  //     self.$emit( 'input', event.target.value);
+  //   } else {
+  //     self.$emit( 'input', event);
+  //   }
+  // }
+
 }
 
 export default {
@@ -103,7 +114,7 @@ export default {
       on: {},
       style: {}
     }
-    console.log("this.conf:", this.conf);
+    // console.log("this.conf:", this.conf);
     const confClone = JSON.parse( JSON.stringify( this.conf ) )
     const children = []
 
@@ -119,7 +130,7 @@ export default {
 
     Object.keys( confClone ).forEach( key => {
       const val = confClone[key];
-      console.log("key", key);
+      // console.log("key", key);
 
       if ( key === 'vModel' ) {
         vModel( this, dataObject, confClone.defaultValue )

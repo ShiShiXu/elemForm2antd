@@ -2,7 +2,7 @@
   <div class="preview-container" :style="{width: containerWidth + '%'}">
     <div id="customForm" style="margin: 50px auto;"></div>
     <div  class="width-slider">
-      <el-slider v-model="containerWidth" :min="30" :max="96"></el-slider>
+      <a-slider v-model="containerWidth" :min="30" :max="96"></a-slider>
     </div>
   </div>
 </template>

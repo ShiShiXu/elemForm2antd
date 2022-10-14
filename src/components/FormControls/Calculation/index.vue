@@ -7,6 +7,7 @@
 <script>
 import { getAmountChinese, mergeNumberOfExps, validExp, toRPN, calcRPN, debounce } from '@/utils'
 export default {
+  name: 'fc-calculate',
   model:{
     prop: 'value',
     event: 'change'
@@ -20,7 +21,6 @@ export default {
     "expression",
     "rowIndex" // 计算公式放在表格中时， 需要获取在表格中的行位置
   ],
-  name: 'fc-calculate',
   data(){
     console.log(toRPN(mergeNumberOfExps(this.expression)))
     return {

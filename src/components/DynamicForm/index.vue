@@ -330,7 +330,6 @@ export default {
       return len ? cmp.label + len : cmp.label
     },
     addComponent(tagMsg) {
-      console.log("addComponent data:", tagMsg);
       const clone = this.cloneComponent(tagMsg);
       this.drawingList.push(clone);
       this.activeFormItem(clone);

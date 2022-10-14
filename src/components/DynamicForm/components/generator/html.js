@@ -15,6 +15,8 @@ import { isArray } from 'util'
 let confGlobal
 let someSpanIsNot24
 
+console.log("**************** html.js run **************");
+
 export function dialogWrapper ( str ) {
   return `<el-dialog v-bind="$attrs" v-on="$listeners" @open="onOpen" @close="onClose" title="Dialog Titile">
     ${str}
