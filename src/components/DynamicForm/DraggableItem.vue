@@ -53,7 +53,11 @@ const layouts = {
             key={element.renderKey} 
             conf={element} 
             onInput={ event => {
-              console.log("render onInput:", event);
+              console.log("Render onInput:", event);
+              this.$set(element, 'defaultValue', event);
+            }}
+            onChange={ event => {
+              console.log("Render onChange:", event);
               this.$set(element, 'defaultValue', event);
             }}
           />

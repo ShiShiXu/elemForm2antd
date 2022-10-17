@@ -92,6 +92,10 @@ function vModel ( self, dataObject, defaultValue ) {
     // console.log(val);
     self.$emit( 'input', val );
   }
+  dataObject.on.change = val => { // elementUI input 绑定
+    // console.log(val);
+    self.$emit( 'change', val );
+  }
   
   // dataObject.on.input = event => { // Antd input 绑定
   //   console.log("render input:", event);
