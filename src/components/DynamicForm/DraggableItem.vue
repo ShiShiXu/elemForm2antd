@@ -42,11 +42,30 @@ const layouts = {
     const { activeItem } = this.$listeners
     let className = this.activeId === element.formId ? 'drawing-item active-from-item' : 'drawing-item'
     if (this.formConf.unFocusedComponentBorder) className += ' unfocus-bordered'
-  
+    
+    return (
+        <a-col span={element.span} class={className} nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
+
+            <a-form-item class={"cst-ant-form-item"} label={element.label} labelCol={{ span: 6 }} wrapperCol={{ flex: 5 }}
+              nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }} required={element.required}>
+              <render 
+                    key={element.renderKey} 
+                    conf={element} 
+                    onInput={ event => {
+                      console.log("render onInput:", event);
+                      this.$set(element, 'defaultValue', event);
+                    }}
+                  />
+            </a-form-item>
+
+          { components.itemBtns.apply(this, arguments)}
+
+        </a-col>
+    )
+
     return (
 
-      <a-col span={element.span} class={className}
-        nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
+      <a-col span={element.span} class={className} nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
 
           <a-form-item label-width={element.labelWidth ? `${element.labelWidth}px` : null}
             label={element.label} required={element.required}>

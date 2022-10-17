@@ -1,6 +1,18 @@
 <template>
   <div>
-    <el-date-picker v-model="timeRange" v-bind="{...$props, ...$attrs}" v-on="$listeners" ></el-date-picker>
+    <!-- <a-date-picker
+      v-model="timeRange"
+      v-bind="{...$props, ...$attrs}"
+      v-on="$listeners"
+    ></a-date-picker> -->
+
+    <el-date-picker
+      v-model="timeRange"
+      v-bind="{...$props, ...$attrs}"
+      v-on="$listeners"
+    >
+    </el-date-picker>
+
     <div v-if="showDuration" class="explain-text">时长: {{duration}}</div>
   </div>
 </template>
@@ -20,7 +32,7 @@ export default {
     }
   },
   watch:{
-    'timeRange':{
+    'timeRange': {
       handler:  function(val){
         let res = ''
         if (Array.isArray(this.timeRange)) {
@@ -42,7 +54,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .explain-text {
   font-size: 12px;
   color: #aaa;

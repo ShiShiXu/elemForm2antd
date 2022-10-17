@@ -177,7 +177,7 @@ let oldActiveId;
 let tempActiveData;
 const formConfInDB = getFormConf();
 export default {
-  name: "MainPage",
+  name: "Home",
   components: {
     draggable,
     render,
@@ -606,18 +606,11 @@ export default {
 <style lang="less">
 
 @import './styles/home.less';
-@import './styles/common.less';
+@import '~@/assets/style/global.less';
 
 .center-scrollbar {
   height: 100%;
   .scrollbar();
-
-  .center-board-row {
-    height: 100%;
-    .center-board-form {
-      height: 100%;
-    }
-  }
 }
 
 #ipad {

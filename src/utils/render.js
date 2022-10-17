@@ -26,13 +26,42 @@ const isAttr = makeMap(
 
 function vModel ( self, dataObject, value ) {
   dataObject.props.value = value
-  dataObject.on.input = val => {
-    self.$emit( 'input', val )
-  }
-  // 因为有些组件的v-model绑定的事件是change 所以这里也得监听
-  dataObject.on.change = val => {
-    self.$emit( 'input', val )
-  }
+  // dataObject.on.input = val => {
+  //   self.$emit( 'input', val )
+  // }
+  // // 因为有些组件的v-model绑定的事件是change 所以这里也得监听
+  // dataObject.on.change = val => {
+  //   self.$emit( 'input', val )
+  // }
+
+  
+
+let check = (data) =>{
+  return Object.prototype.toString.call(data);
+}
+
+// Antd input 绑定
+dataObject.on = {
+  input: event => { 
+    console.log("render input 1:", event);
+
+    if( check(event) === '[object InputEvent]' ) {
+      self.$emit( 'input', event.target.value);
+    } else {
+      self.$emit( 'input', event);
+    } 
+  },
+  change: event => { 
+    console.log("render input 2:", event);
+
+    if( check(event) === '[object InputEvent]' ) {
+      self.$emit( 'input', event.target.value);
+    } else {
+      self.$emit( 'input', event);
+    } 
+  },
+}
+
 }
 
 const componentChild = {
@@ -91,6 +120,7 @@ const componentChild = {
     }
   }
 }
+
 
 export default {
   create(){

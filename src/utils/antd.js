@@ -50,7 +50,8 @@ import {
   Anchor,
   Timeline,
   TimePicker,
-  Slider
+  Slider,
+  Rate
 } from 'ant-design-vue'
 
 Vue.use(Popover);
@@ -103,6 +104,7 @@ Vue.use(Timeline);
 Vue.use(Cascader);
 Vue.use(TimePicker);
 Vue.use(Slider);
+Vue.use(Rate);
 Vue.prototype.$message = message;
 Vue.prototype.$notification = notification;
 Vue.prototype.$info = Modal.info;

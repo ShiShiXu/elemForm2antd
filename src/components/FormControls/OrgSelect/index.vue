@@ -1,7 +1,7 @@
 <template>
   <div class="fc-org-select">
     <div class="tags">
-      <el-button 
+      <a-button 
         v-if="buttonType === 'button'" 
         size="small" 
         type="primary"
@@ -9,16 +9,17 @@
         @click="show = true"
         style="margin-bottom: 6px;">
           添加{{title}}
-      </el-button>
+      </a-button>
       <div class="input-box" :class="{'as-input': buttonType === 'input'}"  @click="show = true">
-          <el-tag
+          <a-tag
             v-bind="tagConfig"
+            closable
             class="org-tag"
             v-for="item in selectedData"
             :key="item.key"
             @close="onClose(item)">
             {{item.label}}
-          </el-tag>
+          </a-tag>
       </div>
       
     </div>
@@ -70,12 +71,16 @@ export default {
       default: () => ({
         type: 'info',
         closable: true,
-        'disable-transitions': false,
-        hit: false,
-        color: undefined,
-        size: 'small',
-        effect: 'light'
       })
+      // default: () => ({
+      //   type: 'info',
+      //   closable: true,
+      //   'disable-transitions': false,
+      //   hit: false,
+      //   color: undefined,
+      //   size: 'small',
+      //   effect: 'light'
+      // })
     },
   },
   data(){
@@ -164,9 +169,9 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .tags {
-  .input-box.as-input{
+  .input-box.as-input {
     border: 1px solid #DCDFE6;
     padding-left: 6px;
     font-size: 12px;
@@ -174,24 +179,22 @@ export default {
     line-height: 30px;
     border-radius: 4px;
     background: white;
-    color #606266
-    cursor pointer
+    color: #606266;
+    cursor: pointer;
   }
   .org-tag{
     margin-right: 6px;
-    max-width: 6rem;  
-    overflow hidden
-    text-overflow ellipsis
-    position relative
-    padding-right 1rem
-    vertical-align middle
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    vertical-align: middle;
 
-    >>> .el-tag__close{
-      position: absolute;
-      right: 2px;
-      top: 50%;
-      margin-top: -7px;
-    }
+    // >>> .el-tag__close{
+    //   position: absolute;
+    //   right: 2px;
+    //   top: 50%;
+    //   margin-top: -7px;
+    // }
   }
 }
 </style>

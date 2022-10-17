@@ -1103,7 +1103,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './styles/common.less';
+@import '~@/assets/style/global.less';
 
 
 .calc-dialog  .el-dialog__body{
