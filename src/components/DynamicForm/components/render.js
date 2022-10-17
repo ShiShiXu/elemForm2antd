@@ -102,18 +102,18 @@ function vModel ( self, dataObject, defaultValue ) {
       console.log("render input 1:", event);
   
       if( check(event) === '[object InputEvent]' ) {
-        self.$emit( 'input', event.target.value);
+        self.$emit( 'input target', event.target.value);
       } else {
-        self.$emit( 'input', event);
+        self.$emit( 'input event', event);
       } 
     },
     change: event => { 
       console.log("render input 2:", event);
   
       if( check(event) === '[object InputEvent]' ) {
-        self.$emit( 'input', event.target.value);
+        self.$emit( 'input target', event.target.value);
       } else {
-        self.$emit( 'input', event);
+        self.$emit( 'input event', event);
       } 
     },
   }

@@ -52,7 +52,7 @@ const layouts = {
                     key={element.renderKey} 
                     conf={element} 
                     onInput={ event => {
-                      console.log("render onInput:", event);
+                      console.log("Render onInput:", event);
                       this.$set(element, 'defaultValue', event);
                     }}
                   />
@@ -101,8 +101,8 @@ const layouts = {
     const group = {name: 'componentsGroup', put:(...arg) => put(...arg, element)}
     const isCustom = element.cmpType === 'custom'
     return (
-      <el-col span={element.span}>
-        <el-row gutter={element.gutter} class={className} style="margin-left:0;"
+      <a-col span={element.span}>
+        <a-row class={className} style="margin-left:0;"
           nativeOnClick={event => { (activeItem(element), event.stopPropagation()) }}>
           <span class="component-name" >{element.label}</span>
           <draggable list={element.children} animation={0} group={group} disabled={isCustom} class="drag-wrapper">
@@ -115,8 +115,8 @@ const layouts = {
                 <i class="el-icon-plus"></i> {element.actionText}
               </div>
           } 
-        </el-row>
-      </el-col>
+        </a-row>
+      </a-col>
     )
   }
 

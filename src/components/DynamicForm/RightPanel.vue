@@ -680,10 +680,6 @@ export default {
           value: "date"
         },
         {
-          label: "周(week)",
-          value: "week"
-        },
-        {
           label: "月(month)",
           value: "month"
         },

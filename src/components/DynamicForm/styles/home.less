@@ -137,9 +137,13 @@
 }
 
 .center-board-row {
-  height: 100%;
   padding: 12px 6px;
   box-sizing: border-box;
+
+  &.ant-row {
+    height: 100%;
+  }
+
   & > .ant-form {
     // 69 = 12+15+42
     height: calc(100vh - 69px);
