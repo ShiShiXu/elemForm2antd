@@ -12,12 +12,55 @@ export default {
     prop: 'value',
     event: 'change'
   },
-  props:["value","cmpType", "showDuration","tag", "tagIcon", "defaultValue", "labelWidth", "range-separator", "start-placeholder", "end-placeholder", "clearable", "format", "value-format", "regList", "changeTag", "proCondition", "asSummary", "formId", "renderKey", "layout", "value"],
+  props:[
+    "value",
+    "cmpType", 
+    "showDuration",
+    "tag", 
+    "tagIcon", 
+    "defaultValue", 
+    "labelWidth", 
+    "range-separator", 
+    "start-placeholder", 
+    "end-placeholder", 
+    "clearable", 
+    "format", 
+    "value-format", 
+    "regList", 
+    "changeTag", 
+    "proCondition", 
+    "asSummary", 
+    "formId", 
+    "renderKey", 
+    "layout", 
+    "value"
+  ],
   data(){
     return {
       timeRange: this.value || this.defaultValue || ['', ''],
       duration: ''
     }
+  },
+  mounted() {
+    let data = {
+      "value": this.value ? this.defaultValue : [],
+      "cmpType":  this.cmpType,
+      "showDuration": this.showDuration,
+      "tag":  this.tag,
+      "tagIcon":  this.tagIcon,
+      "defaultValue":  this.defaultValue,
+      "labelWidth":  this.labelWidth,
+      "clearable":  this.clearable,
+      "format":  this.format,
+      "regList":  this.regList,
+      "changeTag":  this.changeTag,
+      "proCondition":  this.proCondition,
+      "asSummary":  this.asSummary,
+      "formId":  this.formId,
+      "renderKey":  this.renderKey,
+      "layout":  this.layout,
+    }
+    console.log("Props:", data);
   },
   watch:{
     'timeRange':{
