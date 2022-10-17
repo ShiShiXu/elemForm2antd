@@ -1103,35 +1103,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @theme: rgba(214, 215, 217, 1);
-  @placeholder-color: rgba(240, 240, 240, 1);
-
-  .scrollbar(
-    @width: 5px;
-    @color: @placeholder-color;
-    @thumb-width: 4px;
-    @thumb-colro: @theme;
-    @x: hidden;
-    @y: scroll) {
-      & {
-          overflow-x: @x;
-          overflow-y: @y;
-          scrollbar-color: @theme rgba(15, 15, 19, 1);
-          scrollbar-track-color: @placeholder-color;
-          -ms-scrollbar-track-color: @theme;
-          scroll-behavior: smooth;
-      }
-
-      &::-webkit-scrollbar {
-          width: @width;
-          background-color: @color;
-      }
-
-      &::-webkit-scrollbar-thumb {
-          border-radius: @thumb-width;
-          background-color: @thumb-colro;
-      }
-    }
+@import './styles/common.less';
 
 
 .calc-dialog  .el-dialog__body{

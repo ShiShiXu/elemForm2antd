@@ -44,7 +44,6 @@ const layouts = {
     if (this.formConf.unFocusedComponentBorder) className += ' unfocus-bordered'
   
     return (
-      <a-form >
 
       <a-col span={element.span} class={className}
         nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
@@ -64,7 +63,6 @@ const layouts = {
         { components.itemBtns.apply(this, arguments)}
 
       </a-col>
-    </a-form>
 
     )
 

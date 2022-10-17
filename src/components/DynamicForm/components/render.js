@@ -172,7 +172,7 @@ export default {
     console.log("DataObject:", dataObject);
     console.log("Children:", children);
     
-    return h( 
+    return h(
       this.conf.tag, // 标签名|组件名|字符串模板
       dataObject, // 一个与模板中 attribute 对应的数据对象。可选。
       children 

@@ -1,0 +1,35 @@
+@theme: rgba(214, 215, 217, 1);
+@placeholder-color: rgba(240, 240, 240, 1);
+
+.flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scrollbar(@width: 5px;
+  @color: @placeholder-color;
+  @thumb-width: 4px;
+  @thumb-colro: @theme;
+  @x: hidden;
+
+  @y: scroll) {
+  & {
+    overflow-x: @x;
+    overflow-y: @y;
+    scrollbar-color: @theme rgba(15, 15, 19, 1);
+    scrollbar-track-color: @placeholder-color;
+    -ms-scrollbar-track-color: @theme;
+    scroll-behavior: smooth;
+  }
+
+  &::-webkit-scrollbar {
+    width: @width;
+    background-color: @color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: @thumb-width;
+    background-color: @thumb-colro;
+  }
+}

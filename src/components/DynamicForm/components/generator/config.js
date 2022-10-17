@@ -85,7 +85,8 @@ export const inputComponents = [
   //   },
   {
     label: '数字输入框',
-    tag: 'fc-amount',
+    // tag: 'fc-amount',
+    tag: 'a-input-number',
     tagIcon: 'number',
     placeholder: '',
     defaultValue: undefined,
@@ -315,21 +316,20 @@ export const selectComponents = [{
   label: '滑块',
   tag: 'a-slider',
   tagIcon: 'slider',
-  defaultValue: null,
-  span: 24,
-  labelWidth: null,
-  disabled: false,
-  required: false,
+  // defaultValue: null,
+  // span: 24,
+  // labelWidth: null,
+  // disabled: false,
+  // required: false,
   min: 0,
   max: 100,
-  
   step: 1,
-  'show-stops': false,
-  range: false,
-  regList: [],
-  changeTag: true,
-  proCondition: false,
-  asSummary: false
+  // 'show-stops': false,
+  // range: false,
+  // regList: [],
+  // changeTag: true,
+  // proCondition: false,
+  // asSummary: false
 },
 
 {

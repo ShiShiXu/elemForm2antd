@@ -1,4 +1,4 @@
-$editorTabsborderColor = #121315;
+@editorTabsborderColor: #121315;
 body, html{
   margin: 0;
   padding: 0;
@@ -14,19 +14,19 @@ input, textarea{
 }
 
 .editor-tabs{
-  background: $editorTabsborderColor;
+  background: @editorTabsborderColor;
   .el-tabs__header{
     margin: 0;
-    border-bottom-color: $editorTabsborderColor;
+    border-bottom-color: @editorTabsborderColor;
     .el-tabs__nav{
-      border-color: $editorTabsborderColor;
+      border-color: @editorTabsborderColor;
     }
   }
   .el-tabs__item{
     height: 32px;
     line-height: 32px;
     color: #888a8e;
-    border-left: 1px solid $editorTabsborderColor!important;
+    border-left: 1px solid @editorTabsborderColor!important;
     background: #363636;
     margin-right: 5px;
     user-select: none;

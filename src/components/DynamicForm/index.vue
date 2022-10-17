@@ -87,6 +87,7 @@
               <div class="center-scrollbar">
                 <a-row class="center-board-row" :gutter="formConf.gutter">
                   <a-form
+                    class="center-board-form"
                     :size="formConf.size"
                     :label-position="formConf.labelPosition"
                     :disabled="formConf.disabled"
@@ -602,12 +603,21 @@ export default {
 };
 </script>
 
-<style lang="stylus">
+<style lang="less">
 
-@import './styles/home';
+@import './styles/home.less';
+@import './styles/common.less';
 
 .center-scrollbar {
-  height: 100%
+  height: 100%;
+  .scrollbar();
+
+  .center-board-row {
+    height: 100%;
+    .center-board-form {
+      height: 100%;
+    }
+  }
 }
 
 #ipad {
@@ -698,7 +708,7 @@ export default {
 }
 </style>
 
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .svg-icon {
   float: right;
 }
