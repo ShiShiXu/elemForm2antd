@@ -268,19 +268,25 @@
                 <a-input v-model="activeData.childrenKey" placeholder="请输入子级键名" />
               </a-form-model-item>
             </template>
-           
-            <!-- <a-tree
+
+            <!-- replaceFields 是数据别名的映射
+            <a-tree
               v-if="activeData.dataType === 'static'"
+              class="draggable-tree"
+              :tree-data="activeData.options"
+              :replaceFields="{
+                children: 'children', 
+                title: 'label', 
+                key: 'value' 
+              }"
+              @dragenter="onDragEnter"
+              @drop="onDrop"
               draggable
-              :data="activeData.options"
-              node-key="id"
-              :expand-on-click-node="false"
-              :render-content="renderContent"
             /> -->
 
-            <el-tree
+            <a-tree
+              v-if="activeData.dataType === 'static'"
               class="draggable-tree"
-              draggable
               :tree-data="activeData.options"
               @dragenter="onDragEnter"
               @drop="onDrop"

@@ -1,4 +1,5 @@
-import PROVINCE from './province.js'
+// import PROVINCE from './province-origin.js';
+import PROVINCE from './province.js';
 
 export const formConf = {
   formRef: 'elForm',
@@ -232,6 +233,12 @@ export const selectComponents = [{
     props: {
       multiple: false,
     }
+  },
+  // 数据别名映射
+  fieldNames: {
+    label: 'title', 
+    value: 'key', 
+    children: 'children' 
   },
   'show-all-levels': true,
   disabled: false,

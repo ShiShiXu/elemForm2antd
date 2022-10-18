@@ -42,15 +42,16 @@ let check = (data) =>{
 
 // Antd input 绑定
 dataObject.on = {
-  input: event => { 
+  // input: event => { 
 
-    if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
-      self.$emit('change', event);
-    } else {
-      self.$emit('change', event.target.value);
-    }   
-  },
+  //   if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
+  //     self.$emit('change', event);
+  //   } else {
+  //     self.$emit('change', event.target.value);
+  //   }   
+  // },
   change: event => { 
+    if( check(event) === '[object Null]' ) return false;
     if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
       self.$emit('change', event);
     } else {
