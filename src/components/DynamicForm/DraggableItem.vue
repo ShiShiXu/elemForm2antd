@@ -55,6 +55,10 @@ const layouts = {
                       console.log("Render onInput:", event);
                       this.$set(element, 'defaultValue', event);
                     }}
+                    onChange={ (event, dateString) => {
+                      console.log("Render onChange:", event);
+                      this.$set(element, 'defaultValue', event);
+                    }}
                   />
             </a-form-item>
 

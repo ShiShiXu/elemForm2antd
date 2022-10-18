@@ -88,7 +88,7 @@ function vModel ( self, dataObject, defaultValue ) {
   dataObject.props.value = defaultValue;
 
   // dataObject.on.input = val => { // elementUI input 绑定
-  //   // console.log(val);
+  //   console.log(val);
   //   self.$emit( 'input', val );
   // }
 
@@ -102,20 +102,20 @@ function vModel ( self, dataObject, defaultValue ) {
       console.log("render input 1:", event);
   
       if( check(event) === '[object InputEvent]' ) {
-        self.$emit( 'input target', event.target.value);
+        self.$emit('input', event.target.value);
       } else {
-        self.$emit( 'input event', event);
+        self.$emit('input', event);
       } 
     },
     change: event => { 
       console.log("render input 2:", event);
   
       if( check(event) === '[object InputEvent]' ) {
-        self.$emit( 'input target', event.target.value);
+        self.$emit('change', event.target.value);
       } else {
-        self.$emit( 'input event', event);
+        self.$emit('change', event);
       } 
-    },
+    }
   }
   
   
@@ -161,16 +161,15 @@ export default {
       }
     } );
 
-
     // return h( 
     //   this.conf.tag, // 标签名|组件名|字符串模板
     //   dataObject, // 一个与模板中 attribute 对应的数据对象。可选。
     //   children 
     // )
 
-    console.log("Tag:", this.conf.tag);
-    console.log("DataObject:", dataObject);
-    console.log("Children:", children);
+    // console.log("Tag:", this.conf.tag);
+    // console.log("DataObject:", dataObject);
+    // console.log("Children:", children);
     
     return h(
       this.conf.tag, // 标签名|组件名|字符串模板

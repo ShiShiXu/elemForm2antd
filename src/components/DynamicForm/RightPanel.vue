@@ -622,14 +622,14 @@ import { saveFormConf } from "./utils/db";
 import draggable from "vuedraggable";
 import {mergeNumberOfExps, validExp, toRPN, calcRPN} from '@/utils/index.js'
 const dateTimeFormat = {
-  date: "yyyy-MM-dd",
-  week: "yyyy 第 WW 周",
-  month: "yyyy-MM",
-  year: "yyyy",
-  datetime: "yyyy-MM-dd HH:mm:ss",
-  daterange: "yyyy-MM-dd",
-  monthrange: "yyyy-MM",
-  datetimerange: "yyyy-MM-dd HH:mm:ss"
+  date: "YYYY-MM-DD",
+  week: "YYYY 第 WW 周",
+  month: "YYYY-MM",
+  year: "YYYY",
+  datetime: "YYYY-MM-DD HH:mm:ss",
+  daterange: "YYYY-MM-DD",
+  monthrange: "YYYY-MM",
+  datetimerange: "YYYY-MM-DD HH:mm:ss"
 };
 
 export default {
