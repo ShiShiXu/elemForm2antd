@@ -1,9 +1,12 @@
 <template>
   <div class="fc-amount">
-    <a-input-number style="width: 100%;" 
-    v-model="innerValue" v-bind="$props" 
-    v-on="$listeners" 
-    @change="handleInput">
+    <a-input-number 
+      style="width: 100%;" 
+      v-model="innerValue" 
+      v-bind="$props" 
+      v-on="$listeners"
+      @change="handleInput"
+    >
   </a-input-number>
     <div class="explain-text" v-if="showChinese">大写：{{chinese}}</div>
   </div>
@@ -29,8 +32,9 @@ export default {
   },
   methods: {
     handleInput (event) {
-      console.log("fc-amount handleInput:", event)
-      this.$emit('input', event)   
+      // console.log("fc-amount handleInput:", event)
+      this.$emit('input', event);
+      this.$emit('change', event);
     },
   },
   watch:{

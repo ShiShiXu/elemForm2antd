@@ -732,8 +732,8 @@ export const customMadeComponents = [
 // 组件rule的触发方式，无触发方式的组件不生成rule
 // inputTable组件也有一份此常量的copy 如有改动 最好同步
 export const trigger = {
-  'a-input': 'blur',
-  'a-input-number': 'blur',
+  'a-input': 'change',
+  'a-input-number': 'change',
   'a-select': 'change',
   'a-radio-group': 'change',
   'a-checkbox-group': 'change',

@@ -1,6 +1,6 @@
 export const trigger = {
-  'a-input': 'blur',
-  'a-input-number': 'blur',
+  'a-input': 'change',
+  'a-input-number': 'change',
   'a-select': 'change',
   'a-radio-group': 'change',
   'a-checkbox-group': 'change',

@@ -93,33 +93,41 @@ function vModel ( self, dataObject, defaultValue ) {
   // }
 
   let check = (data) =>{
-    return Object.prototype.toString.call(data);
+    let type = Object.prototype.toString.call(data);
+    console.log("Event type:", type);
+    return type;
   }
   
   // Antd input 绑定
   dataObject.on = {
-    input: event => { 
-      console.log("render input 1:", event);
+    // input: event => { 
+    //   console.log("render input 1:", event);
   
-      if( check(event) === '[object InputEvent]' ) {
-        self.$emit('input', event.target.value);
-      } else {
-        self.$emit('input', event);
-      } 
-    },
+    //   if( check(event) === '[object InputEvent]' ) {
+    //     self.$emit('input', event.target.value);
+    //   } else {
+    //     self.$emit('input', event);
+    //   } 
+    // },
     change: event => { 
-      console.log("render input 2:", event);
-  
-      if( check(event) === '[object InputEvent]' ) {
-        self.$emit('change', event.target.value);
-      } else {
+      console.log("render.js event:", event);
+
+      if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
         self.$emit('change', event);
-      } 
+      } else {
+        self.$emit('change', event.target.value);
+      }      
+  
+      // if( check(event) === '[object InputEvent]' ) {
+      //   self.$emit('change', event.target.value);
+      // } else if( check(event) === '[object Object]' ) {
+      //   self.$emit('change', event.target.value);
+      // } else {
+      //   self.$emit('change', event);
+      // } 
     }
   }
   
-  
-
 }
 
 export default {
@@ -148,10 +156,10 @@ export default {
 
     Object.keys( confClone ).forEach( key => {
       const val = confClone[key];
-      // console.log("key", key);
+      // console.log("tag:", confClone.tag);
 
       if ( key === 'vModel' ) {
-        vModel( this, dataObject, confClone.defaultValue )
+        vModel( this, dataObject, confClone.defaultValue );
       } else if ( dataObject[key] ) {
         dataObject[key] = val
       } else if ( !isAttr( key ) ) {
