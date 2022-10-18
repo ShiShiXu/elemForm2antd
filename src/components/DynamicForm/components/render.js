@@ -100,15 +100,13 @@ function vModel ( self, dataObject, defaultValue ) {
   
   // Antd input 绑定
   dataObject.on = {
-    // input: event => { 
-    //   console.log("render input 1:", event);
-  
-    //   if( check(event) === '[object InputEvent]' ) {
-    //     self.$emit('input', event.target.value);
-    //   } else {
-    //     self.$emit('input', event);
-    //   } 
-    // },
+    input: event => { 
+      if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
+        self.$emit('change', event);
+      } else {
+        self.$emit('change', event.target.value);
+      }   
+    },
     change: event => { 
       console.log("render.js event:", event);
 
