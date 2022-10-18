@@ -37,6 +37,7 @@ const components = {
     ]
   }
 }
+
 const layouts = {
   colFormItem(h, element, index, parent, root) {
     const { activeItem } = this.$listeners
@@ -45,8 +46,12 @@ const layouts = {
     
     return (
         <a-col span={element.span} class={className} nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
-
-            <a-form-item class={"cst-ant-form-item"} label={element.label} labelCol={{ span: 6 }} wrapperCol={{ flex: 5 }}
+            <a-form-item 
+              class={"cst-ant-form-item"} 
+              label={element.label} 
+              labelCol={{ span: 6 }} 
+              wrapperCol={{ flex: 5 }}
+              colon={false}
               nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }} required={element.required}>
               <render 
                     key={element.renderKey} 
@@ -61,9 +66,7 @@ const layouts = {
                     }}
                   />
             </a-form-item>
-
           { components.itemBtns.apply(this, arguments)}
-
         </a-col>
     )
 

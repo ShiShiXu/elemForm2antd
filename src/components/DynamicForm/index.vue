@@ -691,13 +691,6 @@ export default {
     left: 50%;
     cursor: pointer;
   }
-
-  .el-radio-group {
-    line-height: 2.5;
-  }
-}
-.el-date-editor .el-range-separator{
-  box-sizing: content-box;
 }
 </style>
 

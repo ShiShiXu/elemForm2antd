@@ -1,11 +1,17 @@
 <template>
   <div>
-    <el-time-picker v-model="timeRange" v-bind="{...$props, ...$attrs}" v-on="$listeners" ></el-time-picker>
+    <a-range-picker 
+      v-model="timeRange" 
+      v-bind="{...$props, ...$attrs}" 
+      v-on="$listeners"
+      :placeholder="['开始时间', '结束时间']"
+    >
+  </a-range-picker>
     <div v-if="showDuration" class="explain-text">时长: {{duration}}</div>
   </div>
 </template>
 <script>
-import { timeCalculate } from '@/utils' 
+import { timeCalculate } from '@/utils';
 const defaultVal = ['','']
 export default {
   name: 'fc-time-duration',
@@ -22,13 +28,14 @@ export default {
   },
   watch:{
     'timeRange':{
-      handler:  function(val){
+      handler:  function(val) {
         let res = ''
         if (Array.isArray(this.timeRange)) {
           const [start, end] = this.timeRange.slice(0, 2).map( c => new Date('2020/01/01 ' + c).getTime())
           res = timeCalculate(start, end)
         }
-        this.duration = res
+        this.duration = res;
+
         this.$emit('change', val)
       },
       immediate: true
@@ -43,7 +50,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .explain-text {
   font-size: 12px;
   color: #aaa;

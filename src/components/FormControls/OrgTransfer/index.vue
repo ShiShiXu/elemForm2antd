@@ -18,20 +18,19 @@
         <!-- 左边穿梭框 -->
         <div class="transfer-pane">
           <div class="transfer-pane__tools">
-            <el-input
+            <a-input
               v-model="searchString"
               class="search-input"
-              size="mini"
               style="width: 180px;"
               type="search"
               placeholder="搜索人员"
               :disabled="!searchable"
-            ></el-input>
+            ></a-input>
             <span>
               <span style="margin-right: 1rem;font-size: 14px;">{{ selectedNum }} / {{ maxNum }}</span>
-              <el-tooltip placement="top" content="清空">
+              <a-tooltip placement="top" content="清空">
                 <i class="el-icon-delete" @click="removeAll"></i>
-              </el-tooltip>
+              </a-tooltip>
             </span>
           </div>
           <div class="transfer-pane__body shadow right-pane">
@@ -71,8 +70,8 @@
             </template>
           </div>
           <footer class="transfer__footer">
-            <el-button type="info" plain size="mini" @click="confirm" >确定</el-button >
-            <el-button plain size="mini" @click="closeTransfer">取消</el-button>
+            <a-button type="primary" @click="confirm" >确定</a-button>
+            <a-button style="margin-left: 10px;" plain @click="closeTransfer">取消</a-button>
           </footer>
         </div>
         <!-- 右边穿梭框 -->
@@ -99,20 +98,37 @@
                     {{ getNodeProp(item, 'searchResTip') }}
                   </div>
                 </div>
-                <el-checkbox @change="checked => checked ? addData(item) : removeData(item, activeTabName, true)"></el-checkbox>
+                <a-checkbox
+                  @change="checked => checked ? addData(item) : removeData(item, activeTabName, true)"
+                ></a-checkbox>
+                <el-checkbox
+                  @change="checked => checked ? addData(item) : removeData(item, activeTabName, true)"
+                ></el-checkbox>
               </div>
             </div>
 
             <div style="height:100%;">
-              <el-tabs
+              
+              <a-tabs
                 v-model="activeTabName"
-                type="border-card"
-                style="min-height: 370px;"
               >
-                <el-tab-pane v-for="(tab_item, idx) in tabConfig" :name="tab_item.tabKey" :label="tab_item.tabName" :key="idx">
-                  <el-tree
+                <a-tab-pane v-for="(tab_item, idx) in tabConfig" :key="tab_item.tabKey" :tab="tab_item.tabName">
+                  <a-tree
+                    :ref="tab_item.tabKey"
+                    :tree-data="treeData"
+                    :replaceFields="{
+                      title: 'deptName', 
+                      key: 'deptId', 
+                      children:'children'
+                    }"
+                    checkable
+                    @check=onCheck
+                    @change="(data, checked) => onCheckChange(data, checked, tab_item.tabKey)"
+                  />
+                  <!-- <el-tree
                     :ref="tab_item.tabKey"
                     lazy
+                    :load="onLoad"
                     show-checkbox
                     :props="{
                       children: tab_item.children,
@@ -120,14 +136,12 @@
                       isLeaf: tab_item.isLeaf,
                       disabled: tab_item.disabled
                     }"
-                    :load="onLoad"
                     node-key="nodeId"
                     :check-strictly="true"
                     @check-change="(data, checked) => onCheckChange(data, checked, tab_item.tabKey)"
-                  >
-                  </el-tree>
-                </el-tab-pane>
-              </el-tabs>
+                  /> -->
+                </a-tab-pane>
+              </a-tabs>
             </div>
           </div>
         </div>
@@ -191,7 +205,47 @@ export default {
       searchLoading: false, 
       activeTabName: '',
       tabConfig: [],
-      tabKeys: []
+      tabKeys: [],
+      treeData: [
+        {
+          deptId: 1,
+          nodeId: 1,
+          deptName: "全朋友",
+          children: [
+            {
+              parentDeptId: 1,
+              deptId: 2,
+              nodeId: 2,
+              deptName: "人事部",
+            },
+            {
+              parentDeptId: 1,
+              deptId: 3,
+              nodeId: 3,
+              deptName: "销售部",
+            },
+            {
+              parentDeptId: 1,
+              deptId: 4,
+              nodeId: 4,
+              deptName: "财务部",
+            },
+            {
+              parentDeptId: 1,
+              deptId: 5,
+              nodeId: 5,
+              deptName: "宣传部",
+            },
+            {
+              parentDeptId: 1,
+              deptId: 6,
+              nodeId: 6,
+              deptName: "科技运维部门",
+            }
+          ]
+        },
+        
+      ]
     }
   },
   computed: {
@@ -212,8 +266,7 @@ export default {
   },
   methods: {
     onLoad (node, resolve) {
-      const conf= this.tabConfig
-      .find(t => t.tabKey === this.activeTabName)
+      const conf = this.tabConfig.find(t => t.tabKey === this.activeTabName)
       // load 方法返回一个promise
       conf.onload(node)
       .then(res => {
@@ -247,9 +300,24 @@ export default {
         .finally(() => this.searchLoading = false)
     },
 
+    onCheck(checkedKeys, e) {
+      console.log("checkedKeys:", checkedKeys);
+      console.log("e:", e);
+      
+    },
+
     onCheckChange (data, checked, tabKey) {
-      this.activeTabName = tabKey
-      const index = this.aloneCheckedData[tabKey].findIndex(t => t.nodeId === data.nodeId)
+      this.activeTabName = tabKey;
+      const index = this.aloneCheckedData[tabKey].findIndex(t => t.nodeId === data.nodeId);
+      console.log("data:", data);
+      // {
+      //     "nodeId": 2,
+      //     "deptId": 2,
+      //     "deptName": "人事部",
+      //     "parentDeptId": 1
+      // }
+      console.log("tabKey:", tabKey); // tabKey: dep
+
       if (index > -1) {
         this.aloneCheckedData[tabKey].splice(index, 1)
       }
@@ -268,6 +336,9 @@ export default {
     addData (data) {
       const tabKey = this.activeTabName
       const tree = this.$refs[tabKey][0]
+      
+      console.log(tree);
+
       tree.setChecked(data.nodeId, true)
       !tree.getCheckedKeys(data).includes(data.nodeId)
       && !this.aloneCheckedData[tabKey].find(t => t.nodeId === data.nodeId)
@@ -393,7 +464,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus">
+<style lang="less">
 .h-transfer{
   text-align: left;
   position: fixed;
@@ -403,6 +474,7 @@ export default {
   left: 0;
   z-index: 2999;
   line-height: 32px;
+  cursor: initial;
 
   > .mask {
     position: absolute;
@@ -436,11 +508,6 @@ export default {
     background: #f5f7fa !important;
     border-bottom: 1px solid #e4e7ed;
     border-right-width: 0px;
-  }
-
-  .el-tree-node__content > label.el-checkbox {
-    // position: absolute;
-    // right: 0;
   }
 
   .searchResPane{
@@ -479,7 +546,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        line-height 1.5
+        line-height: 1.5;
         &:hover{
             background-color: #ecf5ff;
             color: #66b1ff;
@@ -508,10 +575,10 @@ export default {
   }
 
   .p-center{
-      position absolute
-      top 50%
-      left 50%
-      transform translate(-50%, -50%)
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
   }
 
   .transfer__content {
@@ -569,15 +636,11 @@ export default {
 }
 
 .transfer-pane__body {
-  position relative
+  position: relative;
   width: 100%;
   height: 330px;
-  overflow hidden
+  overflow: hidden;
   font-size: 14px;
-
-  >>> .el-scrollbar__view{
-    height: 100%;
-  }
 
   .el-tabs__item {
     height: 26px;
