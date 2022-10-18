@@ -249,6 +249,7 @@
 
           <template v-if="['a-cascader'].indexOf(activeData.tag) > -1">
             <a-divider>选项</a-divider>
+            
             <a-form-model-item label="数据类型">
               <a-radio-group v-model="activeData.dataType" button-style="solid">
                 <a-radio-button value="dynamic">动态数据</a-radio-button>
@@ -277,7 +278,7 @@
               :render-content="renderContent"
             /> -->
 
-            <a-tree
+            <el-tree
               class="draggable-tree"
               draggable
               :tree-data="activeData.options"

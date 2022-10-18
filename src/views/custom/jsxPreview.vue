@@ -6,8 +6,10 @@ import { trigger } from '@/components/DynamicForm/components/generator/config.js
  * 校验组织机构组件是否为空
  */
 const setFcOrgSelectRule = ( conf, ctx ) => {
+  console.log("setFcOrgSelectRule - validator :  runs")
   return { 
     validator: (rule, value, callback) => {
+      console.log("validator :  runs")
       var val = ctx.formModel[rule.field]
       if (Object.keys(val || {}).length === 0) {
         callback()
@@ -30,6 +32,7 @@ const setFcOrgSelectRule = ( conf, ctx ) => {
  * 表格除外 表格自带校验
  */
 function buildRules ( conf, ctx ) {
+  console.log(conf.tag)
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
@@ -63,6 +66,7 @@ const buildData = (ctx, value, prop) => setData(ctx, value, prop, true)
 
 const layouts = {
   colFormItem: function (conf,  h, ctx, isList = false,) {
+    console.log("layouts colFormItem");
     buildRules(conf, ctx)
     !_isMounted && buildData(ctx, conf.defaultValue, conf.vModel)
     let labelWidth = ''
@@ -82,7 +86,7 @@ const layouts = {
     }
     let item =  <a-col span={conf.span}>
                   <a-form-item 
-                  label-width={labelWidth} 
+                  laba-width={labelWidth} 
                   label={isList ? '' : conf.label} 
                   prop={conf.vModel}>
                     <render
@@ -90,7 +94,8 @@ const layouts = {
                     conf={conf} 
                     value={ctx.formModel[conf.vModel]} 
                     ref={conf.rowType === 'table' ? conf.vModel : undefined} 
-                    onInput={handleInput} 
+                    onInput={handleInput}
+                    onChange={handleInput}
                     />
                   </a-form-item>
                 </a-col>
@@ -108,6 +113,7 @@ const layouts = {
        const param = {...conf, config: conf, formSize: ctx.confGlobal.size, labelWidth: `${conf.labelWidth || ctx.confGlobal.labelWidth}px`}
        return this.colFormItem( param, h, ctx, conf.type === 'list' )
     }
+    console.log("layouts rowFormItem");
     buildRules(conf, ctx)
     const props = {
       type: conf.type === 'default' ? undefined : conf.type,
@@ -164,18 +170,26 @@ export default {
   },
   methods: {
     submitForm () {
-      const isTableValid = this.checkTableData()
-      this.$refs[this.confGlobal.formRef].validate(valid => {
-        if(!valid) return
-        if (!isTableValid) return
-        this.$notify({
-          title: '表单数据',
-          message: '请在控制台中查看数据输出',
-          position: 'bottom-right'
-        });
-        console.log('表单数据', this.formModel)
-        // TODO 提交表单
-      })
+      const isTableValid = this.checkTableData();
+
+      // console.log(this.confGlobal.formRef);
+
+      // console.log(this.$refs[this.confGlobal.formRef]);
+
+      // this.$refs[this.confGlobal.formRef].validate(valid => {
+      //   if(!valid) return
+      //   if (!isTableValid) return
+      //   this.$notify({
+      //     title: '表单数据',
+      //     message: '请在控制台中查看数据输出',
+      //     position: 'bottom-right'
+      //   });
+      //   console.log('表单数据', this.formModel)
+      //   // TODO 提交表单
+      // })
+
+      
+      console.log('表单数据：', this.formModel)
     },
 
     resetForm() {
@@ -271,23 +285,26 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
-.preview-container 
-  margin 3rem auto 1rem
-  border-radius 6px
-  box-shadow 0 0 15px rgba(0, 0, 0, .1)
+<style lang="less" scoped>
+.preview-container {
+  margin: 3rem auto 1rem;
+  border-radius:  6px;
+  box-shadow:  0 0 15px rgba(0, 0, 0, .1);
   
-  .width-slider
-    width  150px
-    position absolute
-    top 0
-    right 2rem
+  .width-slider {
+    width: 150px;
+    position:  absolute;
+    top:  0;
+    right:  2rem;
+  }
 
-.showDivider.form-container { 
-  margin-bottom: 2rem; 
+  .showDivider.form-container { 
+    margin-bottom: 2rem; 
+  }
+  .loading-mask {
+    width: 100vw;
+    height: 100vh;
+  }
 }
-.loading-mask {
-  width: 100vw;
-  height: 100vh;
-}
+
 </style>

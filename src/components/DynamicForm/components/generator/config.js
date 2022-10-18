@@ -173,16 +173,42 @@ export const selectComponents = [{
   clearable: true,
   filterable: false,
   required: false,
-  options: [{
-    id: 1,
-    value: '选项1',
-    label: '选项1',
-    children: [{
+  options: [
+    {
+      id: 1,
+      value: '选项1',
+      label: '选项1',
+      children: [
+          {
+            id: 2,
+            value: '选项1-1',
+            label: '选项1-1'
+          },
+          {
+            id: 3,
+            value: '选项1-2',
+            label: '选项1-2'
+          }
+      ]
+    },
+    {
       id: 2,
-      value: '选项1-1',
-      label: '选项1-1'
-    }]
-  }],
+      value: '选项2',
+      label: '选项2',
+      children: [
+          {
+            id: 2,
+            value: '选项2-1',
+            label: '选项2-1'
+          },
+          {
+            id: 3,
+            value: '选项2-2',
+            label: '选项2-2'
+          }
+      ]
+    }
+],
   dataType: 'static',
   labelKey: 'label',
   valueKey: 'value',
