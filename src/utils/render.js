@@ -43,7 +43,6 @@ let check = (data) =>{
 // Antd input 绑定
 dataObject.on = {
   change: event => { 
-    console.log("event:", event);
 
     if( !event ) return false;
 

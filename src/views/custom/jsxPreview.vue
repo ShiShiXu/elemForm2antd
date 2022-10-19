@@ -6,7 +6,6 @@ import { trigger } from '@/components/DynamicForm/components/generator/config.js
  * 校验组织机构组件是否为空
  */
 const setFcOrgSelectRule = ( conf, ctx ) => {
-  console.log("setFcOrgSelectRule - validator :  runs")
   return { 
     validator: (rule, value, callback) => {
       console.log("validator :  runs")
@@ -32,7 +31,6 @@ const setFcOrgSelectRule = ( conf, ctx ) => {
  * 表格除外 表格自带校验
  */
 function buildRules ( conf, ctx ) {
-  console.log(conf.tag)
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
@@ -54,7 +52,6 @@ function buildRules ( conf, ctx ) {
   ctx.ruleList[conf.vModel] = rules
 }
 
-
 var setData = (ctx, val, prop, init = false) => {
   if (!prop) return
   ctx.$set(ctx.formModel, prop, val)
@@ -66,7 +63,6 @@ const buildData = (ctx, value, prop) => setData(ctx, value, prop, true)
 
 const layouts = {
   colFormItem: function (conf,  h, ctx, isList = false,) {
-    console.log("layouts colFormItem");
     buildRules(conf, ctx)
     !_isMounted && buildData(ctx, conf.defaultValue, conf.vModel)
     let labelWidth = ''
@@ -113,7 +109,6 @@ const layouts = {
        const param = {...conf, config: conf, formSize: ctx.confGlobal.size, labelWidth: `${conf.labelWidth || ctx.confGlobal.labelWidth}px`}
        return this.colFormItem( param, h, ctx, conf.type === 'list' )
     }
-    console.log("layouts rowFormItem");
     buildRules(conf, ctx)
     const props = {
       type: conf.type === 'default' ? undefined : conf.type,
@@ -160,7 +155,14 @@ export default {
       ruleList: {}
     }
   },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, {
+      onValuesChange: (props, values) => {
+      }
+    });
+  },
   mounted(){
+
     if (!this.confGlobal) {
       this.getConfigByAjax();
     } else {
@@ -170,6 +172,31 @@ export default {
   },
   methods: {
     submitForm () {
+      const isTableValid = this.checkTableData();
+
+      // console.log(this.confGlobal.formRef);
+
+      this.form.validateFields((errors, values) => {
+        console.log(`errors + values : ${errors} + ${values}`);
+        console.log("errors + values :",  values);
+      });
+
+      // this.$refs[this.confGlobal.formRef].validate(valid => {
+      //   if(!valid) return
+      //   if (!isTableValid) return
+      
+      //   this.$notification.open({
+      //     message: '表单数据',
+      //     description: '请在控制台中查看数据输出',
+      //     placement: 'bottomRight'
+      //   });
+      
+      // })
+
+      
+      console.log('表单数据：', this.formModel)
+    },
+    submitForm2 () {
       const isTableValid = this.checkTableData();
 
       // console.log(this.confGlobal.formRef);
@@ -239,6 +266,7 @@ export default {
       const content = this.confGlobal.fields.map(c => layouts[c.layout](c, h, this))
       const formObject = {
         props: {
+          form: this.form,
           model: this.formModel,
           rules: this.ruleList,
           size: this.confGlobal.size,
@@ -257,7 +285,7 @@ export default {
                       </a-row>
                   </a-col>
       // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
-      return h('a-form', formObject, [content, btns]) 
+      return h('a-form', formObject, [content, btns])
     },
     initDefaultData(config) {
       config.fields.forEach(field => {
@@ -267,6 +295,7 @@ export default {
     getConfigByAjax() {
       GET_MOCK_CONF().then(res => {
         this.confGlobal = Object.freeze(res.formData);
+        console.log("Ajax data:", res);
         this.initDefaultData(res.formData);
       });
     }
