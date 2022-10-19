@@ -32,7 +32,9 @@ const components = {
       <span class="drawing-item-delete" style={visibility} title="删除" onClick={event => {
         deleteItem(index, parent); event.stopPropagation()
       }}>
-        <i class="el-icon-close" />
+        <div>
+          <svg-icon style="position: relative;top: -2px;" icon-class="delete" />
+        </div>
       </span>
     ]
   }

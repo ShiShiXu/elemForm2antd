@@ -1,13 +1,42 @@
 {
-    "formData": {
-        "formRef": "elForm",
-        "size": "small",
-        "labelPosition": "right",
-        "labelWidth": 100,
-        "gutter": 15,
-        "disabled": false,
-        "span": 12,
-        "formBtns": true,
-        "fields": []
-    }
+    "formRef": "elForm",
+    "size": "small",
+    "labelPosition": "right",
+    "labelWidth": 100,
+    "gutter": 15,
+    "disabled": false,
+    "span": 12,
+    "formBtns": true,
+    "fields": [
+        {
+            "cmpType": "common",
+            "label": "单行输入框32",
+            "tag": "a-input",
+            "tagIcon": "input",
+            "placeholder": "请3输入单行输入框",
+            "span": 24,
+            "labelWidth": 123,
+            "style": {
+                "width": "100%123"
+            },
+            "clearable": true,
+            "prepend": "",
+            "append": "",
+            "prefix-icon": "",
+            "suffix-icon": "",
+            "maxLength": null,
+            "show-word-limit": false,
+            "disabled": false,
+            "required": true,
+            "regList": [],
+            "changeTag": true,
+            "proCondition": false,
+            "asSummary": false,
+            "formId": 1,
+            "renderKey": 1666173978104,
+            "layout": "colFormItem",
+            "vModel": "field1",
+            "defaultValue": "123"
+        }
+    ]
 }
