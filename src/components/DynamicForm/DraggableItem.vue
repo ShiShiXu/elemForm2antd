@@ -54,7 +54,7 @@ const layouts = {
               colon={false}
               nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }} required={element.required}>
               <render 
-                    key={element.renderKey} 
+                    key={element.renderKey}
                     conf={element} 
                     onInput={ event => {
                       console.log("Render onInput:", event);

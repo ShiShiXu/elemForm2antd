@@ -243,15 +243,18 @@ export default {
           rules: this.ruleList,
           size: this.confGlobal.size,
           labelWidth: this.confGlobal.labelWidth + 'px',
-          labelPosition: this.confGlobal.labelPosition || undefined
+          labelPosition: this.confGlobal.labelPosition || undefined,
+          labelCol:  { span: 4 },
+          wrapperCol: { span: 20 },
+          colon: false
         },
         ref: this.confGlobal.formRef
       }
-      const btns = <a-col span={24}>
-                    <a-form-item  style="text-align:right;">
-                      <a-button onClick={this.resetForm}>重置</a-button>
-                      <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
-                    </a-form-item>
+      const btns = <a-col span="24">
+                  <a-row  type="flex" justify="center">
+                        <a-button onClick={this.resetForm}>重置</a-button>
+                        <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
+                      </a-row>
                   </a-col>
       // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
       return h('a-form', formObject, [content, btns]) 
@@ -271,10 +274,10 @@ export default {
 
   render (h) {
     if (!this.confGlobal) {
-      return <div v-loading="true" class="loading-mask"></div>
+      return <div class="loading-mask"></div>
     }
     return  <div class="preview-container" style={'width:' + this.containerWidth + '%;'}>
-              <a-row gutter={this.confGlobal.gutter} style="padding: 2rem 2rem 0;">
+              <a-row gutter={this.confGlobal.gutter} style="padding: 2rem;">
                 {this.buildForm(h)}
               </a-row>
               <div  class="width-slider">
@@ -290,7 +293,7 @@ export default {
   margin: 3rem auto 1rem;
   border-radius:  6px;
   box-shadow:  0 0 15px rgba(0, 0, 0, .1);
-  
+
   .width-slider {
     width: 150px;
     position:  absolute;

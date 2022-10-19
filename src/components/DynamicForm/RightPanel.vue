@@ -16,7 +16,11 @@
     <div class="field-box">
       <div class="right-scrollbar">
 
-        <a-form v-show="currentTab==='field' && showField" :label-col="labelCol" :wrapper-col="wrapperCol">
+        <a-form v-show="currentTab==='field' && showField" 
+          :labelCol="labelCol" 
+          :wrapperCol="wrapperCol"
+          :colon="false"
+        >
           <a-form-model-item v-if="activeData.label!==undefined" label="标题">
             <a-input v-model="activeData.label" placeholder="请输入标题" />
           </a-form-model-item>
@@ -221,6 +225,7 @@
               <div v-for="(item, index) in activeData.options" :key="index" class="select-item">
                 <div class="select-line-icon option-drag">
                   <i class="a-icon-s-operation" />
+                  <svg-icon icon-class="drag" />
                 </div>
                 <!-- <a-input v-model="item.label" placeholder="选项名" size="small" /> -->
                 <a-input
@@ -1164,7 +1169,8 @@ export default {
 }
 
 .select-line-icon {
-  line-height: 32px;
+  .flex();
+  height: 34px;
   font-size: 22px;
   padding: 0 4px;
   color: #777;
