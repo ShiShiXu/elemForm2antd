@@ -179,11 +179,11 @@ export default {
       // this.$refs[this.confGlobal.formRef].validate(valid => {
       //   if(!valid) return
       //   if (!isTableValid) return
-      //   this.$notify({
-      //     title: '表单数据',
-      //     message: '请在控制台中查看数据输出',
-      //     position: 'bottom-right'
-      //   });
+      this.$notification.open({
+        message: '表单数据',
+        description: '请在控制台中查看数据输出',
+        placement: 'bottomRight'
+      });
       //   console.log('表单数据', this.formModel)
       //   // TODO 提交表单
       // })
@@ -249,8 +249,8 @@ export default {
       }
       const btns = <a-col span={24}>
                     <a-form-item  style="text-align:right;">
-                      <a-button type="primary" onClick={this.submitForm}>提交</a-button>
                       <a-button onClick={this.resetForm}>重置</a-button>
+                      <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
                     </a-form-item>
                   </a-col>
       // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染

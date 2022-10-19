@@ -1069,6 +1069,7 @@ export default {
       // this.formConf.span = val;
     },
     multipleChange(val) {
+      this.$set(this.activeData, "mode", val ? "multiple" : "");
       this.$set(this.activeData, "defaultValue", val ? [] : "");
     },
     dateTypeChange(val) {

@@ -6,7 +6,7 @@
  *GitHub: https://github.com/JakHuang/form-generator
  */
  <template>
-  <div class="icon-dialog">
+  <div ref="cstIconDialog" class="cst-icon-dialog">
     
     <!-- <a-modal
       v-bind="$attrs"
@@ -22,6 +22,7 @@
       v-bind="$attrs"
       width="980px"
       centered
+      :getContainer="()=>$refs.cstIconDialog"
       v-on="$listeners"
       @cancel="close"
     >
@@ -124,7 +125,8 @@ export default {
   }
 }
 
-.ant-modal-content {
+.cst-icon-dialog {
+  .ant-modal-content {
     border-radius: 8px;
     margin-bottom: 0;
     margin-top: 4vh !important;
@@ -143,5 +145,7 @@ export default {
       overflow: auto;
     }
   }
+}
+
   
 </style>

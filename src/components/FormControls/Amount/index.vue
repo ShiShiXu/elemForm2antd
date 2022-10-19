@@ -46,7 +46,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="less" scoped>
 .explain-text {
   font-size: 12px;
   color: #aaa;

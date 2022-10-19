@@ -141,7 +141,7 @@ export const selectComponents = [{
   disabled: false,
   required: false,
   filterable: false,
-  multiple: false,
+  mode: "",
   options: [{
     label: '选项一',
     value: '选项一'
@@ -159,6 +159,7 @@ export const selectComponents = [{
   tagIcon: 'cascader',
   placeholder: '请选择',
   defaultValue: [],
+  mode: "",
   span: 24,
   labelWidth: null,
   style: { width: '100%' },
@@ -167,6 +168,12 @@ export const selectComponents = [{
       multiple: false
     }
   },
+  // 数据别名映射
+  fieldNames: {
+    label: 'title', 
+    value: 'key', 
+    children: 'children' 
+  },
   'show-all-levels': true,
   disabled: false,
   clearable: true,
@@ -174,36 +181,30 @@ export const selectComponents = [{
   required: false,
   options: [
     {
-      id: 1,
-      value: '选项1',
-      label: '选项1',
+      key: '选项1',
+      title: '选项1',
       children: [
           {
-            id: 2,
-            value: '选项1-1',
-            label: '选项1-1'
+            key: '选项1-1',
+            title: '选项1-1'
           },
           {
-            id: 3,
-            value: '选项1-2',
-            label: '选项1-2'
+            key: '选项1-2',
+            title: '选项1-2'
           }
       ]
     },
     {
-      id: 2,
-      value: '选项2',
-      label: '选项2',
+      key: '选项2',
+      title: '选项2',
       children: [
           {
-            id: 2,
-            value: '选项2-1',
-            label: '选项2-1'
+            key: '选项2-1',
+            title: '选项2-1'
           },
           {
-            id: 3,
-            value: '选项2-2',
-            label: '选项2-2'
+            key: '选项2-2',
+            title: '选项2-2'
           }
       ]
     }
@@ -567,6 +568,7 @@ export const selectComponents = [{
 },
 {
   label: '计算公式',
+  span: 24,
   type: 'calculate',
   tag: 'fc-calculate',
   showChinese: true,

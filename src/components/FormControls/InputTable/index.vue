@@ -352,176 +352,256 @@ export default {
   }
 };
 </script>
-<style lang="stylus" scoped>
-.fc-table-box
-  margin-bottom 0px
-  .row-action
-    display flex
-    justify-content center
-    align-items center
-    .a-icon-delete
-      position absolute
-      opacity 0
-      z-index -1
-      transform translate(-50%, -50%)
-      cursor pointer
+<style lang="less" scoped>
+// Color variables (appears count calculates by raw css)
+@color0: #ffffff; // Appears 4 times
+@color1: #f56c6c; // Appears 3 times
+@color2: #e5e5e5; // Appears 2 times
+@color3: #ff0000; // Appears 2 times
 
-  .actions
-    text-align center
-    border 1px solid #EBEEF5
-    border-top none
-  .list-summary
-    line-height 24px
-    overflow hidden
-    border 1px solid #e5e5e5
-    border-top none
+// Width variables (appears count calculates by raw css)
+@width1: 100%; // Appears 5 times
+@width2: 10px; // Appears 2 times
 
+// Height variables (appears count calculates by raw css)
+@height1: 40px; // Appears 2 times
+@height2: 10px; // Appears 2 times
 
-
-  &.list
-    .list-row
-      padding 18px 0 10px
-      text-align left
-      border-bottom: 1px solid #e5e5e5
-      position relative
-      &:hover .delete-btn
-        display block
-      .delete-btn
-        position absolute
-        right 10px
-        top 20px
-        z-index 999
-        cursor pointer
-        display none
-        &:hover
-          color #000
-      .row-item
-        margin-bottom 18px
-        position relative
-        &.error 
-          .error-tip
-            top 74%
-            z-index 1
-          >>> .a-input__inner
-            border-color #F56C6C
-        > div 
-          &:first-child
-            text-align right
-            vertical-align middle
-            float left
-            font-size 14px
-            color #606266
-            line-height 32px
-            padding 0 12px 0 0
-            box-sizing border-box
-    .error-tip 
-      font-size 12px
-      padding-left 6px
-      color #f56c6c
-      position absolute
-      left 100px
-      top 0
-      z-index -1
-      transition bottom .3s
-      min-height auto
-        
-  
-.fc-table-box.table >>> 
-
-  // 索引和删除按钮切换
-  .a-table__row:hover
-    .index
-      display none
-    .a-icon-delete
-      z-index 9
-      opacity 1
-
-  // 去除输入框边框
-  .a-input__inner, .a-textarea__inner
-    width 100%
-    border none
-    text-align left
-    padding-right 10px
-    padding-left 10px
-  .a-date-editor
-    .a-input__prefix
-      left -10px
-      top 1px
-    .a-input__suffix
-      top 1px
-      right 0
-  .a-input-number
-    width 100%
-
-  // 下载按钮
-  .a-upload--text
-    width 100%
-    height 100%
-    padding-top 6px
-    white-space nowrap
-
-  // 组织机构按钮
-  .input-box
-    border none !important
-    min-height 40px !important
-    padding-left 0 !important
-
-  .a-table .a-table__body
-    td
-      padding 0
-      background #FFF !important
-      .error-tip 
-        font-size 12px
-        padding-left 6px
-        color #f56c6c
-      .cell 
-        position relative
-        > div
-          width 100%
-          min-height 40px
-      
-    td:not(:first-child)
-      vertical-align top
-      &::after, &::before
-        content ""
-        width 10px
-        height 10px
-        background white
-        position absolute
-        border 2px solid transparent
-        transition border-color .3s
-
-      &::after
-        border-top none
-        border-right none
-        left 0
-        bottom 0
-
-      &::before
-        border-bottom none
-        border-left none
-        right 0
-        top 0
-
-      &:hover
-        &::after, &::before
-          border-color red
-        
-  .fc-org-select
-    position relative
-
-  .a-slider
-    padding-left 10px
-
-  .a-upload-list--text
-    position fixed
-    margin-left -6px
-    background white
-    box-shadow 2px 2px 8px 2px rgba(0, 0, 0, .1)
-    max-width 250px
-    transition margin-top .3s
-    display none
-    z-index 9
-    &.show
-      display block
+.fc-table-box {
+	margin-bottom: 0px;
+	.row-action {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		.a-icon-delete {
+			cursor: pointer;
+			opacity: 0;
+			position: absolute;
+			transform: translate(-50%, -50%);
+			z-index: -1;
+		}
+	}
+	.actions {
+		border-top: none;
+		border: 1px solid #ebeef5;
+		text-align: center;
+	}
+	.list-summary {
+		border-top: none;
+		border: 1px solid @color2;
+		line-height: 24px;
+		overflow: hidden;
+	}
+}
+.fc-table-box.list {
+	.list-row {
+		border-bottom: 1px solid @color2;
+		padding: 18px 0 10px;
+		position: relative;
+		text-align: left;
+		&:hover {
+			.delete-btn {
+				display: block;
+			}
+		}
+		.delete-btn {
+			cursor: pointer;
+			display: none;
+			position: absolute;
+			right: 10px;
+			top: 20px;
+			z-index: 999;
+			&:hover {
+				color: #000000;
+			}
+		}
+		.row-item {
+			margin-bottom: 18px;
+			position: relative;
+		}
+		.row-item.error {
+			.error-tip {
+				top: 74%;
+				z-index: 1;
+			}
+		}
+		.row-item.error {
+      .a-input__inner {
+			border-color: @color1;
+		}
+    }
+		.row-item>div {
+			&:first-child {
+				box-sizing: border-box;
+				color: #606266;
+				float: left;
+				font-size: 14px;
+				line-height: 32px;
+				padding: 0 12px 0 0;
+				text-align: right;
+				vertical-align: middle;
+			}
+		}
+	}
+	.error-tip {
+		color: @color1;
+		font-size: 12px;
+		left: 100px;
+		min-height: auto;
+		padding-left: 6px;
+		position: absolute;
+		top: 0;
+		transition: bottom 0.3s;
+		z-index: -1;
+	}
+}
+.fc-table-box.table {
+  .a-table__row {
+    &:hover {
+      .index {
+        display: none;
+      }
+      .a-icon-delete {
+        opacity: 1;
+        z-index: 9;
+      }
+    }
+  }
+}
+.fc-table-box.table {
+  .a-input__inner {
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+    width: @width1;
+  }
+}
+.fc-table-box.table {
+  .a-textarea__inner {
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: left;
+    width: @width1;
+  }
+}
+.fc-table-box.table {
+  .a-date-editor {
+	.a-input__prefix {
+		left: -10px;
+		top: 1px;
+	}
+	.a-input__suffix {
+		right: 0;
+		top: 1px;
+	}
+}
+}
+.fc-table-box.table {
+  .a-input-number {
+	width: @width1;
+}
+}
+.fc-table-box.table {
+  .a-upload--text {
+	height: 100%;
+	padding-top: 6px;
+	white-space: nowrap;
+	width: @width1;
+}
+}
+.fc-table-box.table {
+  .input-box {
+	border: none !important;
+	min-height: @height1 !important;
+	padding-left: 0 !important;
+}
+}
+.fc-table-box.table {
+  .a-table {
+	.a-table__body {
+		td {
+			background: @color0 !important;
+			padding: 0;
+			.error-tip {
+				color: @color1;
+				font-size: 12px;
+				padding-left: 6px;
+			}
+			.cell {
+				position: relative;
+			}
+			.cell>div {
+				min-height: @height1;
+				width: @width1;
+			}
+			&:not(:first-child) {
+        vertical-align: top;
+          &::after {
+            background: @color0;
+            border-right: none;
+            border-top: none;
+            border: 2px solid transparent;
+            bottom: 0;
+            content: "";
+            height: @height2;
+            left: 0;
+            position: absolute;
+            transition: border-color 0.3s;
+            width: @width2;
+          }
+          &::before {
+            background: @color0;
+            border-bottom: none;
+            border-left: none;
+            border: 2px solid transparent;
+            content: "";
+            height: @height2;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: border-color 0.3s;
+            width: @width2;
+          }
+      }
+      &:hover {
+        &::after {
+          border-color: @color3;
+        }
+        &::before {
+          border-color: @color3;
+        }
+      }
+    }
+  }
+}
+}
+.fc-table-box.table {
+  .fc-org-select {
+    position: relative;
+  }
+}
+.fc-table-box.table {
+  .a-slider {
+    padding-left: 10px;
+  }
+}
+.fc-table-box.table {
+  .a-upload-list--text {
+    background: @color0;
+    box-shadow: 2px 2px 8px 2px rgba(0,0,0,0.1);
+    display: none;
+    margin-left: -6px;
+    max-width: 250px;
+    position: fixed;
+    transition: margin-top 0.3s;
+    z-index: 9;
+  }
+}
+.fc-table-box.table {
+  .a-upload-list--text.show {
+    display: block;
+  }
+}
 </style>

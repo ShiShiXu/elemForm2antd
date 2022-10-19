@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <header class="page__header">
+    <header class="page-header">
 
       <div class="page-actions">
         <div style="border-right:1px solid #c5c5c5;cursor: pointer;" @click="exit">
@@ -52,7 +52,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '补卡申请'
+      default: '在线表单'
     }
   },
   data() {
@@ -89,14 +89,13 @@ export default {
     },
     publish() {
       const getCmpData = name => this.$refs[name].getData()
-      const p2 = getCmpData('formDesign')
-      Promise.all([p1, p2, p3])
+      const p1 = getCmpData('formDesign')
+      Promise.all([p1])
       .then(res => {
         const param = {
-          processData: res[2].formData,
-          formData: res[1].formData,
+          formData: res[0].formData,
         }
-        this.sendToServer(param)
+        this.sendToServer(param);
       })
       .catch(err => {
         err.target && (this.activeStep = err.target)
@@ -104,10 +103,10 @@ export default {
       })
     },
     sendToServer(param){
-      this.$notify({
-        title: '数据已整合完成',
-        message: '请在控制台中查看数据输出',
-        position: 'bottom-right'
+      this.$notification.open({
+        message: '数据已整合完成',
+        description: '请在控制台中查看数据输出',
+        placement: 'bottomRight'
       });
       console.log('配置数据', param)
     },
@@ -152,10 +151,10 @@ export default {
   padding-top: @header-height;
   box-sizing: border-box;
 
-  .page__header {
+  .page-header {
     width: 100%;
     height: @header-height;
-    padding-right: 10px;
+    padding: 0 10px;
     .flex();
     justify-content: space-between;
     box-sizing: border-box;
@@ -169,13 +168,6 @@ export default {
       height: 100%;
       text-align: center;
       line-height: @header-height;
-
-      > div {
-        height: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
-        display: inline-block;
-      }
 
       i {
         font-size: 22px;

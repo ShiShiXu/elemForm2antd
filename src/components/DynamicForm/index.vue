@@ -71,15 +71,21 @@
     <div class="center-board">
       <div class="action-bar">
 
+        <a-button 
+          class="delete-btn" 
+          type="danger"
+          ghost
+        @click="empty">清空</a-button>
+
         <a-button
           class="copy-btn-main"
-          type="text"
           @click="preview"
+          type="primary"
+          ghost
         >预览</a-button>
 
-        <a-button class="delete-btn" type="text" @click="empty">清空</a-button>
-
       </div>
+
       <div id="ipad" ref="ipad">
         <div class="outeripad" :class="[ipadMode]">
           <div class="ipadbody">
@@ -473,13 +479,30 @@ export default {
         this.$message.warning("尚有组件已作为流程判断条件，无法删除");
         return;
       }
-      this.$confirm("确定要清空所有组件吗？", "提示", { type: "warning" }).then(
-        () => {
-          this.drawingList = [];
-          // this.idGlobal = 100;
-          this.$store.commit('clearPCondition')
+      // this.$confirm("确定要清空所有组件吗？", "提示", { type: "warning" }).then(
+      //   () => {
+      //     this.drawingList = [];
+      //     // this.idGlobal = 100;
+      //     this.$store.commit('clearPCondition')
+      //   }
+      // );
+      
+      let doClear = () => {
+        this.drawingList = [];
+        // this.idGlobal = 100;
+        this.$store.commit('clearPCondition');
+      }
+      
+      this.$confirm({
+        title: '提示',
+        content: '确定要清空所有组件吗',
+        okText: '确认',
+        cancelText: '取消',
+        onOk() {
+          doClear();
+
         }
-      );
+      });
     },
     drawingItemCopy(item, parent) {
       let clone = JSON.parse(JSON.stringify(item));
@@ -631,7 +654,7 @@ export default {
 .outeripad {
   box-shadow: 0 0 13px 3px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  margin: auto;
+  margin: 10px auto;
 
   &.portrait{
       padding: 45px 25px;

@@ -132,10 +132,10 @@ function mixinMethod ( type ) {
           this.$refs['${confGlobal.formRef}'].validate(valid => {
             if(!valid) return
             if (!isTableValid) return
-            this.$notify({
-              title: '表单数据',
-              message: '请在控制台中查看数据输出',
-              position: 'bottom-right'
+            this.$notification.open({
+              message: '表单数据',
+              description: '请在控制台中查看数据输出',
+              placement: 'bottomRight'
             });
             console.log('表单数据', this.formData)
             // TODO 提交表单

@@ -65,14 +65,17 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.preview-container 
-  margin 3rem auto 1rem
-  border-radius 6px
-  box-shadow 0 0 15px rgba(0, 0, 0, .1)
-  .width-slider
-    width  150px
-    position absolute
-    top 0
-    right 2rem
+<style lang="less" scoped>
+.preview-container {
+  margin: 3rem auto 1rem;
+  border-radius: 6px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+  .width-slider {
+    width: 150px;
+    position: absolute;
+    top: 0;
+    right: 2rem;
+  }
+}
+  
 </style>
