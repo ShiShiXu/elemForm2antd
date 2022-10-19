@@ -34,6 +34,10 @@ function buildRules ( conf, ctx ) {
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
+
+    console.log("conf:", conf);
+    console.log("conf.required:", conf.required);
+
     const type = Array.isArray( conf.defaultValue ) ? 'array' : undefined
     let message = Array.isArray( conf.defaultValue ) ? `请至少选择一个` : conf.placeholder
     if ( message === undefined ) message = `${conf.label}不能为空`
@@ -157,8 +161,7 @@ export default {
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, {
-      onValuesChange: (props, values) => {
-      }
+      onValuesChange: (props, values) => {}
     });
   },
   mounted(){
@@ -279,14 +282,12 @@ export default {
         ref: this.confGlobal.formRef
       }
       const btns = <a-col span="24">
-                  <a-row  type="flex" justify="center">
+                    <a-row  type="flex" justify="center">
                         <a-button onClick={this.resetForm}>重置</a-button>
                         <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
-                      </a-row>
+                      </a-row> 
                   </a-col>
       // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
-      console.log("content:", content);
-      return "asdasdasd"
       return h('a-form', formObject, [content, btns])
     },
     initDefaultData(config) {

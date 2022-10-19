@@ -11,14 +11,14 @@
         "fields": [
             {
                 "cmpType": "common",
-                "label": "单行输入框32",
+                "label": "必填1",
                 "tag": "a-input",
                 "tagIcon": "input",
                 "placeholder": "请3输入单行输入框",
                 "span": 24,
                 "labelWidth": 123,
                 "style": {
-                    "width": "100%123"
+                    "width": ""
                 },
                 "clearable": true,
                 "prepend": "",
@@ -38,6 +38,93 @@
                 "layout": "colFormItem",
                 "vModel": "field1",
                 "defaultValue": "123"
+            },
+            {
+                "cmpType": "common",
+                "label": "金额",
+                "tag": "fc-amount",
+                "tagIcon": "amount",
+                "placeholder": "请输入金额",
+                "style": {
+                    "width": null
+                },
+                "span": 24,
+                "labelWidth": null,
+                "step-strictly": false,
+                "controls-position": "right",
+                "disabled": false,
+                "required": false,
+                "regList": [],
+                "changeTag": true,
+                "proCondition": true,
+                "showChinese": true,
+                "formId": 2,
+                "renderKey": 1666181152748,
+                "layout": "colFormItem",
+                "vModel": "field2"
+            },
+            {
+                "cmpType": "common",
+                "label": "必填2",
+                "tag": "a-input",
+                "tagIcon": "textarea",
+                "type": "textarea",
+                "placeholder": "请输入多行输入框1",
+                "span": 24,
+                "labelWidth": null,
+                "autosize": {
+                    "minRows": 4,
+                    "maxRows": 4
+                },
+                "style": {
+                    "width": "100%"
+                },
+                "maxLength": null,
+                "show-word-limit": false,
+                "disabled": false,
+                "required": true,
+                "regList": [],
+                "changeTag": true,
+                "proCondition": false,
+                "asSummary": false,
+                "formId": 3,
+                "renderKey": 1666181153086,
+                "layout": "colFormItem",
+                "vModel": "field3"
+            },
+            {
+                "cmpType": "common",
+                "label": "下拉选择",
+                "tag": "a-select",
+                "tagIcon": "select",
+                "placeholder": "请选择下拉选择",
+                "style": {
+                    "width": "100%"
+                },
+                "span": 24,
+                "labelWidth": null,
+                "clearable": true,
+                "disabled": false,
+                "required": false,
+                "filterable": false,
+                "mode": "",
+                "options": [
+                    {
+                        "label": "选项一",
+                        "value": "选项一"
+                    },
+                    {
+                        "label": "选项二",
+                        "value": "选项二"
+                    }
+                ],
+                "regList": [],
+                "changeTag": true,
+                "proCondition": true,
+                "formId": 4,
+                "renderKey": 1666181154003,
+                "layout": "colFormItem",
+                "vModel": "field4"
             }
         ]
     }
