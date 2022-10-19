@@ -7,74 +7,71 @@
  */
  <template>
   <div>
-    <el-dialog
+    <a-modal
       v-bind="$attrs"
-      :close-on-click-modal="false"
-      :modal-append-to-body="false"
       v-on="$listeners"
-      @open="onOpen"
-      @close="onClose"
+      :maskClosable="true"
+      @cancel="close"
     >
-      <el-row :gutter="0">
-        <el-form
-          ref="elForm"
+      <a-row :gutter="0">
+        <a-form
+          :form="form"
           :model="formData"
           :rules="rules"
-          size="small"
-          label-width="100px"
+          :labelCol="{ span: 4 }"
+          :wrapperCol="{ span: 18 }"
         >
-          <el-col :span="24">
-            <el-form-item
+            <a-form-item
               label="选项名"
               prop="label"
             >
-              <el-input
-                v-model="formData.label"
+              <a-input
+                v-model="formData.title"
                 placeholder="请输入选项名"
                 clearable
               />
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item
+            </a-form-item>
+            <a-form-item
               label="选项值"
               prop="value"
             >
-              <el-input
-                v-model="formData.value"
+              <a-input
+                v-model="formData.key"
                 placeholder="请输入选项值"
                 clearable
               >
-                <el-select
-                  slot="append"
+                <!-- <a-select
                   v-model="dataType"
                   :style="{width: '100px'}"
+                  slot="addonAfter"
                 >
-                  <el-option
+                  <a-select-option
                     v-for="(item, index) in dataTypeOptions"
-                    :key="index"
-                    :label="item.label"
-                    :value="item.value"
-                    :disabled="item.disabled"
-                  />
-                </el-select>
-              </el-input>
-            </el-form-item>
-          </el-col>
-        </el-form>
-      </el-row>
+                    :key="item.key"
+                    :value="item.value"> 
+                    {{item.label}} 
+                  </a-select-option>
+                </a-select> -->
+                
+              </a-input>
+
+
+            </a-form-item>
+        </a-form>
+      </a-row>
       <div slot="footer">
-        <el-button
+        <a-button @click="close">
+          取消
+        </a-button>
+        <a-button
           type="primary"
+          style="margin-left: 10px;"
           @click="handelConfirm"
         >
           确定
-        </el-button>
-        <el-button @click="close">
-          取消
-        </el-button>
+        </a-button>
       </div>
-    </el-dialog>
+    </a-modal>
   </div>
 </template>
 <script>
@@ -91,8 +88,8 @@ export default {
     return {
       id,
       formData: {
-        label: undefined,
-        value: undefined
+        key: null,
+        title: null
       },
       rules: {
         label: [
@@ -113,10 +110,12 @@ export default {
       dataType: 'string',
       dataTypeOptions: [
         {
+          key: 1,
           label: '字符串',
           value: 'string'
         },
         {
+          key: 2,
           label: '数字',
           value: 'number'
         }
@@ -126,37 +125,65 @@ export default {
   computed: {},
   watch: {
     // eslint-disable-next-line func-names
-    'formData.value': function (val) {
-      this.dataType = isNumberStr(val) ? 'number' : 'string'
-    },
+    // 'formData.value': function (val) {
+    //   this.dataType = isNumberStr(val) ? 'number' : 'string'
+    // },
     id(val) {
       saveTreeNodeId(val)
     }
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, {
+      onValuesChange: (props, values) => {
+        console.log("props + values:", `${props} + ${props}`);
+      }
+    });
   },
   created() {},
   mounted() {},
   methods: {
     onOpen() {
       this.formData = {
-        label: undefined,
-        value: undefined
+        key: null,
+        title: null,
       }
     },
-    onClose() {},
     close() {
+      this.formData = {
+        key: null,
+        title: null,
+      };
       this.$emit('update:visible', false)
     },
     handelConfirm() {
-      this.$refs.elForm.validate(valid => {
-        if (!valid) return
-        if (this.dataType === 'number') {
-          this.formData.value = parseFloat(this.formData.value)
-        }
-        this.formData.id = this.id++
-        this.$emit('commit', this.formData)
-        this.close()
-      })
+      
+      console.log(this.form);
+      this.form.validateFields((errors, values) => {
+        console.log("errors:", errors);
+        console.log("values:", values);
+      });
+
+      this.formData.key = `new${this.id++}`;
+
+      this.$emit('commit', this.formData);
+
+      this.close()
+
     }
+    // handelConfirm() {
+    //   this.$refs.elForm.validate(valid => {
+    //     if (!valid) {
+    //       console.log()
+    //       return
+    //     }
+    //     if (this.dataType === 'number') {
+    //       this.formData.value = parseFloat(this.formData.value)
+    //     }
+    //     this.formData.id = this.id++
+    //     this.$emit('commit', this.formData)
+    //     this.close()
+    //   })
+    // }
   }
 }
 </script>

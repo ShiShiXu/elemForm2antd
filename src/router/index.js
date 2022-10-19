@@ -32,12 +32,7 @@ const routes = [
     meta: {
       keepAlive: false
     }
-  },
-  // {
-  //   path: '/test',
-  //   name: 'test',
-  //   component: () => import( "@/views/custom/test.vue" )
-  // },
+  }
 ]
 
 const router = new VueRouter( {

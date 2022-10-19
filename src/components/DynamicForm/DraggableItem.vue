@@ -70,28 +70,6 @@ const layouts = {
         </a-col>
     )
 
-    return (
-
-      <a-col span={element.span} class={className} nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }}>
-
-          <a-form-item label-width={element.labelWidth ? `${element.labelWidth}px` : null}
-            label={element.label} required={element.required}>
-              <render 
-                key={element.renderKey} 
-                conf={element} 
-                onInput={ event => {
-                  console.log("render onInput:", event);
-                  this.$set(element, 'defaultValue', event);
-                }}
-              />
-          </a-form-item>
-
-        { components.itemBtns.apply(this, arguments)}
-
-      </a-col>
-
-    )
-
   },
 
   rowFormItem(h, element, index, parent) {
@@ -101,9 +79,9 @@ const layouts = {
    
     let child = renderChildren.apply(this, arguments)
     if (element.type === 'flex') {
-      child = <el-row type={element.type} justify={element.justify} align={element.align} >
+      child = <a-row type={element.type} justify={element.justify} align={element.align} >
                 {child}
-              </el-row>
+              </a-row>
     }
     const group = {name: 'componentsGroup', put:(...arg) => put(...arg, element)}
     const isCustom = element.cmpType === 'custom'

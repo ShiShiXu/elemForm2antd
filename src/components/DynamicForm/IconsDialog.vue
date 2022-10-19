@@ -7,19 +7,28 @@
  */
  <template>
   <div class="icon-dialog">
-    <el-dialog
+    
+    <!-- <a-modal
       v-bind="$attrs"
       width="980px"
       :modal-append-to-body="false"
       v-on="$listeners"
       @open="onOpen"
       @close="onClose"
+      @cancel="close"
+    > -->
+
+    <a-modal
+      v-bind="$attrs"
+      width="980px"
+      centered
+      v-on="$listeners"
+      @cancel="close"
     >
       <div slot="title">
         选择图标
-        <el-input
+        <a-input
           v-model="key"
-          size="mini"
           :style="{width: '260px'}"
           placeholder="请输入图标名称"
           prefix-icon="el-icon-search"
@@ -37,7 +46,7 @@
           <div>{{ icon }}</div>
         </li>
       </ul>
-    </el-dialog>
+    </a-modal>
   </div>
 </template>
 <script>
@@ -69,6 +78,13 @@ export default {
       this.active = this.current
       this.key = ''
     },
+    close() {
+      
+      this.active = this.current
+      this.key = ''
+
+      this.$emit('update:visible', false)
+    },
     onClose() {},
     onSelect(icon) {
       this.active = icon
@@ -78,7 +94,7 @@ export default {
   }
 }
 </script>
-<style lang="stylus" scoped>
+<style lang="less">
 .icon-ul {
   margin: 0;
   padding: 0;
@@ -107,24 +123,25 @@ export default {
     }
   }
 }
-.icon-dialog {
-  ::v-deep .el-dialog {
+
+.ant-modal-content {
     border-radius: 8px;
     margin-bottom: 0;
     margin-top: 4vh !important;
     display: flex;
     flex-direction: column;
+    min-height: 92vh;
     max-height: 92vh;
     overflow: hidden;
     box-sizing: border-box;
-    .el-dialog__header {
+    .ant-modal-header {
       padding-top: 14px;
     }
-    .el-dialog__body {
+    .ant-modal-body {
       margin: 0 20px 20px 20px;
       padding: 0;
       overflow: auto;
     }
   }
-}
+  
 </style>

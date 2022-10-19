@@ -101,9 +101,9 @@
                 <a-checkbox
                   @change="checked => checked ? addData(item) : removeData(item, activeTabName, true)"
                 ></a-checkbox>
-                <el-checkbox
+                <a-checkbox
                   @change="checked => checked ? addData(item) : removeData(item, activeTabName, true)"
-                ></el-checkbox>
+                ></a-checkbox>
               </div>
             </div>
 
@@ -125,21 +125,6 @@
                     @check=onCheck
                     @change="(data, checked) => onCheckChange(data, checked, tab_item.tabKey)"
                   />
-                  <!-- <el-tree
-                    :ref="tab_item.tabKey"
-                    lazy
-                    :load="onLoad"
-                    show-checkbox
-                    :props="{
-                      children: tab_item.children,
-                      label: tab_item.label,
-                      isLeaf: tab_item.isLeaf,
-                      disabled: tab_item.disabled
-                    }"
-                    node-key="nodeId"
-                    :check-strictly="true"
-                    @check-change="(data, checked) => onCheckChange(data, checked, tab_item.tabKey)"
-                  /> -->
                 </a-tab-pane>
               </a-tabs>
             </div>

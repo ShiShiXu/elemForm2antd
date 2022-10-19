@@ -22,47 +22,23 @@
         <div class="ghost-step step" :style="{transform: translateX}"></div>
       </div>
 
-      <!-- <el-button size="small" class="publish-btn" @click="publish">发布</el-button> -->
-
       <a-button @click="publish">发布</a-button>
 
     </header>
     <section class="page__content" v-if="mockData">
-      <BasicSetting
-        ref="basicSetting" 
-        :conf="mockData.basicSetting"
-        v-show="activeStep === 'basicSetting'" 
-        tabName="basicSetting"
-        @initiatorChange="onInitiatorChange" /> 
 
       <DynamicForm
         ref="formDesign"
         :conf="mockData.formData"
         v-show="activeStep === 'formDesign'" 
         tabName="formDesign" />
-
-      <Process  
-        ref="processDesign"
-        :conf="mockData.processData"
-        tabName="processDesign" 
-        v-show="activeStep === 'processDesign'" 
-        @startNodeChange="onStartChange"/>
-
-      <AdvancedSetting
-        ref="advancedSetting"
-        :conf="mockData.advancedSetting"
-        v-show="activeStep === 'advancedSetting'" />
-
     </section>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Process from "@/components/Process";
 import DynamicForm from "@/components/DynamicForm";
-import BasicSetting from '@/components/BasicSetting'
-import AdvancedSetting from '@/components/AdvancedSetting'
 import { GET_MOCK_CONF } from '../../api'
 const beforeUnload = function (e) {
   return false;
@@ -82,13 +58,9 @@ export default {
   data() {
     return {
       mockData: null, // 可选择诸如 $route.param，Ajax获取数据等方式自行注入
-      // activeStep: "basicSetting", // 激活的步骤面板
       activeStep: "formDesign", // 激活的步骤面板
       steps: [
-        { label: "基础设置", key: "basicSetting" },
         { label: "表单设计", key: "formDesign" },
-        { label: "流程设计", key: "processDesign" },
-        { label: "高级设置", key: "advancedSetting" }
       ]
     };
   },
@@ -117,18 +89,12 @@ export default {
     },
     publish() {
       const getCmpData = name => this.$refs[name].getData()
-      // basicSetting  formDesign processDesign 返回的是Promise 因为要做校验
-      // advancedSetting返回的就是值
-      const p1 = getCmpData('basicSetting') 
       const p2 = getCmpData('formDesign')
-      const p3 = getCmpData('processDesign')
       Promise.all([p1, p2, p3])
       .then(res => {
         const param = {
-          basicSetting: res[0].formData,
           processData: res[2].formData,
           formData: res[1].formData,
-          advancedSetting: getCmpData('advancedSetting')
         }
         this.sendToServer(param)
       })
@@ -161,7 +127,6 @@ export default {
      * 同步基础设置发起人和流程节点发起人
      */
     onInitiatorChange (val, labels) {
-      const processCmp = this.$refs.processDesign
       const startNode = processCmp.data
       startNode.properties.initiator = val['dep&user']
       startNode.content =  labels  || '所有人'
@@ -170,16 +135,10 @@ export default {
     /**
      * 监听 流程节点发起人改变 并同步到基础设置 发起人数据
      */
-    onStartChange(node){
-      const basicSetting = this.$refs.basicSetting
-      basicSetting.formData.initiator = { 'dep&user': node.properties.initiator }
-    }
+    onStartChange(node){}
   },
   components: {
-    Process,
     DynamicForm,
-    BasicSetting,
-    AdvancedSetting
   }
 };
 </script>
