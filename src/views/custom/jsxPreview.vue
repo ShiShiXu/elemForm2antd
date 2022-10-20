@@ -85,19 +85,19 @@ const layouts = {
       }
     }
     let item =  <a-col span={conf.span}>
-                  <a-form-item 
-                  laba-width={labelWidth} 
-                  label={isList ? '' : conf.label} 
-                  prop={conf.vModel}>
+                  <a-form-model-item
+                      laba-width={labelWidth} 
+                      label={isList ? '' : conf.label}
+                    >
                     <render
-                    formData={ctx.formModel}
-                    conf={conf} 
-                    value={ctx.formModel[conf.vModel]} 
-                    ref={conf.rowType === 'table' ? conf.vModel : undefined} 
-                    onInput={handleInput}
-                    onChange={handleInput}
+                      formData={ctx.formModel}
+                      conf={conf} 
+                      value={ctx.formModel[conf.vModel]} 
+                      ref={conf.rowType === 'table' ? conf.vModel : undefined} 
+                      onInput={handleInput}
+                      onChange={handleInput}
                     />
-                  </a-form-item>
+                  </a-form-model-item>
                 </a-col>
 
     if (isList) {
@@ -156,13 +156,15 @@ export default {
       containerWidth: 66,
       confGlobal: this.$route.params.formData || null,
       formModel: {},
-      ruleList: {}
+      ruleList: {},
     }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, {
-      onValuesChange: (props, values) => {}
-    });
+    // this.form = this.$form.createForm(this, {
+    //   onValuesChange: (props, values) => {
+    //     console.log("props + values:", `${props} + ${props}`);
+    //   }
+    // });
   },
   mounted(){
 
@@ -172,17 +174,64 @@ export default {
       this.initDefaultData(this.confGlobal);
     }
     _isMounted = true;
+    
+    // console.log("this.form:", this.form);
+
   },
   methods: {
+    buildForm (h) {
+      let labelPosition = this.confGlobal.labelPosition || 'left'
+      const content = this.confGlobal.fields.map(c => layouts[c.layout](c, h, this))
+      const formObject = {
+        props: {
+          model: this.formModel,
+          size: this.confGlobal.size,
+          labelWidth: this.confGlobal.labelWidth + 'px',
+          labelPosition: this.confGlobal.labelPosition || undefined,
+          labelCol:  { span: 4 },
+          wrapperCol: { span: 20 },
+          colon: false,
+          rules: { required: true, message: '请输入点东西', trigger: 'blur', type: undefined }
+        },
+        ref: this.confGlobal.formRef
+      }
+      const btns = <a-col span="24">
+                    <a-row  type="flex" justify="center">
+                        <a-button onClick={this.resetForm}>重置</a-button>
+                        <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
+                      </a-row> 
+                  </a-col>
+
+      const afm = 
+          <div>
+              <a-form-model
+                labelCol={{ span: 4 }}
+                wrapperCol={{ span: 20 }}
+              >
+                <a-form-model-item 
+                  label="Activity form" 
+                  prop="desc2"
+                  rules={{ required: true, message: '请输入点东西', trigger: 'blur', type: undefined }}
+                  >
+                  <a-input type="textarea" />
+                </a-form-model-item>
+              </a-form-model>
+            </div>
+
+            
+      // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
+      return h("a-form-model", formObject, [content, btns]);
+      // return h('a-form-model', formObject, [content, btns]);
+    },
     submitForm () {
       const isTableValid = this.checkTableData();
 
       // console.log(this.confGlobal.formRef);
 
-      this.form.validateFields((errors, values) => {
-        console.log(`errors + values : ${errors} + ${values}`);
-        console.log("errors + values :",  values);
-      });
+      // this.form.validateFields((errors, values) => {
+      //   console.log(`errors + values : ${errors} + ${values}`);
+      //   console.log("errors + values :",  values);
+      // });
 
       // this.$refs[this.confGlobal.formRef].validate(valid => {
       //   if(!valid) return
@@ -217,9 +266,8 @@ export default {
       //   console.log('表单数据', this.formModel)
       //   // TODO 提交表单
       // })
-
       
-      console.log('表单数据：', this.formModel)
+      console.log('表单数据：', this.formModel);
     },
 
     resetForm() {
@@ -262,33 +310,6 @@ export default {
         }
       },
       [content])
-    },
-
-    buildForm (h) {
-      let labelPosition = this.confGlobal.labelPosition || 'left'
-      const content = this.confGlobal.fields.map(c => layouts[c.layout](c, h, this))
-      const formObject = {
-        props: {
-          form: this.form,
-          model: this.formModel,
-          rules: this.ruleList,
-          size: this.confGlobal.size,
-          labelWidth: this.confGlobal.labelWidth + 'px',
-          labelPosition: this.confGlobal.labelPosition || undefined,
-          labelCol:  { span: 4 },
-          wrapperCol: { span: 20 },
-          colon: false
-        },
-        ref: this.confGlobal.formRef
-      }
-      const btns = <a-col span="24">
-                    <a-row  type="flex" justify="center">
-                        <a-button onClick={this.resetForm}>重置</a-button>
-                        <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
-                      </a-row> 
-                  </a-col>
-      // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
-      return h('a-form', formObject, [content, btns])
     },
     initDefaultData(config) {
       config.fields.forEach(field => {

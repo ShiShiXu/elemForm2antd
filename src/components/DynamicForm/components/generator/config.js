@@ -592,6 +592,7 @@ export const layoutComponents = [{
   justify: 'start',
   align: 'top',
   label: '布局容器',
+  span: 24,
   layoutTree: true,
   children: [],
   showDivider: true
@@ -605,6 +606,7 @@ export const layoutComponents = [{
   justify: 'start',
   align: 'top',
   label: '表格/明细',
+  span: 24,
   layoutTree: false,
   children: [],
   actionText: '添加',
@@ -766,8 +768,8 @@ export const customMadeComponents = [
 // 组件rule的触发方式，无触发方式的组件不生成rule
 // inputTable组件也有一份此常量的copy 如有改动 最好同步
 export const trigger = {
-  'a-input': 'change',
-  'a-input-number': 'change',
+  'a-input': 'blur',
+  'a-input-number': 'blur',
   'a-select': 'change',
   'a-radio-group': 'change',
   'a-checkbox-group': 'change',
