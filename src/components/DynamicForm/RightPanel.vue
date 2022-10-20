@@ -490,9 +490,9 @@
             <a-switch v-model="activeData.asSummary"  />
           </a-form-model-item> -->
 
-          <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否可搜索">
-            <a-switch v-model="activeData.filterable" />
-          </a-form-model-item>
+          <!-- <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否可搜索">
+            <a-switch v-model="activeData.filterable" @change="filterableChange" />
+          </a-form-model-item> -->
           
           <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否多选">
             <a-switch v-model="activeData.multiple" @change="multipleChange" />
@@ -1077,6 +1077,10 @@ export default {
     multipleChange(val) {
       this.$set(this.activeData, "mode", val ? "multiple" : "");
       this.$set(this.activeData, "defaultValue", val ? [] : "");
+    },
+    filterableChange(val) {
+      console.log()
+      // this.$set(this.activeData, "mode", val ? "tags" : "");
     },
     dateTypeChange(val) {
       this.$set(this.activeData, "type", val);
