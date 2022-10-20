@@ -95,7 +95,7 @@
                   <a-form
                     class="center-board-form"
                     :size="formConf.size"
-                    :label-position="formConf.labelPosition"
+                    :labelAlign="formConf.labelPosition"
                     :disabled="formConf.disabled"
                     :label-width="formConf.labelWidth + 'px'"
                   >

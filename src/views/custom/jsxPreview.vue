@@ -84,7 +84,7 @@ const layouts = {
         ctx.$refs[ctx.confGlobal.formRef].validateField(conf.vModel,()=>{ })
       }
     }
-    let item =  <a-col span={conf.span}>
+    let item =  <a-col span={conf.span} >
                   <a-form-model-item
                       laba-width={labelWidth} 
                       label={isList ? '' : conf.label}
@@ -190,6 +190,7 @@ export default {
           labelPosition: this.confGlobal.labelPosition || undefined,
           labelCol:  { span: 4 },
           wrapperCol: { span: 20 },
+          labelAlign: this.confGlobal.labelPosition,
           colon: false,
           rules: { required: true, message: '请输入点东西', trigger: 'blur', type: undefined }
         },

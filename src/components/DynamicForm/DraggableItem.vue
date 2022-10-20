@@ -51,8 +51,8 @@ const layouts = {
             <a-form-item 
               class={"cst-ant-form-item"} 
               label={element.label} 
-              labelCol={{ span: 6 }} 
-              wrapperCol={{ flex: 5 }}
+              labelCol={{ span: `${element.labelWidth}` }} 
+              wrapperCol={{ span: `${24 - element.labelWidth}` }}
               colon={false}
               nativeOnClick={event => { (activeItem(element),event.stopPropagation()) }} required={element.required}>
               <render 

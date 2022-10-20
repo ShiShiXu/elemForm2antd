@@ -3,7 +3,7 @@
         "formRef": "elForm",
         "size": "small",
         "labelPosition": "right",
-        "labelWidth": 100,
+        "labelWidth": 6,
         "gutter": 15,
         "disabled": false,
         "span": 12,
@@ -16,7 +16,7 @@
                 "tagIcon": "input",
                 "placeholder": "请输入单行输入框",
                 "span": 24,
-                "labelWidth": null,
+                "labelWidth": 6,
                 "style": {
                     "width": "100%"
                 },
@@ -28,13 +28,13 @@
                 "maxLength": null,
                 "show-word-limit": false,
                 "disabled": false,
-                "required": true,
+                "required": false,
                 "regList": [],
                 "changeTag": true,
                 "proCondition": false,
                 "asSummary": false,
                 "formId": 1,
-                "renderKey": 1666186884285,
+                "renderKey": 1666250004622,
                 "layout": "colFormItem",
                 "vModel": "field1"
             }

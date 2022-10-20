@@ -15,7 +15,8 @@
 
     <div class="field-box">
       <div class="right-scrollbar">
-
+        
+        <!-- 组件属性，保存在 activeData -->
         <a-form v-show="currentTab==='field' && showField" 
           :labelCol="labelCol" 
           :wrapperCol="wrapperCol"
@@ -64,12 +65,12 @@
               <a-radio-button value="bottom">bottom</a-radio-button>
             </a-radio-group>
           </a-form-model-item>
-          <a-form-model-item v-if="activeData.labelWidth!==undefined" label="标签宽度">
+          <a-form-model-item v-if="activeData.labelWidth!==undefined" label="标签宽度(栅格)">
             <a-input-number v-model.number="activeData.labelWidth"  placeholder="请输入标签宽度" />
           </a-form-model-item>
-          <a-form-model-item v-if="activeData.style&&activeData.style.width!==undefined" label="组件宽度">
+          <!-- <a-form-model-item v-if="activeData.style&&activeData.style.width!==undefined" label="组件宽度">
             <a-input v-model="activeData.style.width" placeholder="请输入组件宽度" clearable />
-          </a-form-model-item>
+          </a-form-model-item> -->
           
 
           <a-form-model-item v-if="activeData.vModel!==undefined && activeData.layout !== 'rowFormItem' && notObject(activeData.defaultValue)" label="默认值">
@@ -94,11 +95,11 @@
             />
           </a-form-model-item>
           
-          <a-form-model-item v-if="activeData.autosize !== undefined" label="最小行数">
-            <a-input-number v-model="activeData.autosize.minRows" :min="1" placeholder="最小行数" />
+          <a-form-model-item v-if="activeData.autoSize !== undefined" label="最小行数">
+            <a-input-number v-model="activeData.autoSize.minRows" :min="1" placeholder="最小行数" />
           </a-form-model-item>
-          <a-form-model-item v-if="activeData.autosize !== undefined" label="最大行数">
-            <a-input-number v-model="activeData.autosize.maxRows" :min="1" placeholder="最大行数" />
+          <a-form-model-item v-if="activeData.autoSize !== undefined" label="最大行数">
+            <a-input-number v-model="activeData.autoSize.maxRows" :min="1" placeholder="最大行数" />
           </a-form-model-item>
           <a-form-model-item v-if="activeData.min !== undefined" label="最小值">
             <a-input-number v-model="activeData.min" placeholder="最小值" />
@@ -112,12 +113,12 @@
           <a-form-model-item v-if="['a-input-number','fc-amount'].includes(activeData.tag)" label="精度">
             <a-input-number v-model="activeData.precision" :min="0" placeholder="精度" />
           </a-form-model-item>
-          <a-form-model-item v-if="['a-input-number','fc-amount'].includes(activeData.tag)" label="按钮位置">
+          <!-- <a-form-model-item v-if="['a-input-number','fc-amount'].includes(activeData.tag)" label="按钮位置">
             <a-radio-group v-model="activeData['controls-position']" button-style="solid">
               <a-radio-button value="">默认</a-radio-button>
               <a-radio-button value="right">右侧</a-radio-button>
             </a-radio-group>
-          </a-form-model-item>
+          </a-form-model-item> -->
           <a-form-model-item v-if="activeData.maxlength !== undefined" label="最多输入">
             <a-input v-model="activeData.maxlength" placeholder="请输入字符长度">
               <template slot="append">个字符</template>
@@ -485,9 +486,9 @@
             <a-switch v-model="activeData.showChinese" />
           </a-form-model-item>
 
-          <a-form-model-item label="作为摘要">
+          <!-- <a-form-model-item label="作为摘要">
             <a-switch v-model="activeData.asSummary"  />
-          </a-form-model-item>
+          </a-form-model-item> -->
 
           <a-form-model-item v-if="activeData.tag === 'a-select'" label="是否可搜索">
             <a-switch v-model="activeData.filterable" />
@@ -502,33 +503,33 @@
           </a-form-model-item>
         </a-form>
 
-        <!-- 表单属性 -->
+        <!-- 表单属性，保存在 formConf -->
         <a-form v-show="currentTab === 'form'" :label-col="labelCol" :wrapper-col="wrapperCol">
           <a-form-model-item label="表单名">
             <a-input v-model="formConf.formRef" placeholder="请输入表单名(ref)" />
           </a-form-model-item>
-          <a-form-model-item label="表单尺寸">
+          <!-- <a-form-model-item label="表单尺寸">
             <a-radio-group v-model="formConf.size" button-style="solid">
               <a-radio-button value="medium">中等</a-radio-button>
               <a-radio-button value="small">较小</a-radio-button>
               <a-radio-button value="mini">迷你</a-radio-button>
             </a-radio-group>
-          </a-form-model-item>
-          <a-form-model-item label="标签对齐" :wrapper-col="{ span: 18 }">
+          </a-form-model-item> -->
+          <a-form-model-item label="标签对齐">
             
             <a-radio-group v-model="formConf.labelPosition" button-style="solid">
               <a-radio-button value="left">左对齐</a-radio-button>
               <a-radio-button value="right">右对齐</a-radio-button>
-              <a-radio-button value="top">顶部对齐</a-radio-button>
             </a-radio-group>
+            
 
           </a-form-model-item>
-          <a-form-model-item label="标签宽度">
+          <!-- <a-form-model-item label="标签宽度">
             <a-input-number v-model="formConf.labelWidth" placeholder="标签宽度" />
-          </a-form-model-item>
-          <a-form-model-item label="栅格间隔">
+          </a-form-model-item> -->
+          <!-- <a-form-model-item label="栅格间隔">
             <a-input-number v-model="formConf.gutter" :min="0" placeholder="栅格间隔" />
-          </a-form-model-item>
+          </a-form-model-item> -->
         </a-form>
 
       </div>
@@ -659,7 +660,7 @@ export default {
   data() {
     return {
       flowTipsTitle: `流程条件：流程设计里可用于区分流程走向。例如：金额大于500需要主管+经理审批；小于500只需要主管审批。`,
-      labelCol: { span: 6 },
+      labelCol: { span: 8 },
       wrapperCol: { span: 14 },
       expressionTemp: [],
       proConditionCmp: ["a-input-number", "a-select", "a-radio-group"], // 可作为流程图条件的组件
