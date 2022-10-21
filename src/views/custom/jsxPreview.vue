@@ -31,8 +31,6 @@ const setFcOrgSelectRule = ( conf, ctx ) => {
  */
 function buildRules ( conf, ctx ) {
 
-  // console.log("conf:", conf);
-
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
@@ -74,10 +72,6 @@ const layouts = {
     const handleInput = val => {
       setData(ctx, val, conf.vModel);
 
-      console.log("formModel:", ctx.formModel);
-      console.log("conf.vModel:", conf.vModel);
-      console.log("conf:", conf);
-
       if (conf.tag === 'fc-org-select') {
         /**
          * 组织机构组件数据复杂 
@@ -92,12 +86,16 @@ const layouts = {
       console.log("blur event", val);
     }
 
+    // console.log("formModel:", ctx.formModel);
+    // console.log("ctx:", ctx);
+    // console.log("conf:", conf);
+
     let item = <a-col span={conf.span}>
                   <a-form-model-item
                       laba-width={labelWidth} 
                       label={isList ? '' : conf.label}
-                      prop={ctx.formModel[conf.vModel]}
-                      rules={{ required: true, message: '请输入点东西', trigger: 'blur', type: undefined }}
+                      prop={conf.vModel}
+                      rules={ctx.ruleList[conf.vModel]}
                     >
                     <render
                       formData={ctx.formModel}
@@ -106,6 +104,7 @@ const layouts = {
                       ref={conf.rowType === 'table' ? conf.vModel : undefined}
                       onInput={handleInput}
                       onChange={handleInput}
+                      onBlur={handleBlur}
                     />
                   </a-form-model-item>
                 </a-col>
@@ -169,10 +168,6 @@ const layouts = {
 export default {
   data () {
     return {
-      testFormData: "654",
-      testRules: {
-        testFormData: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
-      },
       tableRefs: {},
       drawerTitle: '',
       drawerText: '',
@@ -185,9 +180,7 @@ export default {
   },
   beforeCreate() {
     // this.form = this.$form.createForm(this, {
-    //   onValuesChange: (props, values) => {
-    //     console.log("props + values:", `${props} + ${props}`);
-    //   }
+    //   "field1":[{"required":true,"message":"请输入单行输入框","trigger":"blur"}]
     // });
   },
   mounted(){
@@ -235,74 +228,35 @@ export default {
       return h("a-form-model", formObject, [content, btns]);
     },
     submitForm () {
-
-      console.log(this.$refs.elForm);
-      console.log('表单数据：', this.formModel)
-
-      return false;
+      const isTableValid = this.checkTableData();
       
-      this.$refs.elForm.validate(valid => {
+      this.$refs[this.confGlobal.formRef].validate( isOK => {
+        if( isOK ) {
 
-        console.log("valid:", valid);
+          console.log('表单数据', this.formModel)
 
-        return false;
-        if (valid) {
-          console.log('表单数据：', this.formModel)
-        } else {
-          console.log('error submit!!');
-          return false;
+          this.$notification.open({
+            message: '表单数据',
+            description: '请在控制台中查看数据输出',
+            placement: 'bottomRight'
+          });
         }
       });
-
-
-      const isTableValid = this.checkTableData();
-
-
-      // console.log(this.confGlobal.formRef);
-
-      // this.form.validateFields((errors, values) => {
-      //   console.log(`errors + values : ${errors} + ${values}`);
-      //   console.log("errors + values :",  values);
-      // });
-
-      // this.$refs[this.confGlobal.formRef].validate(valid => {
-      //   if(!valid) return
-      //   if (!isTableValid) return
-      
-      //   this.$notification.open({
-      //     message: '表单数据',
-      //     description: '请在控制台中查看数据输出',
-      //     placement: 'bottomRight'
-      //   });
-      
-      // })
-
       
     },
     submitForm2 () {
       const isTableValid = this.checkTableData();
-
-      // console.log(this.confGlobal.formRef);
-
-      // console.log(this.$refs[this.confGlobal.formRef]);
-
-      // this.$refs[this.confGlobal.formRef].validate(valid => {
-      //   if(!valid) return
-      //   if (!isTableValid) return
       this.$notification.open({
         message: '表单数据',
         description: '请在控制台中查看数据输出',
         placement: 'bottomRight'
       });
-      //   console.log('表单数据', this.formModel)
-      //   // TODO 提交表单
-      // })
       
       console.log('表单数据：', this.formModel);
     },
 
     resetForm() {
-      this.$refs[this.confGlobal.formRef].resetFields()
+      this.$refs[this.confGlobal.formRef].resetFields();
       this.resetTableData()
     },
 

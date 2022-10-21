@@ -37,6 +37,64 @@
                 "renderKey": 1666318292877,
                 "layout": "colFormItem",
                 "vModel": "field1"
+            },
+            {
+                "cmpType": "common",
+                "label": "多行输入框",
+                "tag": "a-textarea",
+                "tagIcon": "textarea",
+                "type": "textarea",
+                "placeholder": "请输入多行输入框",
+                "span": 24,
+                "labelWidth": 6,
+                "autoSize": {
+                    "minRows": 4,
+                    "maxRows": 4
+                },
+                "style": {
+                    "width": "100%"
+                },
+                "maxLength": null,
+                "show-word-limit": false,
+                "disabled": false,
+                "required": false,
+                "regList": [],
+                "changeTag": true,
+                "proCondition": false,
+                "asSummary": false,
+                "formId": 2,
+                "renderKey": 1666334113228,
+                "layout": "colFormItem",
+                "vModel": "field2"
+            },
+            {
+                "cmpType": "common",
+                "label": "单行输入框1",
+                "tag": "a-input",
+                "tagIcon": "input",
+                "placeholder": "请输入单行输入框1",
+                "span": 24,
+                "labelWidth": 6,
+                "style": {
+                    "width": "100%"
+                },
+                "clearable": true,
+                "prepend": "",
+                "append": "",
+                "prefix-icon": "",
+                "suffix-icon": "",
+                "maxLength": null,
+                "show-word-limit": false,
+                "disabled": false,
+                "required": true,
+                "regList": [],
+                "changeTag": true,
+                "proCondition": false,
+                "asSummary": false,
+                "formId": 3,
+                "renderKey": 1666334113677,
+                "layout": "colFormItem",
+                "vModel": "field3"
             }
         ]
     }

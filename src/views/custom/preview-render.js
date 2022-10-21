@@ -84,8 +84,6 @@ const componentChild = {
 function vModel ( self, dataObject, value ) {
   dataObject.props.value = value;
 
-  console.log("dataObject:", dataObject)
-
   // dataObject.on.input = val => {
   //   self.$emit( 'input', val )
   // }
@@ -105,8 +103,7 @@ dataObject.on = {
     console.log("input")
   },
   blur: event => {
-    // self.$refs['field1'].onFieldBlur();
-    console.log("blur", self);
+    self.$emit('blur', event);
   },
   change: event => { 
     // this.$refs.name.onFieldChange()
