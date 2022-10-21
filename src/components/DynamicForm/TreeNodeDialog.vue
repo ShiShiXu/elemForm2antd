@@ -11,29 +11,30 @@
       v-bind="$attrs"
       v-on="$listeners"
       :maskClosable="true"
+      :destroyOnClose="true"
       @cancel="close"
     >
       <a-row :gutter="0">
-        <a-form
-          :form="form"
+        <a-form-model
+          ref="myForm"
           :model="formData"
           :rules="rules"
           :labelCol="{ span: 4 }"
           :wrapperCol="{ span: 18 }"
         >
-            <a-form-item
+            <a-form-model-item
               label="选项名"
-              prop="label"
+              prop="title"
             >
               <a-input
                 v-model="formData.title"
                 placeholder="请输入选项名"
                 clearable
               />
-            </a-form-item>
-            <a-form-item
+            </a-form-model-item>
+            <a-form-model-item
               label="选项值"
-              prop="value"
+              prop="key"
             >
               <a-input
                 v-model="formData.key"
@@ -56,8 +57,8 @@
               </a-input>
 
 
-            </a-form-item>
-        </a-form>
+            </a-form-model-item>
+        </a-form-model>
       </a-row>
       <div slot="footer">
         <a-button @click="close">
@@ -92,14 +93,14 @@ export default {
         title: null
       },
       rules: {
-        label: [
+        title: [
           {
             required: true,
             message: '请输入选项名',
             trigger: 'blur'
           }
         ],
-        value: [
+        key: [
           {
             required: true,
             message: '请输入选项值',
@@ -133,11 +134,11 @@ export default {
     }
   },
   beforeCreate() {
-    this.form = this.$form.createForm(this, {
-      onValuesChange: (props, values) => {
-        console.log("props + values:", `${props} + ${props}`);
-      }
-    });
+    // this.form = this.$form.createForm(this, {
+    //   onValuesChange: (props, values) => {
+    //     console.log("props + values:", `${props} + ${props}`);
+    //   }
+    // });
   },
   created() {},
   mounted() {},
@@ -156,18 +157,17 @@ export default {
       this.$emit('update:visible', false)
     },
     handelConfirm() {
-      
-      console.log(this.form);
-      this.form.validateFields((errors, values) => {
-        console.log("errors:", errors);
-        console.log("values:", values);
+
+      this.$refs["myForm"].validate( isOK  => {
+        if(isOK) {
+
+          this.formData.key = `new${this.id++}`;
+
+          this.$emit('commit', this.formData);
+
+          this.close()
+        }
       });
-
-      this.formData.key = `new${this.id++}`;
-
-      this.$emit('commit', this.formData);
-
-      this.close()
 
     }
     // handelConfirm() {

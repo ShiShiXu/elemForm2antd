@@ -1,10 +1,10 @@
 <script>
-import render from './preview-render.js'
+import render from '@/utils/render.js'
 import { GET_MOCK_CONF } from '../../api'
 import { trigger } from '@/components/DynamicForm/components/generator/config.js'
 /**
  * 校验组织机构组件是否为空
-*/
+ */
 const setFcOrgSelectRule = ( conf, ctx ) => {
   return { 
     validator: (rule, value, callback) => {
@@ -30,9 +30,6 @@ const setFcOrgSelectRule = ( conf, ctx ) => {
  * 表格除外 表格自带校验
  */
 function buildRules ( conf, ctx ) {
-
-  // console.log("conf:", conf);
-
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
@@ -51,8 +48,9 @@ function buildRules ( conf, ctx ) {
       }
     } )
   }
-  ctx.ruleList[conf.vModel] = rules;
+  ctx.ruleList[conf.vModel] = rules
 }
+
 
 var setData = (ctx, val, prop, init = false) => {
   if (!prop) return
@@ -72,12 +70,7 @@ const layouts = {
     if ( isList ) labelWidth = "0px"
     const required = ( !trigger[conf.tag] && conf.required ) || conf.tag === 'fc-org-select' 
     const handleInput = val => {
-      setData(ctx, val, conf.vModel);
-
-      console.log("formModel:", ctx.formModel);
-      console.log("conf.vModel:", conf.vModel);
-      console.log("conf:", conf);
-
+      setData(ctx, val, conf.vModel)
       if (conf.tag === 'fc-org-select') {
         /**
          * 组织机构组件数据复杂 
@@ -87,42 +80,23 @@ const layouts = {
         ctx.$refs[ctx.confGlobal.formRef].validateField(conf.vModel,()=>{ })
       }
     }
-
-    const handleBlur = val => {
-      console.log("blur event", val);
-    }
-
-    let item = <a-col span={conf.span}>
-                  <a-form-model-item
-                      laba-width={labelWidth} 
-                      label={isList ? '' : conf.label}
-                      prop={ctx.formModel[conf.vModel]}
-                      rules={{ required: true, message: '请输入点东西', trigger: 'blur', type: undefined }}
-                    >
+    let item =  <el-col span={conf.span}>
+                  <el-form-item 
+                  label-width={labelWidth} 
+                  label={isList ? '' : conf.label} 
+                  prop={conf.vModel}>
                     <render
-                      formData={ctx.formModel}
-                      conf={conf} 
-                      value={ctx.formModel[conf.vModel]} 
-                      ref={conf.rowType === 'table' ? conf.vModel : undefined}
-                      onInput={handleInput}
-                      onChange={handleInput}
+                    formData={ctx.formModel}
+                    conf={conf} 
+                    value={ctx.formModel[conf.vModel]} 
+                    ref={conf.rowType === 'table' ? conf.vModel : undefined} 
+                    onInput={handleInput} 
                     />
-                  </a-form-model-item>
-                </a-col>
-    
-    let item2 = <div>test</div>;
-                
-    item2 = <a-col span={conf.span}>
-                  <a-form-model-item
-                      laba-width={labelWidth} 
-                      label={isList ? '' : conf.label}
-                    >
-                    <a-input value={654} type="text" />
-                  </a-form-model-item>
-                </a-col>
-        
+                  </el-form-item>
+                </el-col>
+
     if (isList) {
-      var tableTitle = <a-col span={24} style="font-size: 14px;padding:6px 0px;margin-bottom: 4px;border-bottom: 1px solid #e5e5e5;">{conf.label}</a-col>
+      var tableTitle = <el-col span={24} style="font-size: 14px;padding:6px 0px;margin-bottom: 4px;border-bottom: 1px solid #e5e5e5;">{conf.label}</el-col>
       return [tableTitle, item]
     }
     return item
@@ -141,38 +115,35 @@ const layouts = {
       align: conf.type === 'default' ? undefined : conf.align,
       gutter: typeof conf.gutter === 'number' ? conf.gutter : undefined,
     }
-    let row = <a-col span={conf.span || 24}>
-                <a-row {...{ props: props }}>
+    let row = <el-col span={conf.span || 24}>
+                <el-row {...{ props: props }}>
                   { Array.isArray(conf.children) && conf.children.map( ( el ) => layouts[el.layout]( el, h, ctx ) ) }
-                </a-row>
-              </a-col>
+                </el-row>
+              </el-col>
     let divider
     if (conf.showDivider) {
       let explain
       if (conf.cmpType === 'custom' && conf.explain) {
-        explain = <a-tooltip effect="dark" content="组件说明" placement="top">
-                    <i class="a-icon-info"
+        explain = <el-tooltip effect="dark" content="组件说明" placement="top">
+                    <i class="el-icon-info"
                       onClick={ctx.showExplain.bind(this, conf.explain, conf.label)}
                       style="margin-right: 8px; color: #E6A23C;cursor: pointer;">
                     </i>
-                  </a-tooltip>
+                  </el-tooltip>
       }
-      divider = <a-col span={24}>
-                  <a-divider content-position="left" >{explain} {conf.label}</a-divider>
-                </a-col>
+      divider = <el-col span={24}>
+                  <el-divider content-position="left" >{explain} {conf.label}</el-divider>
+                </el-col>
       return [divider, row]
     } 
     return row
   },
 }
 
+
 export default {
   data () {
     return {
-      testFormData: "654",
-      testRules: {
-        testFormData: [{ required: true, message: 'Please input activity form', trigger: 'blur' }],
-      },
       tableRefs: {},
       drawerTitle: '',
       drawerText: '',
@@ -180,125 +151,31 @@ export default {
       containerWidth: 66,
       confGlobal: this.$route.params.formData || null,
       formModel: {},
-      ruleList: {},
+      ruleList: {}
     }
   },
-  beforeCreate() {
-    // this.form = this.$form.createForm(this, {
-    //   onValuesChange: (props, values) => {
-    //     console.log("props + values:", `${props} + ${props}`);
-    //   }
-    // });
-  },
   mounted(){
-
     if (!this.confGlobal) {
       this.getConfigByAjax();
     } else {
       this.initDefaultData(this.confGlobal);
     }
     _isMounted = true;
-    
-    // console.log("this.form:", this.form);
-
   },
   methods: {
-    handleUserType(e) {
-      console.log(e);
-    },
-    buildForm (h) {
-      let labelPosition = this.confGlobal.labelPosition || 'left'
-      const content = this.confGlobal.fields.map(c => layouts[c.layout](c, h, this))
-      const formObject = {
-        props: {
-          model: this.formModel,
-          size: this.confGlobal.size,
-          rules: this.ruleList,
-          labelWidth: this.confGlobal.labelWidth + 'px',
-          labelPosition: this.confGlobal.labelPosition || undefined,
-          labelCol:  { span: 4 },
-          wrapperCol: { span: 20 },
-          labelAlign: this.confGlobal.labelPosition,
-          colon: false,
-        },
-        ref: this.confGlobal.formRef
-      }
-      const btns = <a-col span="24">
-                    <a-row  type="flex" justify="center">
-                        <a-button onClick={this.resetForm}>重置</a-button>
-                        <a-button style="margin-left: 10px;" type="primary" onClick={this.submitForm}>提交</a-button>
-                      </a-row> 
-                  </a-col>
-
-            
-      // 因为使用jsx时  a-form 的 model 一直无法正确填充，故采用createElement直接渲染
-      return h("a-form-model", formObject, [content, btns]);
-    },
     submitForm () {
-
-      console.log(this.$refs.elForm);
-      console.log('表单数据：', this.formModel)
-
-      return false;
-      
-      this.$refs.elForm.validate(valid => {
-
-        console.log("valid:", valid);
-
-        return false;
-        if (valid) {
-          console.log('表单数据：', this.formModel)
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
-
-
-      const isTableValid = this.checkTableData();
-
-
-      // console.log(this.confGlobal.formRef);
-
-      // this.form.validateFields((errors, values) => {
-      //   console.log(`errors + values : ${errors} + ${values}`);
-      //   console.log("errors + values :",  values);
-      // });
-
-      // this.$refs[this.confGlobal.formRef].validate(valid => {
-      //   if(!valid) return
-      //   if (!isTableValid) return
-      
-      //   this.$notification.open({
-      //     message: '表单数据',
-      //     description: '请在控制台中查看数据输出',
-      //     placement: 'bottomRight'
-      //   });
-      
-      // })
-
-      
-    },
-    submitForm2 () {
-      const isTableValid = this.checkTableData();
-
-      // console.log(this.confGlobal.formRef);
-
-      // console.log(this.$refs[this.confGlobal.formRef]);
-
-      // this.$refs[this.confGlobal.formRef].validate(valid => {
-      //   if(!valid) return
-      //   if (!isTableValid) return
-      this.$notification.open({
-        message: '表单数据',
-        description: '请在控制台中查看数据输出',
-        placement: 'bottomRight'
-      });
-      //   console.log('表单数据', this.formModel)
-      //   // TODO 提交表单
-      // })
-      
-      console.log('表单数据：', this.formModel);
+      const isTableValid = this.checkTableData()
+      this.$refs[this.confGlobal.formRef].validate(valid => {
+        if(!valid) return
+        if (!isTableValid) return
+        this.$notify({
+          title: '表单数据',
+          message: '请在控制台中查看数据输出',
+          position: 'bottom-right'
+        });
+        console.log('表单数据', this.formModel)
+        // TODO 提交表单
+      })
     },
 
     resetForm() {
@@ -331,7 +208,7 @@ export default {
 
     buildDrawer (h) {
       var content = <pre style="padding-left: 1rem;">{this.drawerText}</pre>
-      return h('a-drawer', {
+      return h('el-drawer', {
         props: {
           title: this.drawerTitle + '说明',
           visible: this.drawerVisible,
@@ -341,6 +218,29 @@ export default {
         }
       },
       [content])
+    },
+
+    buildForm (h) {
+      let labelPosition = this.confGlobal.labelPosition || 'left'
+      const content = this.confGlobal.fields.map(c => layouts[c.layout](c, h, this))
+      const formObject = {
+        props: {
+          model: this.formModel,
+          rules: this.ruleList,
+          size: this.confGlobal.size,
+          labelWidth: this.confGlobal.labelWidth + 'px',
+          labelPosition: this.confGlobal.labelPosition || undefined
+        },
+        ref: this.confGlobal.formRef
+      }
+      const btns = <el-col span={24}>
+                    <el-form-item  style="text-align:right;">
+                      <el-button type="primary" onClick={this.submitForm}>提交</el-button>
+                      <el-button onClick={this.resetForm}>重置</el-button>
+                    </el-form-item>
+                  </el-col>
+      // 因为使用jsx时  el-form 的 model 一直无法正确填充，故采用createElement直接渲染
+      return h('el-form', formObject, [content, btns]) 
     },
     initDefaultData(config) {
       config.fields.forEach(field => {
@@ -357,40 +257,37 @@ export default {
 
   render (h) {
     if (!this.confGlobal) {
-      return <div class="loading-mask"></div>
+      return <div v-loading="true" class="loading-mask"></div>
     }
     return  <div class="preview-container" style={'width:' + this.containerWidth + '%;'}>
-              <a-row gutter={this.confGlobal.gutter} style="padding: 2rem;">
+              <el-row gutter={this.confGlobal.gutter} style="padding: 2rem 2rem 0;">
                 {this.buildForm(h)}
-              </a-row>
+              </el-row>
               <div  class="width-slider">
-                <a-slider vModel={this.containerWidth} min={30} max={96}></a-slider>
+                <el-slider vModel={this.containerWidth} min={30} max={96}></el-slider>
               </div>
               {this.buildDrawer(h)}
             </div>
   }
 }
 </script>
-<style lang="less" scoped>
-.preview-container {
-  margin: 3rem auto 1rem;
-  border-radius:  6px;
-  box-shadow:  0 0 15px rgba(0, 0, 0, .1);
+<style lang="stylus" scoped>
+.preview-container 
+  margin 3rem auto 1rem
+  border-radius 6px
+  box-shadow 0 0 15px rgba(0, 0, 0, .1)
+  
+  .width-slider
+    width  150px
+    position absolute
+    top 0
+    right 2rem
 
-  .width-slider {
-    width: 150px;
-    position:  absolute;
-    top:  0;
-    right:  2rem;
-  }
-
-  .showDivider.form-container { 
-    margin-bottom: 2rem; 
-  }
-  .loading-mask {
-    width: 100vw;
-    height: 100vh;
-  }
+.showDivider.form-container { 
+  margin-bottom: 2rem; 
 }
-
+.loading-mask {
+  width: 100vw;
+  height: 100vh;
+}
 </style>

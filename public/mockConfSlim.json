@@ -28,13 +28,13 @@
                 "maxLength": null,
                 "show-word-limit": false,
                 "disabled": false,
-                "required": false,
+                "required": true,
                 "regList": [],
                 "changeTag": true,
                 "proCondition": false,
                 "asSummary": false,
                 "formId": 1,
-                "renderKey": 1666250004622,
+                "renderKey": 1666318292877,
                 "layout": "colFormItem",
                 "vModel": "field1"
             }

@@ -25,7 +25,7 @@ export const useableProps = [
       "tag",
       "clearable",
       "maxlength",
-      "readonly",
+      "readOnly",
       "disabled",
       "required",
       "regList"
@@ -275,7 +275,7 @@ export const useableProps = [
       "required",
       "format",
       "value-format",
-      "readonly",
+      "readOnly",
       "regList"
     ],
     "forceProp": {
@@ -298,7 +298,7 @@ export const useableProps = [
       "required",
       "format",
       "value-format",
-      "readonly",
+      "readOnly",
       "regList"
     ],
     "forceProp": {

@@ -575,10 +575,20 @@
             >
           {{typeof item !== 'string' ? item.label : item}}
           </span>
-          <div class="preview-actions">
+          <!-- <div class="preview-actions">
             <i class="el-icon-price-tag" style="transform: rotate(-90deg);"  @click="expressionTemp.pop()"></i>
             <i class="el-icon-delete" @click="expressionTemp = []"></i>
+          </div> -->
+
+          <div class="preview-actions">
+            <div @click="expressionTemp.pop()">
+              <svg-icon icon-class="delete-back" />
+            </div>
+            <div  @click="expressionTemp = []">
+              <svg-icon icon-class="icon-delete" />
+            </div>
           </div>
+          
         </div>
         <div class="calc-tip">编辑计算公式可用来完成审批单内数据的自动结算，例如：采购单内设置计算公式“合计=单价×数量”，发起人填写单价、数量后，组件将自动计算出合计金额，免手动计算</div>
         <div>
@@ -1265,10 +1275,34 @@ export default {
         border: 1px solid red;
       }
       
-      .preview-actions{
+      .preview-actions {
         position: absolute;
         bottom: 0;
         right: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px;
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          & + div {
+            margin-left: 4px;
+          }
+          
+          .svg-back {
+            filter: drop-shadow(red -30px 0px 0px);
+          }
+          .svg-delete {
+            filter: drop-shadow(#999999 -30px 0px 0px);
+          }
+          
+        }
         > i {
           font-size: 14px;
           margin-right: 8px;

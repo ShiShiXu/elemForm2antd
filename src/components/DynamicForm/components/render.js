@@ -121,14 +121,13 @@ export default {
   props: ['conf'],
   // h 是一个函数：
   render ( h ) {
+    const confClone = JSON.parse( JSON.stringify( this.conf ) )
     const dataObject = {
       attrs: {},
       props: {},
       on: {},
       style: {}
     }
-    // console.log("this.conf:", this.conf);
-    const confClone = JSON.parse( JSON.stringify( this.conf ) )
     const children = []
 
     const childObjs = componentChild[confClone.tag]
@@ -143,7 +142,7 @@ export default {
 
     Object.keys( confClone ).forEach( key => {
       const val = confClone[key];
-      // console.log("tag:", confClone.tag);
+      console.log("tag:", confClone.tag);
 
       if ( key === 'vModel' ) {
         vModel( this, dataObject, confClone.defaultValue );

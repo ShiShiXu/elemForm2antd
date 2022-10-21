@@ -24,39 +24,6 @@ const isAttr = makeMap(
   + 'target,title,type,usemap,value,width,wrap'
 )
 
-function vModel ( self, dataObject, value ) {
-  dataObject.props.value = value
-  // dataObject.on.input = val => {
-  //   self.$emit( 'input', val )
-  // }
-  // // 因为有些组件的v-model绑定的事件是change 所以这里也得监听
-  // dataObject.on.change = val => {
-  //   self.$emit( 'input', val )
-  // }
-
-  
-
-let check = (data) =>{
-  return Object.prototype.toString.call(data);
-}
-
-// Antd input 绑定
-dataObject.on = {
-  change: event => { 
-
-    if( !event ) return false;
-
-    if( check(event) === '[object Null]' ) return false;
-    if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
-      self.$emit('change', event);
-    } else {
-      self.$emit('change', event.target.value);
-    }      
-  },
-}
-
-}
-
 const componentChild = {
   'a-input': {
     prepend ( h, conf, key ) {
@@ -114,11 +81,52 @@ const componentChild = {
   }
 }
 
+function vModel ( self, dataObject, value ) {
+  dataObject.props.value = value;
+
+  console.log("dataObject:", dataObject)
+
+  // dataObject.on.input = val => {
+  //   self.$emit( 'input', val )
+  // }
+  // // 因为有些组件的v-model绑定的事件是change 所以这里也得监听
+  // dataObject.on.change = val => {
+  //   self.$emit( 'input', val )
+  // }
+
+  
+let check = (data) =>{
+  return Object.prototype.toString.call(data);
+}
+
+// Antd input 绑定
+dataObject.on = {
+  input: event => {
+    console.log("input")
+  },
+  blur: event => {
+    // self.$refs['field1'].onFieldBlur();
+    console.log("blur", self);
+  },
+  change: event => { 
+    // this.$refs.name.onFieldChange()
+
+    if( !event ) return false;
+
+    if( check(event) === '[object Null]' ) return false;
+    if( check(event) === '[object String]' || check(event) === '[object Number]' || check(event) === '[object Array]'  ) {
+      self.$emit('change', event);
+    } else {
+      self.$emit('change', event.target.value);
+    }      
+  },
+}
+
+}
+
 
 export default {
-  create(){
-
-  },
+  props: ['conf', 'value', 'formData'],
   render ( h ) {
     const confClone = JSON.parse( JSON.stringify( this.conf ) )
     const dataObject = {
@@ -144,6 +152,7 @@ export default {
 
     Object.keys( confClone ).forEach( key => {
       const val = confClone[key]
+
       if ( key === 'vModel' ) {
         vModel( this, dataObject, this.value === undefined ? confClone['defaultValue'] : this.value )
       } else if ( dataObject[key] ) {
@@ -154,7 +163,15 @@ export default {
         dataObject.attrs[key] = val
       }
     } )
-    return h( this.conf.tag, dataObject, children )
-  },
-  props: ['conf', 'value', 'formData']
+    
+    // console.log("Tag:", this.conf.tag);
+    // console.log("DataObject:", dataObject);
+    // console.log("Children:", children);
+    
+    return h(
+      this.conf.tag,
+      dataObject,
+      children
+    )
+  }
 }
