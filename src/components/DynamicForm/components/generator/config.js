@@ -106,7 +106,7 @@ export const inputComponents = [
   },
   {
     label: '金额',
-    tag: 'fc-amount',
+    tag: 'a-input-number',
     tagIcon: 'amount',
     placeholder: '请输入',
     defaultValue: undefined,
@@ -125,7 +125,29 @@ export const inputComponents = [
     changeTag: true,
     proCondition: true,
     showChinese: true
-  }
+  },
+  // {
+  //   label: '金额',
+  //   tag: 'fc-amount',
+  //   tagIcon: 'amount',
+  //   placeholder: '请输入',
+  //   defaultValue: undefined,
+  //   style: { width: null },
+  //   span: 24,
+  //   labelWidth: 6,
+  //   min: undefined,
+  //   max: undefined,
+  //   step: undefined,
+  //   'step-strictly': false,
+  //   precision: undefined,
+  //   'controls-position': 'right',
+  //   disabled: false,
+  //   required: false,
+  //   regList: [],
+  //   changeTag: true,
+  //   proCondition: true,
+  //   showChinese: true
+  // }
 ]
 
 export const selectComponents = [{

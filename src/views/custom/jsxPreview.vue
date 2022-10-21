@@ -34,7 +34,16 @@ function buildRules ( conf, ctx ) {
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
-    const type = Array.isArray( conf.defaultValue ) ? 'array' : undefined
+    let type;
+
+    if( conf.tag === 'a-input-number' ) {
+      type = "number";
+    } else if( conf.tag === 'a-rate') {
+      type = "number";
+    } else {
+      type = "string";
+    }
+
     let message = Array.isArray( conf.defaultValue ) ? `请至少选择一个` : conf.placeholder
     if ( message === undefined ) message = `${conf.label}不能为空`
     conf.tag === 'fc-org-select'
