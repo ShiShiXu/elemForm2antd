@@ -554,6 +554,7 @@
       width="600px"
       :dialog-style="{ top: '80px' }"
       :visible.sync="expDialogVisible"
+
       @ok="onExpDialogClose(false)"
       @cancel="onExpDialogClose(false)"
     >
@@ -576,10 +577,6 @@
             >
           {{typeof item !== 'string' ? item.label : item}}
           </span>
-          <!-- <div class="preview-actions">
-            <i class="el-icon-price-tag" style="transform: rotate(-90deg);"  @click="expressionTemp.pop()"></i>
-            <i class="el-icon-delete" @click="expressionTemp = []"></i>
-          </div> -->
 
           <div class="preview-actions">
             <div @click="expressionTemp.pop()">
@@ -628,8 +625,8 @@
       </span> -->
 
       <template slot="footer" class="dialog-footer">
-        <a-button key="back" @click="onExpDialogCancel(false)"> 取 消 </a-button>
-        <a-button key="submit" type="primary"  @click="checkExpression">确 定 </a-button>
+        <a-button key="back" @click="onExpDialogCancel(false)"> 取消 </a-button>
+        <a-button key="submit" type="primary"  @click="checkExpression">确定 </a-button>
       </template>
 
     </a-modal>
@@ -852,7 +849,7 @@ export default {
   methods: {
     onExpDialogCancel( bool = false ) {
       this.expDialogVisible = bool;
-      this.expressionTemp = [];
+      // this.expressionTemp = [];
       // this.setExpValid(false);
     },
     setExpValid( bool ) {
@@ -892,6 +889,11 @@ export default {
       }
     },
     checkExpression(){
+      if( !this.expressionTemp.length ) {
+        this.expDialogVisible = false;
+        return false
+      };
+
       let formatExp = mergeNumberOfExps(this.expressionTemp)
       const temp = formatExp.map(t => typeof t === 'object' ? 1 : t)
       this.expValid = validExp(temp, false)
