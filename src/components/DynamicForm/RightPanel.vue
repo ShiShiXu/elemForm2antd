@@ -522,7 +522,6 @@
               <a-radio-button value="left">左对齐</a-radio-button>
               <a-radio-button value="right">右对齐</a-radio-button>
             </a-radio-group>
-            
 
           </a-form-model-item>
           <!-- <a-form-model-item label="标签宽度">
@@ -890,6 +889,7 @@ export default {
     },
     checkExpression(){
       if( !this.expressionTemp.length ) {
+        this.$set(this.activeData, "expression", []);
         this.expDialogVisible = false;
         return false
       };
