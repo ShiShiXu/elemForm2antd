@@ -2,14 +2,14 @@
 <div class="fc-table-box" :class="[config.type]">
   <a-table 
     v-if="['table', 'default'].includes(config.type)"
-    :data="tableFormData" 
-    border 
+    :data-source="tableFormData"
+    bordered
     class="fc-table"
     @cell-click="focusInput" 
     v-bind="config.tableConf || {}"
     :show-summary="config['show-summary']"
     :summary-method="getTableSummaries">
-      <a-table-column width="50" align="center">
+      <a-table-column width="50">
         <!-- 序号 -->
         <template slot-scope="scope">
           <div class="row-action">

@@ -129,9 +129,9 @@
             <a-input v-model="activeData.actionText" placeholder="请输入动作文字" />
           </a-form-model-item>
           <a-form-model-item v-if="activeData.tag === 'fc-input-table'" label="类型">
-            <a-select size="small" @change="onTypeSelected">
-              <a-option value="list">列表</a-option>
-              <a-option value="table">表格</a-option>
+            <a-select default-value="list" @change="onTypeSelected">
+              <a-select-option key="list" value="list">列表</a-select-option>
+              <a-select-option key="table" value="table">表格</a-select-option>
             </a-select>
           </a-form-model-item>
           <a-form-model-item
