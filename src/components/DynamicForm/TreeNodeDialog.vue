@@ -170,20 +170,6 @@ export default {
       });
 
     }
-    // handelConfirm() {
-    //   this.$refs.elForm.validate(valid => {
-    //     if (!valid) {
-    //       console.log()
-    //       return
-    //     }
-    //     if (this.dataType === 'number') {
-    //       this.formData.value = parseFloat(this.formData.value)
-    //     }
-    //     this.formData.id = this.id++
-    //     this.$emit('commit', this.formData)
-    //     this.close()
-    //   })
-    // }
   }
 }
 </script>

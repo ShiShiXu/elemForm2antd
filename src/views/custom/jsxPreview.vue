@@ -34,15 +34,18 @@ function buildRules ( conf, ctx ) {
   if ( conf.vModel === undefined ||  !trigger[conf.tag]) return
   const rules = []
   if ( conf.required ) {
+
     let type;
 
     if( conf.tag === 'a-input-number' ) {
-      type = "number";
+      type = Array.isArray( conf.defaultValue ) ? 'array' : "number";
     } else if( conf.tag === 'a-rate') {
-      type = "number";
+      type = Array.isArray( conf.defaultValue ) ? 'array' : "number";
     } else {
-      type = "string";
+      type = Array.isArray( conf.defaultValue ) ? 'array' : "string";
     }
+
+    // type = Array.isArray( conf.defaultValue ) ? 'array' : undefined
 
     let message = Array.isArray( conf.defaultValue ) ? `请至少选择一个` : conf.placeholder
     if ( message === undefined ) message = `${conf.label}不能为空`
@@ -92,12 +95,9 @@ const layouts = {
     }
 
     const handleBlur = val => {
-      console.log("blur event", val);
+      // console.log("blur event", val);
     }
 
-    // console.log("formModel:", ctx.formModel);
-    // console.log("ctx:", ctx);
-    // console.log("conf:", conf);
 
     let item = <a-col span={conf.span}>
                   <a-form-model-item
@@ -184,6 +184,7 @@ export default {
       containerWidth: 66,
       confGlobal: this.$route.params.formData || null,
       formModel: {},
+      sendFormModel: {},
       ruleList: {},
     }
   },
@@ -203,6 +204,19 @@ export default {
     
     // console.log("this.form:", this.form);
 
+  },
+  watch: {
+    formModel: {
+      handler(formModel) {
+        for (const [key, value] of Object.entries(formModel)) {
+          if( value !== this.sendFormModel[key].value ){
+            this.$set(this.sendFormModel[key], "value", value);
+          }
+        }
+      },
+      deep: true,
+      immediate: true
+    },
   },
   methods: {
     handleUserType(e) {
@@ -240,28 +254,20 @@ export default {
       const isTableValid = this.checkTableData();
       
       this.$refs[this.confGlobal.formRef].validate( isOK => {
-        if( isOK ) {
+        if( !isOK ) return false;
+        if( !isTableValid ) return false;
 
-          console.log('表单数据', this.formModel)
+        // console.log('表单数据', this.formModel);
+        console.log('表单数据', this.sendFormModel);
 
-          this.$notification.open({
-            message: '表单数据',
-            description: '请在控制台中查看数据输出',
-            placement: 'bottomRight'
-          });
-        }
+        this.$notification.open({
+          message: '表单数据',
+          description: '请在控制台中查看数据输出',
+          placement: 'bottomRight'
+        });
+
       });
       
-    },
-    submitForm2 () {
-      const isTableValid = this.checkTableData();
-      this.$notification.open({
-        message: '表单数据',
-        description: '请在控制台中查看数据输出',
-        placement: 'bottomRight'
-      });
-      
-      console.log('表单数据：', this.formModel);
     },
 
     resetForm() {
@@ -306,8 +312,27 @@ export default {
       [content])
     },
     initDefaultData(config) {
-      config.fields.forEach(field => {
-        this.$set(this.formModel, field.vModel, field.defaultValue);
+      config.fields.forEach( item => {
+        
+        if( item.layout === 'rowFormItem' ) {
+          item.children.forEach( item2 => {
+            this.$set(this.formModel, item2.vModel, item2.defaultValue);
+
+            this.$set(this.sendFormModel, item2.vModel, {
+              label: item2.label,
+              value: item2.defaultValue
+            });
+            
+          })
+        } else {
+          this.$set(this.formModel, item.vModel, item.defaultValue);
+
+          this.$set(this.sendFormModel, item.vModel, {
+            label: item.label,
+            value: item.defaultValue
+          });
+        }
+
       });
     },
     getConfigByAjax() {
@@ -320,7 +345,7 @@ export default {
 
   render (h) {
     if (!this.confGlobal) {
-      return <div class="loading-mask"></div>
+      return <div class="loading-mask">數據加載中...</div>
     }
     return  <div class="preview-container" style={'width:' + this.containerWidth + '%;'}>
               <a-row gutter={this.confGlobal.gutter} style="padding: 2rem;">
@@ -335,6 +360,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
+.loading-mask {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 .preview-container {
   margin: 3rem auto 1rem;
   border-radius:  6px;
@@ -349,10 +383,6 @@ export default {
 
   .showDivider.form-container { 
     margin-bottom: 2rem; 
-  }
-  .loading-mask {
-    width: 100vw;
-    height: 100vh;
   }
 }
 

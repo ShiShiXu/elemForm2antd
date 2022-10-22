@@ -2,7 +2,7 @@
 import PROVINCE from './province.js';
 
 export const formConf = {
-  formRef: 'elForm',
+  formRef: 'antdForm',
   size: 'small',
   labelPosition: 'right',
   labelWidth: 100,
@@ -793,13 +793,13 @@ export const trigger = {
   'a-input': 'blur',
   'a-textarea': 'blur',
   'a-input-number': 'blur',
+  'a-rate': 'change',
   'a-select': 'change',
   'a-radio-group': 'change',
   'a-checkbox-group': 'change',
   'a-cascader': 'change',
   'a-time-picker': 'change',
   'a-date-picker': 'change',
-  'a-rate': 'change',
   'fc-amount': 'change',
   'fc-time-duration': 'change',
   'fc-date-duration': 'change',

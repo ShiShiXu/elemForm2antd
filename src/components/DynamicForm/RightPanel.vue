@@ -73,7 +73,8 @@
           </a-form-model-item> -->
           
 
-          <a-form-model-item v-if="activeData.vModel!==undefined && activeData.layout !== 'rowFormItem' && notObject(activeData.defaultValue)" label="默认值">
+          <a-form-model-item v-if="activeData.vModel!==undefined && activeData.layout !== 'rowFormItem' && notObject(activeData.defaultValue)" 
+            label="默认值">
             <a-input v-model="activeData.defaultValue" />
           </a-form-model-item>
           
