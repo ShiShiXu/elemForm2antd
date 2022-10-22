@@ -87,21 +87,16 @@ function vModel ( self, dataObject, defaultValue ) {
   // console.log("self:", self);
   dataObject.props.value = defaultValue;
 
-  // dataObject.on.input = val => { // elementUI input 绑定
-  //   console.log(val);
-  //   self.$emit( 'input', val );
-  // }
-
   let check = (data) =>{
     let type = Object.prototype.toString.call(data);
-    console.log("Event type:", type);
+    // console.log("Event type:", type);
     return type;
   }
   
   // Antd input 绑定
   dataObject.on = {
     change: event => { 
-      console.log("render.js event:", event);
+      // console.log("render.js event:", event);
 
       if( !event ) return false;
       
@@ -142,7 +137,7 @@ export default {
 
     Object.keys( confClone ).forEach( key => {
       const val = confClone[key];
-      console.log("tag:", confClone.tag);
+      // console.log("tag:", confClone.tag);
 
       if ( key === 'vModel' ) {
         vModel( this, dataObject, confClone.defaultValue );
@@ -154,12 +149,6 @@ export default {
         dataObject.attrs[key] = val
       }
     } );
-
-    // return h( 
-    //   this.conf.tag, // 标签名|组件名|字符串模板
-    //   dataObject, // 一个与模板中 attribute 对应的数据对象。可选。
-    //   children 
-    // )
 
     // console.log("Tag:", this.conf.tag);
     // console.log("DataObject:", dataObject);
