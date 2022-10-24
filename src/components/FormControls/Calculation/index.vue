@@ -1,6 +1,6 @@
 <template>
   <div class="fc-calculate">
-    <a-input v-model="innerValue"></a-input>
+    <a-input v-model="innerValue" readOnly></a-input>
     <div class="explain-text" v-if="showChinese">大写：{{chinese}}</div>
   </div>
 </template>

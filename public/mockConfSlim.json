@@ -15,7 +15,7 @@
                 "rowType": "table",
                 "tagIcon": "table",
                 "tag": "fc-input-table",
-                "type": "list",
+                "type": "table",
                 "justify": "start",
                 "align": "top",
                 "label": "表格/明细",
@@ -49,7 +49,8 @@
                         "formId": 3,
                         "renderKey": 1666430398412,
                         "layout": "colFormItem",
-                        "vModel": "field3"
+                        "vModel": "field3",
+                        "defaultValue": "当行输入框111"
                     },
                     {
                         "cmpType": "common",
@@ -78,7 +79,8 @@
                         "formId": 2,
                         "renderKey": 1666430394716,
                         "layout": "colFormItem",
-                        "vModel": "field2"
+                        "vModel": "field2",
+                        "defaultValue": "多行输入框222"
                     }
                 ],
                 "actionText": "添加",

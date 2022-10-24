@@ -210,8 +210,9 @@ export default {
       handler(formModel) {
         for (const [key, value] of Object.entries(formModel)) {
           // 如果 value 不存在，不用操作，继续下一次循环
-          if( !value ) continue;
-          if( value !== this.sendFormModel[key].value ){
+          console.log("value:", value);
+          // if( !value ) continue;
+          if( !value && value !== this.sendFormModel[key].value ){
             this.$set(this.sendFormModel[key], "value", value);
           }
         }

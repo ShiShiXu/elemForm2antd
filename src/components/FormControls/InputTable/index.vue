@@ -1,33 +1,41 @@
 <template>
 <div class="fc-table-box" :class="[config.type]">
-  <a-table 
-    v-if="['table', 'default'].includes(config.type)"
-    :data-source="tableFormData"
-    bordered
-    class="fc-table"
-    @cell-click="focusInput" 
-    v-bind="config.tableConf || {}"
-    :show-summary="config['show-summary']"
-    :summary-method="getTableSummaries">
-      <a-table-column width="50">
-        <!-- 序号 -->
-        <template slot-scope="scope">
-          <div class="row-action">
-            <span class="index">
-              {{scope.$index + 1}}
-            </span>
-            <a-popconfirm title="确定删除该行数据吗？" @onConfirm="removeRow(scope.$index)">
-              <i slot="reference" class="a-icon-delete delete-btn"></i>
-            </a-popconfirm>
-          </div>
-        </template>
-      </a-table-column>
+
+    <a-table 
+      v-if="['table', 'default'].includes(config.type)"
+      :data-source="testFormData"
+      :columns="columns"
+      bordered
+      class="fc-table"
+      @cell-click="focusInput" 
+      v-bind="config.tableConf || {}"
+      :show-summary="config['show-summary']"
+      :summary-method="getTableSummaries">
+
+      
+      <span slot="customTitle"><a-icon type="smile-o" />是 Name 啊</span>
+      <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
+
+      <!-- 序号 -->
+      <template slot-scope="scope">
+        <div class="row-action">
+          <span class="index">
+            {{scope.$index + 1}}
+          </span>
+          <a-popconfirm title="确定删除该行数据吗？" @onConfirm="removeRow(scope.$index)">
+            <i slot="reference" class="a-icon-delete delete-btn"></i>
+          </a-popconfirm>
+        </div>
+      </template>
+
       <!-- 组件列 -->
       <a-table-column
         v-for="(head, cindex) in tableData"
-        :key="head.formId"
-        :min-width="head['min-width']"
-        :prop="head.vModel">
+        :rowKey="head.formId"
+        :width="head['min-width']"
+        :prop="head.vModel"
+        v-if="false"
+        >
          <template slot="header">
            <span style="color: #f56c6c;" v-if="head.required">*</span>
            {{head['label']}}
@@ -76,6 +84,7 @@
               </div>
         </template>
       </a-table-column>
+
     </a-table>
 
     <template v-if="config.type === 'list'">
@@ -107,16 +116,16 @@
         </div>
       </div>
     </template>
-    <div
-    class="list-summary"
-    v-if="config.type === 'list' && config['show-summary']">
-          <div style="padding:6px 12px;float:left;">合计</div>
-          <div style="overflow: hidden;padding-top: 6px;;">
-            <div v-for="(val, name) in listSummation" :key="name" >
-              {{val.label}}：{{val.sum}}
-            </div>
+
+    <div class="list-summary" v-if="config.type === 'list' && config['show-summary']">
+        <div style="padding:6px 12px;float:left;">合计</div>
+        <div style="overflow: hidden;padding-top: 6px;;">
+          <div v-for="(val, name) in listSummation" :key="name" >
+            {{val.label}}：{{val.sum}}
           </div>
         </div>
+      </div>
+    
     <div class="actions">
       <a-button @click="addRow" type="text">
         <i class="el-icon-plus"></i>
@@ -148,6 +157,52 @@ export default {
 
   data () {
     return {
+      testFormData:  [
+        {
+          key: '1',
+          name: 'John Brown',
+          age: 32,
+          address: 'New York No. 1 Lake Park',
+          tags: ['nice', 'developer'],
+        },
+        {
+          key: '2',
+          name: 'Jim Green',
+          age: 42,
+          address: 'London No. 1 Lake Park',
+          tags: ['loser'],
+        }
+      ],
+      columns: [
+        {
+          dataIndex: 'name',
+          key: 'name',
+          slots: { title: 'customTitle' },
+          scopedSlots: { customRender: 'name' },
+        },
+        {
+          title: 'Age',
+          dataIndex: 'age',
+          key: 'age',
+        },
+        {
+          title: 'Address',
+          dataIndex: 'address',
+          key: 'address',
+        },
+        {
+          title: 'Tags',
+          key: 'tags',
+          dataIndex: 'tags',
+          scopedSlots: { customRender: 'tags' },
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          scopedSlots: { customRender: 'action' },
+        },
+      ],
+
       tableFormData:[],
       tableData: [],
       listSummation: {},
@@ -156,14 +211,14 @@ export default {
   },
 
   created () {
-    this.tableData = this.config.type === 'table' ? this.filterProps() : this.config.children
+    this.tableData = this.config.type === 'table' ? this.filterProps() : this.config.children;
+
     if (this.value && this.value.length) {
       this.value.forEach(t => this.addRow(t))
     }else{
       this.addRow()
     }
   },
-
   methods:{
     clearAddRowFlag () {
       this.$nextTick(() => {
@@ -183,12 +238,16 @@ export default {
      * 过滤不需要的组件配置， 表格中的组件需要统一样式
      */
     filterProps () {
-      const conf = this.config.children
+      const conf = this.config.children;
+
       if (!conf) return []
       const getUseableProp = item => useableProps.find(t => t.tag === item.tag)
-      return conf.map(t => {
-        const useable = getUseableProp(t)
-        const res = useable ? useable.props.reduce((r, key) => (r[key] = t[key], r), {}) : t
+
+      return conf.map( item => {
+
+        const useable = getUseableProp(item);
+
+        const res = useable ? useable.props.reduce((r, key) => (r[key] = item[key], r), {}) : item;
         return useable.forceProp ? Object.assign({}, res, useable.forceProp) : res
       })
     },

@@ -1,18 +1,20 @@
 export const trigger = {
-  'a-input': 'change',
-  'a-input-number': 'change',
+  'a-input': 'blur',
+  'a-textarea': 'blur',
+  'a-input-number': 'blur',
+  'a-rate': 'change',
   'a-select': 'change',
   'a-radio-group': 'change',
   'a-checkbox-group': 'change',
   'a-cascader': 'change',
   'a-time-picker': 'change',
   'a-date-picker': 'change',
-  'a-rate': 'change',
   'fc-amount': 'change',
   'fc-time-duration': 'change',
   'fc-date-duration': 'change',
-  'fc-org-select': 'change'
+  'fc-org-select': 'input'
 }
+
 // forceProp 强制使用的属性 用于覆盖用户或者默认设置
 export const useableProps = [
   {
@@ -24,7 +26,7 @@ export const useableProps = [
       "label",
       "tag",
       "clearable",
-      "maxlength",
+      "maxLength",
       "readOnly",
       "disabled",
       "required",
@@ -34,6 +36,26 @@ export const useableProps = [
       "min-width": 180
     },
     "tag": "a-input"
+  },
+  {
+    "props": [
+      "vModel",
+      "defaultValue",
+      "formId",
+      "type",
+      "label",
+      "tag",
+      "clearable",
+      "maxLength",
+      "readOnly",
+      "disabled",
+      "required",
+      "regList"
+    ],
+    "forceProp": {
+      "min-width": 180
+    },
+    "tag": "a-textarea"
   },
   {
     "props": [

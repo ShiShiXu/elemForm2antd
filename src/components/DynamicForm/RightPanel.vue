@@ -553,9 +553,9 @@
       width="600px"
       :dialog-style="{ top: '80px' }"
       :visible.sync="expDialogVisible"
-
-      @ok="onExpDialogClose(false)"
-      @cancel="onExpDialogClose(false)"
+      @ok="onExpDialogCancel(false)"
+      @cancel="onExpDialogCancel(false)"
+      
     >
     
       <div class="calc-box">
